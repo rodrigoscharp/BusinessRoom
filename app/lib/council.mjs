@@ -414,6 +414,8 @@ export function verdictSeats(st, last) {
     pillar: st.cards[last][k]?.parsed.pillar ?? st.cards[2][k]?.parsed.pillar,
     moved: st.cards[2][k]?.parsed.moved,
     oneLine: st.cards[3][k]?.parsed.oneLine || st.cards[2][k]?.parsed.stance,
+    deal: st.cards[last][k]?.parsed.deal || st.cards[2][k]?.parsed.deal || "",
+    terms: st.cards[last][k]?.parsed.terms || st.cards[2][k]?.parsed.terms || "",
   }));
 }
 

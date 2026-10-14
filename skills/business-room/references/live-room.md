@@ -38,7 +38,7 @@ The room is optional. Write these files anyway; they cost a few lines and the co
 }
 ```
 
-`mode` is `standard` (the default council, two rounds) or `deep` (three rounds). Older councils say `full` or `quick`; the room still reads them. `seats` lists only the seats at the table. Give every seat at the table a weight (1 to 3). Option labels stay short: under 50 characters.
+`mode` is `standard` (the default council, two rounds) or `deep` (three rounds). Add `"model": "sonnet"` (or `"opus"` in `--deep`) for the cost line under the verdict, and `"shark": true` in Shark Tank mode so the room stamps each founder IN or OUT from the `DEAL:` line. Older councils say `full` or `quick`; the room still reads them. `seats` lists only the seats at the table. Give every seat at the table a weight (1 to 3). Option labels stay short: under 50 characters.
 
 ## cruxes.json
 

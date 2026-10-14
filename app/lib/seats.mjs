@@ -108,5 +108,8 @@ export function parseCard(text, optionIds) {
     question: field(text, "QUESTION FOR THE FOUNDER"),
     risk: field(text, "THE RISK I SEE"),
     thisWeek: field(text, "WHAT I'D DO THIS WEEK"),
+    // Shark Tank councils: each founder says whether they would back the pitch, and on what terms
+    deal: (field(text, "DEAL").match(/\bin\b|\bout\b/i) || [""])[0].toLowerCase(),
+    terms: field(text, "TERMS"),
   };
 }

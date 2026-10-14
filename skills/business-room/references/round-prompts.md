@@ -82,6 +82,17 @@ MY CONDITIONS FOR YES: up to three, concrete and checkable (a number, a date, a 
 Rules: in the default council this is the last round, so your scores here are your final scores. Engage the actual arguments on the table. Move only for a better argument, never to be agreeable. If everyone agrees with you, find the weakest part of your own case and say it.
 ```
 
+### Shark Tank addendum
+
+In Shark Tank mode, add these two lines to the end of the last round's card shape (Round 2 in the default council, Round 3 in `--deep`), before the closing fence, and these sentences to its rules:
+
+```
+DEAL: In | Out   (would you back this pitch yourself, as it stands?)
+TERMS: if In, what you put in and what you want for it (money, time, a role, equity, a milestone), one line. If Out, what would make you In.
+```
+
+Rules for the deal: decide as yourself, from your pillar and your own record in the brain, not as an average of the room. "In" with terms you would actually accept; no free "In". Keep `DEAL:` and its value in English.
+
 ---
 
 ## Round 3: ratification
@@ -120,5 +131,5 @@ THE QUESTION
 
 Language: [English or Portuguese, the room's language]. Write the content of your answer in that language. Keep every field label (SEAT:, STANCE:, OPTION SCORES:, and the rest) and the fixed values (Strong yes, Yes, Conditional yes, No, Strong no; none, possible, likely; one-way, two-way; Endorse, Endorse with amendment, Dissent; MOVED: no or yes) in English exactly as shown, and keep verbatim brain quotes in their original wording.
 
-Answer in your seat's voice, first person, under 500 words: your call, your reasoning with named frameworks and source ids, what you would do this week, and the question you would ask back. Do not narrate the expert in the third person. End with "Sources:" and the source ids you used.
+Answer in your seat's voice, first person, under 500 words (or the limit the Chair gives, for a question from the room): your call, your reasoning with named frameworks and source ids, what you would do this week, and the question you would ask back. Do not narrate the expert in the third person. End with "Sources:" and the source ids you used.
 ```

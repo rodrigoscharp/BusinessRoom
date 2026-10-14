@@ -5,7 +5,7 @@
 //   node app/scripts/open-room.mjs --no-open  start if needed, print the URL only
 //   node app/scripts/open-room.mjs --stop     stop the room this script started
 //
-// Prints KEY=value lines (ROOM_URL, SESSIONS_DIR, STATUS) for the skill to read.
+// Prints KEY=value lines (ROOM_URL, SESSIONS_DIR, COMPANY_FILE, UPLOADS_DIR, STATUS) for the skill to read.
 import fs from "node:fs";
 import path from "node:path";
 import { spawn } from "node:child_process";
@@ -59,6 +59,8 @@ function openBrowser() {
 const out = (status) => {
   console.log(`ROOM_URL=${URL_}`);
   console.log(`SESSIONS_DIR=${SESSIONS_DIR}`);
+  console.log(`COMPANY_FILE=${path.join(DATA_DIR, "company.md")}`);
+  console.log(`UPLOADS_DIR=${path.join(DATA_DIR, "uploads")}`);
   console.log(`STATUS=${status}`);
 };
 

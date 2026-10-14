@@ -1,7 +1,7 @@
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
-import { APP_ROOT, PORT, VERSION, SESSIONS_DIR, env } from "./lib/env.mjs";
+import { APP_ROOT, PORT, VERSION, SESSIONS_DIR, DATA_DIR, env } from "./lib/env.mjs";
 import { SEATS } from "./lib/seats.mjs";
 import { startCouncil, getSession, subscribe, listSaved, loadSaved, MODELS } from "./lib/council.mjs";
 import { usage } from "./lib/anthropic.mjs";
@@ -12,6 +12,7 @@ const PUBLIC = path.join(APP_ROOT, "public");
 const TYPES = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".svg": "image/svg+xml", ".png": "image/png", ".webp": "image/webp", ".ico": "image/x-icon", ".json": "application/json", ".ttf": "font/ttf", ".txt": "text/plain; charset=utf-8" };
 
 let running = null; // one council at a time (API runner)
+const UPLOAD_TYPES = /\.(pdf|png|jpe?g|webp|gif|txt|md|csv)$/i;
 
 // "viewer" (default): the room plays councils that /business-room runs in Claude Code.
 // "api": the room can also run councils itself on ANTHROPIC_API_KEY (COUNCIL_RUNNER=api in .env).
@@ -41,6 +42,19 @@ const server = http.createServer(async (req, res) => {
       if (!text || !String(text).trim()) return send(res, 400, { error: "Write a message first." });
       return send(res, 200, chat.append("user", text, lang === "pt" ? "pt" : "en"));
     }
+    // A file the founder drops in the chat (pitch deck, one-pager). It lands in the data
+    // folder and the chat message carries its path, so the Chair can read it.
+    if (p === "/api/upload" && req.method === "POST") {
+      const name = String(url.searchParams.get("name") || "file").replace(/[^\w.\- ]+/g, "_").slice(-80) || "file";
+      if (!UPLOAD_TYPES.test(name)) return send(res, 400, { error: "Attach a PDF, image, text, Markdown, or CSV file." });
+      const parts = []; let size = 0;
+      for await (const c of req) { size += c.length; if (size > 15e6) return send(res, 413, { error: "That file is over 15 MB." }); parts.push(c); }
+      const dir = path.join(DATA_DIR, "uploads");
+      fs.mkdirSync(dir, { recursive: true });
+      const file = path.join(dir, `${Date.now()}-${name}`);
+      fs.writeFileSync(file, Buffer.concat(parts));
+      return send(res, 200, { path: file, name, size });
+    }
     if (p === "/api/lang" && req.method === "POST") {
       const { lang } = await readJson(req);
       chat.setRoomLang(lang);
@@ -49,6 +63,12 @@ const server = http.createServer(async (req, res) => {
     if (p === "/api/chat") {
       const after = Number(url.searchParams.get("after")) || 0;
       return send(res, 200, { messages: chat.readAll().filter((m) => m.id > after), listening: chat.listening(), live: watch.runningId() });
+    }
+    // The company the Chair remembers (company.md in the data folder), shown under the chat.
+    if (p === "/api/company") {
+      const f = path.join(DATA_DIR, "company.md");
+      const t = fs.existsSync(f) ? fs.readFileSync(f, "utf8") : "";
+      return send(res, 200, { exists: Boolean(t), name: (t.match(/^#\s+(.+)$/m) || [])[1]?.trim() || "" });
     }
     if (p === "/api/seats") return send(res, 200, { seats: SEATS, models: MODELS, runner: RUNNER, hasKey: Boolean(env("ANTHROPIC_API_KEY")) });
     if (p === "/api/usage") return send(res, 200, usage);

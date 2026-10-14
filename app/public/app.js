@@ -1,5 +1,6 @@
 import { downloadVerdictPdf } from "./pdf.js";
 import { startI18n, LANG } from "./i18n.js";
+import { drawShareImage } from "./share.js";
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -21,7 +22,7 @@ const GUIDE = `
       <h4>How to use the BusinessRoom</h4>
       <ol>
         <li><span>In Claude Code, run <code>/business-room open</code>. It opens this room and listens to the chat.</span></li>
-        <li><span>Write your decision in the chat below the table.</span></li>
+        <li><span>Pick <b>Bring your pitch</b> and paste a few lines, or attach a deck with the clip.</span></li>
         <li><span>Answer the Chair's questions in the chat. Then watch the founders argue it out here.</span></li>
         <li><span>When the verdict lands, download it as a PDF.</span></li>
       </ol>
@@ -50,7 +51,11 @@ const GUIDE = `
       <ul>
         <li><span><b>Council:</b> all 7 founders, 2 rounds: opening, then debate.</span></li>
         <li><span><b>Deep:</b> add <code>--deep</code> for a third round where they vote. Uses far more of your plan.</span></li>
-        <li><span><b>Every council is saved.</b> Open Past sessions to replay one or download its PDF.</span></li>
+        <li><span><b>Shark Tank:</b> after your pitch, each founder says if they're in or out, and on what terms.</span></li>
+        <li><span><b>Ask one founder:</b> click a founder, then "Ask". One founder answers, quick and cheap.</span></li>
+        <li><span><b>Jump in:</b> write during the debate and the Chair brings it to the next round.</span></li>
+        <li><span><b>The Chair remembers your company</b> and checks in on past decisions, so you don't repeat your numbers.</span></li>
+        <li><span><b>Every council is saved.</b> Open Past sessions to replay one, download its PDF, or share an image.</span></li>
       </ul>
     </div>
   </div>`;
@@ -58,6 +63,7 @@ const GUIDE = `
 const SHAPES = ["base", "open", "mid", "blink"];
 const portrait = (key, shape = "base") => `/portraits/${key}-${shape}.webp`;
 const ROUND_NAME = ["", "Opening", "Debate", "Vote"];
+const MODEL_NAME = { sonnet: "Sonnet", opus: "Opus", haiku: "Haiku" };
 // What each founder wears, for the hand that lifts the cup.
 const OUTFIT = {
   bezos: { skin: "#e6ad8b", sleeve: "#1f2a44", cuff: "#bcd3ee" },
@@ -154,8 +160,10 @@ async function boot() {
   else if (ss.live) attach(ss.live);
   refreshUsage();
   setInterval(watchForLive, 2500);
+  await refreshCompany();
   pollChat();
   setInterval(pollChat, 1500);
+  setInterval(refreshCompany, 15000);
   setInterval(tickWait, 1000);
 }
 
@@ -285,6 +293,17 @@ function bindUI() {
   $("#seats").addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openFrom(e); } });
   $("#feed").addEventListener("click", (e) => { const c = e.target.closest(".feed-card"); if (c) openCard(c.dataset.seat, Number(c.dataset.round)); });
   $("#chatForm").addEventListener("submit", sendChat);
+  $("#chatAttach").addEventListener("click", () => $("#chatFile").click());
+  $("#chatFile").addEventListener("change", (e) => attachFile(e.target.files[0]));
+  $("#voiceBtn").addEventListener("click", () => setVoice(!voice.on));
+  setVoice(voice.on);
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-ask]");
+    if (!b) return;
+    $("#cardDialog").close();
+    $("#chatInput").value = `@${state.byKey[b.dataset.ask].short} `;
+    $("#chatInput").focus();
+  });
   $("#chatInput").addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); $("#chatForm").requestSubmit(); } });
   $("#chatInput").addEventListener("input", (e) => { e.target.style.height = "auto"; e.target.style.height = Math.min(e.target.scrollHeight, 140) + "px"; });
   $("#waitHistory").addEventListener("click", openHistory);
@@ -296,6 +315,7 @@ function bindUI() {
       catch { toast("Copy didn't work here. Select the text and copy it."); }
     }
     if (e.target.closest("[data-pdf]")) savePdf(e.target.closest("[data-pdf]"));
+    if (e.target.closest("[data-share]")) shareImage(e.target.closest("[data-share]"));
   });
   $("#historyBtn").addEventListener("click", openHistory);
   $("#newBtn").addEventListener("click", reset);
@@ -313,13 +333,26 @@ function bindUI() {
 // (it waits on chat.jsonl through app/scripts/chat.mjs); with the API runner it convenes
 // the council directly.
 const HELLO = '<div class="empty">Write your decision below: the options, a few numbers (revenue, customers, cash), and which way you are leaning.</div>';
-const chatState = { last: 0, listening: false };
+const chatState = { last: 0, listening: false, primed: false, company: "" };
+
+// A message with an attachment carries a "FILE: <path>" line for the Chair; the room shows a chip instead.
+function bubbleHtml(text) {
+  const file = text.match(/^FILE: (.+)$/m);
+  const body = esc(text.replace(/^FILE: .+$/m, "").replace(/^Attached: .+$/m, "").trim()).replace(/\n/g, "<br>");
+  return (file ? `<span class="file">📎 ${esc(file[1].split("/").pop().replace(/^\d+-/, ""))}</span>${body ? "<br>" : ""}` : "") + body;
+}
 
 function chatMessage(m) {
   const d = document.createElement("div");
-  d.className = `msg ${m.from === "user" ? "user" : "chair"}`;
-  d.innerHTML = `${m.from === "user" ? "" : `<img class="av" src="${CHAIR_ICON}" alt="">`}<div class="bubble">${esc(m.text).replace(/\n/g, "<br>")}</div>`;
+  const seat = state.byKey[m.from];
+  d.className = `msg ${m.from === "user" ? "user" : seat ? "chair founder" : "chair"}`;
+  const av = m.from === "user" ? "" : `<img class="av" src="${seat ? portrait(m.from) : CHAIR_ICON}" alt="">`;
+  d.innerHTML = `${av}<div class="bubble">${seat ? `<b class="who">${esc(seat.name)}</b>` : ""}${bubbleHtml(m.text)}</div>`;
   feedAppend(d);
+  // a founder answering a direct question says it at the table too, when the table is free
+  if (seat && chatState.primed && !player.busy && !player.q.length) {
+    player.push({ type: "say", seat: m.from, text: firstSentences(clean(m.text), 220) });
+  }
   // quick replies: one tap sends the option as the founder's message
   if (m.options?.length) {
     const row = document.createElement("div");
@@ -340,12 +373,13 @@ async function pollChat() {
   const j = await fetch(`/api/chat?after=${chatState.last}`).then((x) => x.json()).catch(() => null);
   if (!j) return;
   for (const m of j.messages) { chatState.last = Math.max(chatState.last, m.id); chatMessage(m); }
+  chatState.primed = true;
   chatState.listening = j.listening;
   const status = state.runner === "api" ? "The room runs the council itself (API mode)."
     : j.listening ? "Claude Code is listening."
     : j.live ? "The council is in session."
     : "Claude Code is not listening. Run /business-room open in Claude Code.";
-  $("#chatStatus").textContent = status;
+  $("#chatStatus").textContent = status + (chatState.company ? ` · Remembers ${chatState.company}` : "");
   $("#chatStatus").dataset.on = String(state.runner === "api" || j.listening || Boolean(j.live));
 }
 
@@ -367,12 +401,81 @@ async function sendChat(e) {
       const r = await fetch("/api/chat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ text, lang: LANG }) });
       if (!r.ok) return toast((await r.json()).error || "Could not send.");
       await pollChat();
+      // mid-council the Chair is busy with the seats; it reads the chat between rounds
+      if (state.session && !state.verdict && !state.replaying && state.runner !== "api") {
+        const n = document.createElement("div");
+        n.className = "feed-note aside";
+        n.textContent = "The Chair brings this to the table before the next round.";
+        feedAppend(n);
+      }
     }
     input.value = "";
     input.style.height = "auto";
   } finally {
     $("#chatSend").disabled = false;
   }
+}
+
+// A file for the Chair to read: upload it, then send a chat message that carries its path.
+async function attachFile(file) {
+  if (!file) return;
+  if (state.runner === "api") return toast("Attachments go to Claude Code. Run /business-room open there.");
+  if (file.size > 15e6) return toast("That file is over 15 MB.");
+  $("#chatAttach").disabled = true;
+  try {
+    const r = await fetch(`/api/upload?name=${encodeURIComponent(file.name)}`, { method: "POST", body: file });
+    const j = await r.json();
+    if (!r.ok) return toast(j.error || "Could not attach the file.");
+    const note = $("#chatInput").value.trim();
+    const text = `Attached: ${j.name}\nFILE: ${j.path}${note ? "\n\n" + note : ""}`;
+    const s = await fetch("/api/chat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ text, lang: LANG }) });
+    if (!s.ok) return toast("Could not send.");
+    $("#chatInput").value = "";
+    await pollChat();
+  } finally {
+    $("#chatAttach").disabled = false;
+    $("#chatFile").value = "";
+  }
+}
+
+async function refreshCompany() {
+  const c = await fetch("/api/company").then((x) => x.json()).catch(() => null);
+  chatState.company = c?.name || "";
+}
+
+// ------------------------------------------------------------- voice
+// The founders' lines read out loud with the browser's own voices. Off by default.
+const voice = {
+  on: (() => { try { return localStorage.getItem("businessroom-voice") === "on"; } catch { return false; } })(),
+  pick(key) {
+    const lang = LANG === "pt" ? "pt" : "en";
+    const all = speechSynthesis.getVoices().filter((v) => v.lang.toLowerCase().startsWith(lang));
+    if (!all.length) return null;
+    const i = state.seats.findIndex((s) => s.key === key);
+    return all[Math.max(0, i) % all.length];
+  },
+  say(key, text) {
+    if (!this.on || !("speechSynthesis" in window) || player.fast) return Promise.resolve();
+    return new Promise((res) => {
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = LANG === "pt" ? "pt-BR" : "en-US";
+      const v = this.pick(key); if (v) u.voice = v;
+      const i = Math.max(0, state.seats.findIndex((s) => s.key === key));
+      u.pitch = 0.8 + (i % 4) * 0.12;
+      u.rate = 1.05 * Math.min(player.speed, 1.6);
+      u.onend = u.onerror = () => res();
+      speechSynthesis.speak(u);
+      setTimeout(res, 30000);
+    });
+  },
+  stop() { if ("speechSynthesis" in window) speechSynthesis.cancel(); },
+};
+function setVoice(on) {
+  voice.on = on;
+  try { localStorage.setItem("businessroom-voice", on ? "on" : "off"); } catch {}
+  $("#voiceBtn").textContent = on ? "Voice on" : "Voice off";
+  $("#voiceBtn").setAttribute("aria-pressed", String(on));
+  if (!on) voice.stop();
 }
 
 // ------------------------------------------------------------- the player
@@ -399,7 +502,7 @@ const player = {
     return new Promise((res) => { const t = setTimeout(() => { this.timers.delete(o); res(); }, ms / this.speed); const o = { t, res }; this.timers.add(o); });
   },
   flushTimers() { for (const o of this.timers) { clearTimeout(o.t); o.res(); } this.timers.clear(); },
-  skip() { this.fast = true; this.flushTimers(); },
+  skip() { this.fast = true; this.flushTimers(); voice.stop(); },
   reset() { this.epoch++; this.q.length = 0; this.fast = true; this.flushTimers(); this.busy = false; this.fast = false; this.info(); },
   info() {
     const waiting = this.q.filter((e) => e.type === "seat_done").length;
@@ -426,7 +529,7 @@ function reset() {
   $("#verdictSheet").hidden = true;
   $$("#feed > :not(.msg)").forEach((n) => n.remove());
   if (!$("#feed .msg")) $("#feed").innerHTML = HELLO;
-  $$(".vote").forEach((b) => b.remove());
+  $$(".vote, .deal").forEach((b) => b.remove());
   $$(".seat").forEach((el) => { el.classList.remove("absent", "speaking", "thinking", "addressed"); $(".bust", el).dataset.shape = "base"; });
   $$(".nameplate").forEach((el) => { el.classList.remove("absent", "speaking"); $(".chip", el).hidden = true; $(".score", el).hidden = true; $(".pips", el).innerHTML = ""; });
   $("#spot").classList.remove("on");
@@ -492,6 +595,12 @@ async function handle(ev) {
     case "setup": state.setup = ev; onSetup(ev); await player.sleep(1800); break;
     case "round_start": onRoundStart(ev.round); break;
     case "seat_start": $(`#seat-${ev.seat}`)?.classList.add("thinking"); break;
+    case "say":
+      await speak(ev.seat, ev.text, { tag: "Answers you" });
+      setSpeaker(null);
+      // with no council on the table, the answer stays in the chat and the caption steps aside
+      if (!state.session) setTimeout(() => { if (!state.session && !player.busy) $("#caption").hidden = true; }, 3500);
+      break;
     case "seat_done": await onSeatDone(ev); break;
     case "round_done": state.wait = null; updateOptions(ev.scores); break;
     case "cruxes": await onCruxes(ev); break;
@@ -639,6 +748,7 @@ async function speak(key, text, { tag = "", target = null, sub = "" } = {}) {
   const words = text.split(" ").filter(Boolean);
   p.innerHTML = words.map((w) => `<span class="w">${esc(w)}</span> `).join("");
   const spans = $$(".w", p);
+  const said = voice.say(key, text);
   for (let i = 0; i < words.length; i++) {
     if (player.fast) break;
     const w = words[i];
@@ -653,7 +763,8 @@ async function speak(key, text, { tag = "", target = null, sub = "" } = {}) {
   spans.forEach((s) => s.classList.add("on"));
   setShape(key, "base");
   $("#capSub").innerHTML = sub;
-  await player.sleep(1300);
+  await said;
+  await player.sleep(voice.on ? 500 : 1300);
 }
 
 // idle blinking for everyone, so the room feels alive between lines
@@ -715,8 +826,18 @@ async function onSeatDone(ev) {
     tag = `Votes ${v}`;
 
   }
+  // Shark Tank: the last round's card says whether this founder is in, and on what terms
+  const deal = state.setup?.shark && parsed.deal && round === (state.setup.mode === "deep" ? 3 : 2) ? parsed.deal : "";
+  if (deal) tag = deal === "in" ? `In${parsed.terms ? ": " + shorten(clean(parsed.terms), 60) : ""}` : "Out";
   feedCard(round, seat, parsed);
   await speak(seat, line || "I'll put it in my card.", { tag, target, sub });
+  if (deal) {
+    $(`#seat-${seat} .deal`)?.remove();
+    const st = document.createElement("div");
+    st.className = `deal ${deal}`;
+    st.textContent = deal === "in" ? "I'M IN" : "I'M OUT";
+    $(`#seat-${seat}`).appendChild(st);
+  }
 
   const pl = $(`#plate-${seat}`);
   const chip = $(".chip", pl);
@@ -827,6 +948,7 @@ function openCard(seat, round) {
     <div class="card-head"><img src="${portrait(seat)}" alt=""><div><div class="label">${esc(s.pillar)}</div><h3>${esc(s.name)}</h3><p class="muted" style="margin:0">Owns the question: ${esc(s.question)}</p></div></div>
     ${rounds.length > 1 ? `<p style="margin:0 0 6px">${rounds.slice().reverse().map((x) => `<button class="ghost" data-r="${x}" style="margin-right:6px">${ROUND_NAME[x]}</button>`).join("")}</p>` : ""}
     ${c ? `<pre>${esc(c.text)}</pre>${c.quotes.length ? `<ul class="qcheck">${c.quotes.map((q) => `<li class="${q.verified ? "" : "bad"}">"${esc(shorten(q.quote, 110))}" (${q.source}) ${q.verified ? "verified in the brain" : "not found in the brain"}</li>`).join("")}</ul>` : ""}` : `<p class="muted">This seat has not spoken yet.</p>`}
+    <p class="ask-seat"><button class="pill" type="button" data-ask="${seat}">Ask ${esc(s.short)} a question</button></p>
     <p class="muted" style="font-size:12px">A simulated advisor built from ${esc(s.name)}'s public work. Not the person.</p>`;
   $$("#cardBody [data-r]").forEach((b) => b.addEventListener("click", () => openCard(seat, Number(b.dataset.r))));
   const dlg = $("#cardDialog");
@@ -858,14 +980,16 @@ function onVerdict(ev) {
   const html = `
     <div class="v-top">
       <div><div class="label">The council's verdict</div><span class="v-label ${labelClass(v.label)}">${esc(v.label)}</span></div>
-      <div class="actions"><button class="pill" type="button" data-pdf>Download PDF</button><button class="ghost" data-close>Back to the table</button></div>
+      <div class="actions"><button class="pill" type="button" data-pdf>Download PDF</button><button class="ghost" type="button" data-share>Share image</button><button class="ghost" data-close>Back to the table</button></div>
     </div>
     <p class="v-call">${esc(v.call)}</p>
     <div class="v-grid">
       <div class="v-sec"><h3>Scores</h3><div class="v-opts">${state.options.map((o) => `
         <div class="opt ${o.id === v.recommended ? "lead" : ""}"><span class="id">${o.id}</span><span class="label">${esc(o.label)}</span><span class="val">${v.scores[o.id]?.score ?? "-"}</span><span class="bar"><i style="width:${(v.scores[o.id]?.score || 0) * 10}%"></i></span></div>`).join("")}</div>
         <p class="v-meta">Confidence ${v.confidence ?? "-"}/10${v.votes ? ` · ${v.votes.endorse || 0} endorse, ${v.votes.amend || 0} amend, ${v.votes.dissent || 0} dissent` : ""}</p>
+        ${ev.runs ? `<p class="v-meta">${ev.runs} seat runs on ${esc(MODEL_NAME[ev.model] || ev.model || "Claude")}</p>` : ""}
       </div>
+      ${ev.shark ? `<div class="v-sec"><h3>The deals</h3><p class="v-meta">${seats.filter((x) => x.deal === "in").length} in, ${seats.filter((x) => x.deal === "out").length} out</p><ul class="v-deals">${seats.filter((x) => x.deal).map((x) => `<li><span class="tag ${x.deal}">${x.deal === "in" ? "IN" : "OUT"}</span><span><b>${esc(state.byKey[x.key].short)}</b> ${short(x.terms, 110)}</span></li>`).join("")}</ul></div>` : ""}
       <div class="v-sec"><h3>Why</h3><ul class="v-why">${v.why.slice(0, 3).map((w) => { const k = seatKey(w.seat); return `<li>${k ? `<img class="av" src="${portrait(k)}" alt="">` : ""}<span>${short(w.point, 150)}</span></li>`; }).join("")}</ul></div>
       <div class="v-sec"><h3>Watch out</h3><div class="minority"><div class="who">${mk ? `<img class="av" src="${portrait(mk)}" alt="">` : ""}${esc(seatName(v.minority.seat))}</div><q>${short(v.minority.quote, 170)}</q></div></div>
       <div class="v-sec"><h3>Next steps</h3><ul class="v-steps">${v.next_steps.slice(0, 3).map((n) => `<li><b>${esc(n.when)}</b> ${short(n.action, 120)}</li>`).join("")}</ul>
@@ -889,7 +1013,7 @@ function onVerdict(ev) {
   $("#verdictBody").innerHTML = html;
   const plate = $("#plate");
   plate.hidden = false;
-  plate.innerHTML = `<div class="label">The council's verdict</div><span class="v-label ${labelClass(v.label)}">${esc(v.label)}</span><p>${esc(firstSentences(clean(v.call), 150))}</p><div class="row"><button type="button" id="plateOpen">Read the verdict</button><button type="button" data-pdf>Download PDF</button><button type="button" class="alt" id="plateReplay">Replay this council</button></div>`;
+  plate.innerHTML = `<div class="label">The council's verdict</div><span class="v-label ${labelClass(v.label)}">${esc(v.label)}</span><p>${esc(firstSentences(clean(v.call), 150))}</p><div class="row"><button type="button" id="plateOpen">Read the verdict</button><button type="button" data-pdf>Download PDF</button><button type="button" data-share>Share image</button><button type="button" class="alt" id="plateReplay">Replay this council</button></div>`;
   $("#plateOpen").addEventListener("click", () => ($("#verdictSheet").hidden = false));
   $("#plateReplay").addEventListener("click", () => replay(state.session));
   $("#playbar").hidden = true;
@@ -1027,6 +1151,29 @@ async function savePdf(btn) {
     btn.disabled = false;
     btn.textContent = old;
   }
+}
+
+// ------------------------------------------------------------- share image
+async function shareImage(btn) {
+  const ev = state.verdict;
+  if (!ev) return toast("This council has no verdict yet.");
+  btn.disabled = true;
+  try {
+    const v = ev.verdict;
+    const deals = ev.shark ? `${ev.seats.filter((x) => x.deal === "in").length} in, ${ev.seats.filter((x) => x.deal === "out").length} out` : "";
+    const blob = await drawShareImage({
+      title: state.setup?.title, label: v.label, labelClass: labelClass(v.label), call: firstSentences(clean(v.call), 220),
+      option: v.recommended, score: v.scores[v.recommended]?.score, deals, seats: state.seats.map((s) => s.key),
+    });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `businessroom-${(state.session || "verdict").slice(0, 60)}.png`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  } catch (e) {
+    console.error(e);
+    toast("Couldn't make the image.");
+  } finally { btn.disabled = false; }
 }
 
 // ------------------------------------------------------------- misc

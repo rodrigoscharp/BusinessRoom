@@ -22,6 +22,14 @@ Option scores: [A] x.x · [B] x.x · [C] x.x · Support for the resolution x.x/1
 
 Math: [one line per option]
 
+## The deals (Shark Tank mode only)
+
+[n] in, [n] out.
+
+| Founder | Deal | Terms, or what would make them In |
+|---|---|---|
+| Hormozi | In | "[TERMS line]" |
+
 ## Why the council landed here
 
 [3 to 5 bullets: the arguments that carried the room, each tagged with the seat and framework, e.g. (Hormozi, Value Equation)]

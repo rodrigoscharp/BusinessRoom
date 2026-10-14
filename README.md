@@ -2,6 +2,12 @@
 
 ![Seven founders at the table, with the Chair's greeting and the chat box](docs/room.jpg)
 
+<details><summary>Watch a council play out (Shark Tank, in Portuguese)</summary>
+
+![A council replaying at 2.5x: openings, the fight, the debate, the deals, and the verdict](docs/demo.gif)
+
+</details>
+
 Bring a hard startup decision to a table of simulated founders. You talk to the table in a chat box under it, the founders argue it out live, and you get a scored verdict and a one-click PDF. Each seat is built from that person's public work: letters, essays, talks, and interviews.
 
 BusinessRoom is a Claude Code plugin. Install it once, type one command, and the room opens in your browser.
@@ -56,12 +62,15 @@ claude plugin update business-room@business-room
 
 Claude starts the room, opens it in your browser, and listens to the chat box under the table. From there you talk to the room, not to the terminal.
 
-The Chair opens with two buttons:
+The Chair opens with these buttons:
 
 - **Analyze this project.** The Chair reads the README, manifest, and docs of the project open in Claude Code, then the table debates how to sell it, grow it, and turn it into a business.
-- **Bring your pitch.** Paste a few lines about your business and the decision you face. The Chair asks a handful of short questions about what is missing (some with reply buttons), you answer, and all seven founders start the debate.
+- **Bring your pitch.** Paste a few lines about your business and the decision you face, or attach a deck with the clip button (PDF, image, or text). The Chair asks a handful of short questions about what is missing (some with reply buttons), and asks how the table should answer: a regular debate, or **Shark Tank**, where each founder says if they are in or out and on what terms. You answer, and all seven founders start.
+- **Check in on a decision.** Shows up when a past decision is due. The Chair asks what happened with each next step, judges it against the verdict's own kill criteria, and offers to rerun the council with the new facts.
 
-The founders debate in the middle of the table. When the verdict lands, click **Download PDF** for a branded report.
+The founders debate in the middle of the table. You can write while they debate: the Chair brings your message to the table before the next round. When the verdict lands, click **Download PDF** for a branded report, or **Share image** for a 1200×630 picture of the verdict to post.
+
+After the verdict, click any founder and then **Ask** to put one follow-up question to that founder alone. It is one quick run, and the answer comes back in the chat in that founder's voice.
 
 You can also skip the room and give the decision straight in Claude Code:
 
@@ -73,11 +82,17 @@ Churn is about 3% a month and I have 6 months of runway. I'm leaning toward rais
 
 More ways to run it:
 
+- `/business-room --shark ...` runs the council as a Shark Tank: every founder ends with in or out, and their terms.
+- `/business-room checkin` follows up on a past decision.
 - `/business-room --deep ...` adds a third round where every founder votes on the Chair's draft plan. Use it for calls you cannot undo; it uses far more of your plan.
 - `/business-room --seats hormozi,bezos ...` seats only the founders you name. The others stay at the table, greyed out and marked "Not in this council".
 - `/business-room ask hormozi ...` gets one answer from one seat.
 
 If Claude Code shows the skill with its plugin prefix, use `/business-room:business-room` instead.
+
+### The Chair remembers your company
+
+After each council, the Chair saves what it learned about your company in `~/.business-room/company.md`: what you sell, your numbers with their dates, and each decision with its next check date. The next time, it uses those numbers and only asks about what changed. The room shows "Remembers <your company>" under the chat. You can read or edit the file any time.
 
 ### English and Portuguese
 
@@ -86,6 +101,8 @@ The room has an English and a Portuguese mode: the **PT / EN** button at the top
 ## What happens at the table
 
 - The founder who is speaking moves their mouth, and the others turn their heads toward them.
+- **Voice** (top right) reads each founder's lines out loud with your browser's voices. It is off by default.
+- In Shark Tank, each founder gets an "I'M IN" or "I'M OUT" stamp as they finish, and the verdict lists every deal.
 - Everyone blinks now and then.
 - Each founder has a coffee cup. Founders who have been quiet for a while pick it up, close their eyes, and take a sip.
 - Under each name sit the founder's role and company logo.
@@ -106,7 +123,7 @@ Left something out? The Chair asks in the chat before the council starts.
 
 ## Where your councils go
 
-Every council is saved in `~/.business-room/sessions/<date>-<decision>/`, with the full report in `verdict.md`. The chat history lives next to it in `~/.business-room/chat.jsonl`. The plugin folder is replaced on every update, so your data lives outside it. Set `BUSINESS_ROOM_HOME` to keep it somewhere else.
+Every council is saved in `~/.business-room/sessions/<date>-<decision>/`, with the full report in `verdict.md`. Next to it in `~/.business-room/` live the chat history (`chat.jsonl`), the company memory (`company.md`), and the files you attach in the chat (`uploads/`). The plugin folder is replaced on every update, so your data lives outside it. Set `BUSINESS_ROOM_HOME` to keep it somewhere else.
 
 The room runs at http://localhost:4740. Set `BUSINESS_ROOM_PORT` if that port is taken. `npm stop` stops it.
 
@@ -116,7 +133,7 @@ The room runs at http://localhost:4740. Set `BUSINESS_ROOM_PORT` if that port is
 - **The chat is a bridge.** The page writes your messages to `chat.jsonl`; the Chair reads them with `app/scripts/chat.mjs wait` and replies with `say` or `ask`. No message leaves your machine except through Claude Code itself.
 - **Each seat scores every option**, weighted by how much that seat's pillar matters to your decision. The Chair caps the verdict when a seat flags ruin risk, and it forces a real argument when everyone agrees too fast.
 - **The room only plays the council back.** As the Chair works, it writes each round to your sessions folder, and the room plays those files as they land. The room makes no AI calls of its own.
-- **Usage:** every council seats all seven founders. To keep it light on your plan, the default council runs two rounds (14 seat runs), the seats run on Sonnet with short cards, and each seat reads only a few files of its brain. `--deep` runs three rounds on Opus (21 runs) and costs several times more.
+- **Usage:** every council seats all seven founders. To keep it light on your plan, the default council runs two rounds (14 seat runs), the seats run on Sonnet with short cards, and each seat reads only a few files of its brain. `--deep` runs three rounds on Opus (21 runs) and costs several times more. The verdict shows how many seat runs the council took and on which model. [docs/MODEL-TEST.md](docs/MODEL-TEST.md) compares Sonnet and Opus on the same case: same call, same scores within 2 points.
 
 ## Optional: let the room run councils itself
 
@@ -138,9 +155,9 @@ claude --plugin-dir .
 | `skills/business-room/` | The skill: protocol, prompts, scoring, report template, and the brains |
 | `agents/` | The seat agents |
 | `app/server.mjs`, `app/lib/` | The room server (zero dependencies) and the chat bridge |
-| `app/public/` | The page: table, chat, portraits, logos, PT/EN strings, and the PDF builder |
+| `app/public/` | The page: table, chat, portraits, logos, PT/EN strings, the PDF builder, and the share image (`share.js`) |
 | `app/scripts/` | `open-room.mjs`, `chat.mjs`, and the portrait tools |
-| `docs/` | Scope, the portrait guide ([docs/PORTRAITS.md](docs/PORTRAITS.md)), and the screenshot |
+| `docs/` | Scope, the portrait guide ([docs/PORTRAITS.md](docs/PORTRAITS.md)), the model test ([docs/MODEL-TEST.md](docs/MODEL-TEST.md)), the screenshot, and the demo GIF |
 
 ## About the advisors
 

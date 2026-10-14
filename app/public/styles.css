@@ -666,3 +666,30 @@ button { font: inherit; cursor: pointer; }
 .cup.sip .hand { animation: hand 3.2s var(--ease-out) both; }
 @keyframes hand { 0%, 6% { opacity: 0; } 14%, 86% { opacity: 1; } 94%, 100% { opacity: 0; } }
 .nameplate .sat-out { display: block; margin-top: 3px; font-size: 10px; font-weight: 600; color: var(--ink-mute); letter-spacing: .02em; }
+
+
+/* ---------- 0.6: attachments, founders in the chat, voice, deals, share ---------- */
+.chat-form { padding-left: 6px; }
+.chat-form .attach {
+  width: 34px; height: 34px; flex: none; border: 0; border-radius: 8px; background: transparent;
+  color: var(--ink-mute); display: grid; place-items: center; cursor: pointer;
+}
+.chat-form .attach:hover { color: var(--ink); background: var(--surface-2); }
+.chat-form .attach:disabled { opacity: .5; cursor: default; }
+.msg.founder .av { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; object-position: 50% 18%; background: var(--surface-2); }
+.msg.founder .bubble { background: var(--surface-2); border: 1px solid var(--hairline-strong); color: var(--ink); border-bottom-left-radius: 6px; }
+.msg.founder .bubble b.who { display: block; font: 600 12px/1.3 var(--font-display); color: var(--ink-soft); margin-bottom: 3px; }
+.msg.user .bubble .file { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+.feed-note.aside { border-style: dashed; }
+#voiceBtn[aria-pressed="true"] { border-color: var(--accent); color: var(--ink); }
+.deal { position: absolute; left: 50%; top: 4%; transform: translateX(-50%) rotate(-6deg); padding: 3px 10px; border-radius: 6px;
+  font: 800 13px/1 var(--font-display); letter-spacing: .08em; z-index: 3; animation: dealstamp .35s ease-out both; }
+.deal.in { background: #16a34a; color: #fff; }
+.deal.out { background: #3f3f46; color: #e4e4e7; }
+.v-deals { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.v-deals li { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; }
+.v-deals .tag { flex: none; font: 700 11px/1 var(--font-display); padding: 4px 6px; border-radius: 5px; }
+.v-deals .tag.in { background: #16a34a; color: #fff; }
+.v-deals .tag.out { background: #3f3f46; color: #e4e4e7; }
+.ask-seat { margin-top: 10px; }
+@keyframes dealstamp { from { transform: translateX(-50%) rotate(-6deg) scale(1.8); opacity: 0; } to { transform: translateX(-50%) rotate(-6deg) scale(1); opacity: 1; } }

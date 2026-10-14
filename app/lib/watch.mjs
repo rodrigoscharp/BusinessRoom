@@ -70,6 +70,8 @@ function normalizeSetup(c) {
   const mode = c.mode === "deep" || c.mode === "full" ? "deep" : "standard";
   return {
     title: c.title || "BusinessRoom", decision: c.decision || "", brief: c.brief || "", mode,
+    // shark: the founders say in or out on a pitch. model: what the seats ran on, for the cost line.
+    shark: Boolean(c.shark), model: String(c.model || (mode === "deep" ? "opus" : "sonnet")).toLowerCase(),
     options, assumptions: c.assumptions || [], weights,
     seats: seats.length ? [...new Set(seats)] : SEATS.map((s) => s.key),
   };
@@ -121,7 +123,7 @@ function sync(x) {
     x.title = st.title;
     x.mode = st.mode;
     emit(x, "phase", { phase: "setup", label: "The Chair is reading your question", at: mtime(f("council.json")) });
-    emit(x, "setup", { title: st.title, decision: st.decision, brief: st.brief, options: st.options, assumptions: st.assumptions, weights: st.weights, seats: st.seats, mode: st.mode });
+    emit(x, "setup", { title: st.title, decision: st.decision, brief: st.brief, options: st.options, assumptions: st.assumptions, weights: st.weights, seats: st.seats, mode: st.mode, shark: st.shark, model: st.model });
     startRound(x, 1, "Round 1: opening positions", mtime(f("council.json")));
     x.step = "r1";
   }
@@ -172,7 +174,9 @@ function sync(x) {
       cheapest_test: v.cheapest_test || "", kill_criteria: v.kill_criteria || "", revisit: v.revisit || "",
       recommended: v.recommended || recommended, scores: finalScores, spread: spreadF, confidence, support, votes, disclaimer: DISCLAIMER,
     };
-    emit(x, "verdict", { verdict, seats: verdictSeats(st, last) });
+    // how many seat runs the council took, for the cost line under the verdict
+    const runs = [1, 2, 3].reduce((n, r) => n + Object.keys(st.cards[r] || {}).length, 0);
+    emit(x, "verdict", { verdict, seats: verdictSeats(st, last), runs, model: st.model, shark: st.shark });
     x.step = "done";
     finish(x, "done");
   }

@@ -27,6 +27,7 @@
     </ol>
     <div class="top-actions">
       <span class="usage" id="usage" title="Tokens used by this app since it started"></span>
+      <button class="ghost" id="voiceBtn" type="button" aria-pressed="false" title="Read the founders' lines out loud">Voice off</button>
       <button class="ghost" id="langBtn" type="button">PT</button>
       <button class="ghost" id="guideBtn" type="button">How it works</button>
       <button class="ghost" id="historyBtn" type="button">Past sessions</button>
@@ -112,6 +113,8 @@
 
     <section class="chat" aria-label="Chat with the table">
       <form class="chat-form" id="chatForm">
+        <button type="button" class="attach" id="chatAttach" aria-label="Attach a file" title="Attach a pitch deck or one-pager (PDF, image, text)"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5 12.6 19.9a5.5 5.5 0 0 1-7.8-7.8l8.5-8.5a3.7 3.7 0 0 1 5.2 5.2l-8.5 8.5a1.8 1.8 0 0 1-2.6-2.6l7.8-7.8"/></svg></button>
+        <input type="file" id="chatFile" accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.txt,.md,.csv" hidden>
         <textarea id="chatInput" rows="1" placeholder="Paste your pitch or bring a decision..." aria-label="Message"></textarea>
         <button type="submit" class="send" id="chatSend" aria-label="Send">&#8593;</button>
       </form>
