@@ -1,0 +1,12 @@
+{
+  "cruxes": [
+    {"question": "Is customer cash enough to fund the next two hires?", "sides": [
+      {"position": "Yes, prepay and profit cover it", "seats": ["Hormozi", "Martell"]},
+      {"position": "No, prepay is pulled-forward revenue", "seats": ["Graham", "Wickman", "Bezos"]}]},
+    {"question": "What should the money buy first?", "sides": [
+      {"position": "A closer", "seats": ["Buffett", "Gary V"]},
+      {"position": "An onboarding owner to cut churn", "seats": ["Graham", "Bezos", "Hormozi", "Wickman"]}]}
+  ],
+  "unanimous": false,
+  "note": "Nobody wants the $4M. The fight is whether to take any money at all, and what it buys first."
+}

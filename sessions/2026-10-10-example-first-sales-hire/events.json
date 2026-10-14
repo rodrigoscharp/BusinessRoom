@@ -1,0 +1,736 @@
+{
+ "id": "2026-10-10-mv2svdkr",
+ "prompt": "I'm a solo founder of a B2B SaaS at $25k MRR growing 5% a month. I do every sales call myself (about 20 hours a week) and I'm burning out. Should I hire a full-time account executive at $120k base, hire a part-time commission-only closer, or keep selling myself for six more months? I have $150k in the bank.",
+ "mode": "quick",
+ "status": "done",
+ "title": "First sales hire or keep selling",
+ "events": [
+  {
+   "type": "phase",
+   "t": 0,
+   "phase": "setup",
+   "label": "The Chair is reading your question"
+  },
+  {
+   "type": "setup",
+   "t": 13688,
+   "title": "First sales hire or keep selling",
+   "decision": "Should the founder hire a full-time AE, hire a part-time commission-only closer, or keep running every sales call for six more months?",
+   "brief": "Solo founder of a B2B SaaS. Revenue is $25k MRR, growing 5% a month. The founder runs every sales call, about 20 hours a week, and says they are burning out. Cash in the bank is $150k. Three paths are on the table: a full-time account executive at $120k base, a part-time commission-only closer, or keep selling personally for six more months. Success means sales keep growing at or above the current rate while the founder gets time and energy back, without putting the company's cash at risk. The founder did not state a preference. The burnout signals they want relief soon, but they listed staying the course as a real option.",
+   "options": [
+    {
+     "id": "A",
+     "label": "Hire a full-time account executive at $120k base"
+    },
+    {
+     "id": "B",
+     "label": "Hire a part-time commission-only closer"
+    },
+    {
+     "id": "C",
+     "label": "Keep selling personally for six more months"
+    }
+   ],
+   "assumptions": [
+    "Profit margin and monthly burn are unknown, so true runway is unknown.",
+    "The $120k base works out to about $10k a month before benefits, commission, and taxes, roughly 40% of current MRR.",
+    "A new AE will likely take 3 to 6 months to ramp to full productivity.",
+    "Deal size, sales cycle length, and close rate are unknown.",
+    "The sales process is assumed to live mostly in the founder's head, not in a written playbook.",
+    "Commission-only closers are assumed to earn a percentage of first-year contract value, with no base."
+   ],
+   "weights": {
+    "bezos": {
+     "weight": 2,
+     "reason": "The options differ sharply in how reversible they are and what they cost if wrong."
+    },
+    "graham": {
+     "weight": 2,
+     "reason": "Founder-led sales at this stage shapes product learning and customer insight."
+    },
+    "hormozi": {
+     "weight": 3,
+     "reason": "The decision is about who sells, how they are paid, and whether close rates hold."
+    },
+    "garyvee": {
+     "weight": 1,
+     "reason": "Lead flow and attention matter, but the question is about closing, not generating demand."
+    },
+    "martell": {
+     "weight": 3,
+     "reason": "This is a first hire to buy back founder time and stop burnout."
+    },
+    "wickman": {
+     "weight": 2,
+     "reason": "Handing off sales requires a documented, repeatable process first."
+    },
+    "buffett": {
+     "weight": 2,
+     "reason": "A $120k base against $150k in the bank is a real cash risk."
+    }
+   },
+   "seats": [
+    "martell",
+    "hormozi",
+    "buffett",
+    "graham"
+   ],
+   "mode": "quick"
+  },
+  {
+   "type": "phase",
+   "t": 13688,
+   "phase": "round1",
+   "label": "Round 1: opening positions"
+  },
+  {
+   "type": "round_start",
+   "t": 13688,
+   "round": 1
+  },
+  {
+   "type": "seat_start",
+   "t": 13689,
+   "round": 1,
+   "seat": "martell"
+  },
+  {
+   "type": "seat_start",
+   "t": 14102,
+   "round": 1,
+   "seat": "hormozi"
+  },
+  {
+   "type": "seat_start",
+   "t": 14389,
+   "round": 1,
+   "seat": "buffett"
+  },
+  {
+   "type": "seat_start",
+   "t": 14749,
+   "round": 1,
+   "seat": "graham"
+  },
+  {
+   "type": "seat_done",
+   "t": 25092,
+   "round": 1,
+   "seat": "martell",
+   "text": "SEAT: MARTELL (People, hiring, and founder time)\nSTANCE: Conditional yes (on a variant of B)\nOPTION SCORES: A 4/10 · B 7/10 · C 3/10\nPILLAR SCORE: 7/10\nCONFIDENCE: 3/5\nRUIN RISK: none\nDOOR: two-way\n\nTHE CALL: Take B, but as a paid trial: record your calls first, then hand a closer the qualified-lead calls. Keep the discovery calls and the pricing conversations yourself for now.\n\nWHY:\n1. Sales is rung four on the Replacement Ladder: \"Sales is four because you as a CEO will always be able to sell better than anybody else you hire.\" (Replacement Ladder, S031) The founder is at 20 hours a week of calls, which I assume is near half the calendar. The goal is to peel off the first-pass calls, not to pass the whole job to someone else.\n2. Option A fails on transfer, not talent. The process lives in your head",
+   "parsed": {
+    "stance": "Conditional yes (on a variant of B)",
+    "call": "Take B, but as a paid trial: record your calls first, then hand a closer the qualified-lead calls. Keep the discovery calls and the pricing conversations yourself for now.",
+    "optionScores": {
+     "A": 4,
+     "B": 7,
+     "C": 3
+    },
+    "pillar": 7,
+    "finalScore": null,
+    "confidence": 3,
+    "ruin": "none",
+    "door": "two-way",
+    "disagreeWith": null,
+    "disagreeLine": "",
+    "concede": "",
+    "moved": "",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "",
+    "risk": "",
+    "thisWeek": ""
+   },
+   "quotes": [],
+   "name": "Dan Martell"
+  },
+  {
+   "type": "seat_done",
+   "t": 25388,
+   "round": 1,
+   "seat": "hormozi",
+   "text": "SEAT: HORMOZI (Offers, pricing, and sales)\nSTANCE: Conditional yes (on B, as a variant)\nOPTION SCORES: A 3/10 · B 7/10 · C 4/10\nPILLAR SCORE: 6/10\nCONFIDENCE: 3/5\nRUIN RISK: none\nDOOR: two-way\n\nTHE CALL: Option B, but record every call this month, write the script, and pay the closer on cash collected.\n\nWHY:\n1. The math kills A. At 5% growth you add about $1,250 MRR a month, roughly $15k of annual contract value. A $10k a month AE (before benefits and commission) costs two-thirds of that. Over a 3 to 6 month ramp that is $30k to $60k of your $150k, with nobody trained on a pitch that lives in your head. Total sales cost should sit under about 10% of revenue (Sales team and commissions, S069).\n2. Commission-only scales cost with results. \"If you compensate them off of cash collected you will in general get more cash collected.\" (S074) At an assumed 10% of first-year contract value, that is about $1,500 a month at today's pace, and you pay only when money lands.\n3. Beyond the closer, I'd fix what happens around the call. Speed to lead, show rate, and best leads to the best closers matter more than the pitch (Sales throughput, S074). Hand off the average leads first and keep the top ones yourself.\n\nTHE RISK I SEE: With no playbook, the closer's close rate lands at half yours, they churn out in 60 days, and you've lost two months and burned good le",
+   "parsed": {
+    "stance": "Conditional yes (on B, as a variant)",
+    "call": "Option B, but record every call this month, write the script, and pay the closer on cash collected.",
+    "optionScores": {
+     "A": 3,
+     "B": 7,
+     "C": 4
+    },
+    "pillar": 6,
+    "finalScore": null,
+    "confidence": 3,
+    "ruin": "none",
+    "door": "two-way",
+    "disagreeWith": null,
+    "disagreeLine": "",
+    "concede": "",
+    "moved": "",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "",
+    "risk": "With no playbook, the closer's close rate lands at half yours, they churn out in 60 days, and you've lost two months and burned good le",
+    "thisWeek": ""
+   },
+   "quotes": [
+    {
+     "quote": "If you compensate them off of cash collected you will in general get more cash collected.",
+     "source": "S074",
+     "verified": true
+    }
+   ],
+   "name": "Alex Hormozi"
+  },
+  {
+   "type": "seat_done",
+   "t": 26215,
+   "round": 1,
+   "seat": "buffett",
+   "text": "SEAT: BUFFETT (Money and capital)\nSTANCE: Conditional yes (on B)\nOPTION SCORES: A 4/10 · B 7/10 · C 5/10\nPILLAR SCORE: 7/10\nCONFIDENCE: 3/5\nRUIN RISK: possible (A only; none for B)\nDOOR: two-way (B)\n\nTHE CALL: Hire the commission-only closer, paid only on cash collected and capped, and spend the founder's freed hours writing the sales playbook.\n\nWHY:\n1. Cash is oxygen. \"Cash, though, is to a business as oxygen is to an individual: never thought about when it is present, the only thing in mind when it is absent.\" (S087) I'm assuming about $12k a month loaded for the AE. Over a 4 to 6 month ramp that is $48k to $72k, up to half your $150k, spent before the AE closes much. At 5% growth, MRR adds only about $8.5k by month six. A is a fixed cost chasing a variable payoff, and burn is unknown. (Financial staying power, S095)\n2. B costs nothing until it produces. Each dollar of commission follows a dollar of revenue, so the dollar-retained test is passed by construction. (Dollar-retained test, S010) Downside is capped and the door swings both ways.\n3. Incentives. \"you can cause people to do the wrong thing because they will do what they're incented to do.\" (S045) A commission-only closer will oversell and churn the book. So pay on collected cash, with a clawback if customers leave inside 90 days. This is my translation of the rule to an operating business.\n\nTHE RISK I SEE: The closer has no playbook to follow, burns leads, and oversells. You pay for churn and damage your reputation, and you are still doing the calls.\n\nWHAT WOULD CHANGE MY MIND: If the business burns under $5k a month, or the average deal is large enough for an A",
+   "parsed": {
+    "stance": "Conditional yes (on B)",
+    "call": "Hire the commission-only closer, paid only on cash collected and capped, and spend the founder's freed hours writing the sales playbook.",
+    "optionScores": {
+     "A": 4,
+     "B": 7,
+     "C": 5
+    },
+    "pillar": 7,
+    "finalScore": null,
+    "confidence": 3,
+    "ruin": "possible",
+    "door": "two-way",
+    "disagreeWith": null,
+    "disagreeLine": "",
+    "concede": "",
+    "moved": "",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "",
+    "risk": "The closer has no playbook to follow, burns leads, and oversells. You pay for churn and damage your reputation, and you are still doing the calls.",
+    "thisWeek": ""
+   },
+   "quotes": [
+    {
+     "quote": "Cash, though, is to a business as oxygen is to an individual: never thought about when it is present, the only thing in mind when it is absent.",
+     "source": "S087",
+     "verified": true
+    },
+    {
+     "quote": "you can cause people to do the wrong thing because they will do what they're incented to do.",
+     "source": "S045",
+     "verified": true
+    }
+   ],
+   "name": "Warren Buffett"
+  },
+  {
+   "type": "seat_done",
+   "t": 26436,
+   "round": 1,
+   "seat": "graham",
+   "text": "SEAT: GRAHAM (Product and startups)\nSTANCE: Conditional yes (on C)\nOPTION SCORES: A 3/10 · B 5/10 · C 7/10\nPILLAR SCORE: 7/10\nCONFIDENCE: 3/5\nRUIN RISK: possible (A only)\nDOOR: two-way\n\nTHE CALL: Keep selling personally, but cut the 20 hours by tightening who gets a call, and spend the saved time on why growth is only 5% a month.\n\nWHY:\n1. 5% a month is about 1.8x a year, roughly 1.2% a week. I'd call that a demand signal, not a capacity problem. \"If you can only manage 1%, it's a sign you haven't yet figured out what you're doing.\" (Startup = Growth, S100) A hire can't fix that, because the founder's calls are where the answer is.\n2. Option A adds about $10k a month, roughly 40% of MRR, before commission and benefits. With a 3 to 6 month ramp, that's $30k to $60k of the $150k gone before the AE produces. I don't know your burn, so I can't call you default alive. I'd assume not until you show me the number. (Default alive or default dead, S080)\n3. The process lives in your head, so a hire has nothing to run. \"And no, you can't avoid doing sales by hiring someone to do it for you. You have to do sales yourself initially.\" (Do things that don't scale, S096) A commission-only closer costs little but learns nothing for you, and a bad one burns leads.\n\nTHE RISK I SEE: Burnout. Quitting is how startups mostly die, and a tired solo founder sells worse. That is why I want the calls cut, not the status quo.\n\nWHAT WOULD CHANGE MY MIND: Evidence that demand outruns your hours: say, 30% or more of qualified leads going unanswered for a week or more, with a close rate that holds. Then the bottleneck is capacity, and I'd move to B first, then A.\n\nWHAT I'D DO THIS WEEK: Record every call, write down the top five objections and what clos",
+   "parsed": {
+    "stance": "Conditional yes (on C)",
+    "call": "Keep selling personally, but cut the 20 hours by tightening who gets a call, and spend the saved time on why growth is only 5% a month.",
+    "optionScores": {
+     "A": 3,
+     "B": 5,
+     "C": 7
+    },
+    "pillar": 7,
+    "finalScore": null,
+    "confidence": 3,
+    "ruin": "possible",
+    "door": "two-way",
+    "disagreeWith": null,
+    "disagreeLine": "",
+    "concede": "",
+    "moved": "",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "",
+    "risk": "Burnout. Quitting is how startups mostly die, and a tired solo founder sells worse. That is why I want the calls cut, not the status quo.",
+    "thisWeek": "Record every call, write down the top five objections and what clos"
+   },
+   "quotes": [],
+   "name": "Paul Graham"
+  },
+  {
+   "type": "round_done",
+   "t": 26437,
+   "round": 1,
+   "scores": {
+    "A": {
+     "score": 3.5,
+     "math": "(3x4 + 3x3 + 2x4 + 2x3) / 10"
+    },
+    "B": {
+     "score": 6.6,
+     "math": "(3x7 + 3x7 + 2x7 + 2x5) / 10"
+    },
+    "C": {
+     "score": 4.5,
+     "math": "(3x3 + 3x4 + 2x5 + 2x7) / 10"
+    }
+   }
+  },
+  {
+   "type": "phase",
+   "t": 26437,
+   "phase": "cruxes",
+   "label": "The Chair is finding the fault lines"
+  },
+  {
+   "type": "cruxes",
+   "t": 36688,
+   "cruxes": [
+    {
+     "question": "Is 5% monthly growth a demand problem the founder must solve on the calls, or a capacity problem that more selling hands can fix?",
+     "sides": [
+      {
+       "position": "Demand problem. 5% a month signals the founder has not yet figured out what works. The answer lives in the founder's own calls, so offloading them hides it.",
+       "seats": [
+        "graham"
+       ]
+      },
+      {
+       "position": "Capacity and energy problem. The founder is burning out at 20 hours a week of calls, so peeling off some calls protects growth and frees time.",
+       "seats": [
+        "martell",
+        "hormozi",
+        "buffett"
+       ]
+      }
+     ]
+    },
+    {
+     "question": "Can sales be handed to someone else before a written playbook exists?",
+     "sides": [
+      {
+       "position": "No. Founders must sell themselves at this stage. A closer learns nothing for the founder and can burn leads.",
+       "seats": [
+        "graham"
+       ]
+      },
+      {
+       "position": "Yes, in a limited form. Record calls, write the script, hand off average or qualified leads, and keep discovery, pricing, and top leads with the founder.",
+       "seats": [
+        "martell",
+        "hormozi",
+        "buffett"
+       ]
+      }
+     ]
+    }
+   ],
+   "unanimous": false,
+   "note": "Every seat scores the $120k AE low, so the real fight is between a commission-only closer on a narrow slice of calls and keeping the calls yourself while cutting volume. It comes down to whether slow growth is a demand issue only you can diagnose or a capacity issue a closer can help with.",
+   "pressure": {
+    "graham": "Answer the majority's claim that a paid closer trial on average leads, with you keeping discovery and pricing calls, still keeps you close enough to learn why growth is 5% while relieving burnout faster than filtering who gets a call."
+   }
+  },
+  {
+   "type": "phase",
+   "t": 36689,
+   "phase": "round2",
+   "label": "Round 2: the debate"
+  },
+  {
+   "type": "round_start",
+   "t": 36689,
+   "round": 2
+  },
+  {
+   "type": "seat_start",
+   "t": 36705,
+   "round": 2,
+   "seat": "martell"
+  },
+  {
+   "type": "seat_start",
+   "t": 37048,
+   "round": 2,
+   "seat": "hormozi"
+  },
+  {
+   "type": "seat_start",
+   "t": 37392,
+   "round": 2,
+   "seat": "buffett"
+  },
+  {
+   "type": "seat_start",
+   "t": 37751,
+   "round": 2,
+   "seat": "graham"
+  },
+  {
+   "type": "seat_done",
+   "t": 49113,
+   "round": 2,
+   "seat": "martell",
+   "text": "SEAT: MARTELL\n\nI DISAGREE MOST WITH: Graham. His argument is that 5% growth is a demand problem, so the founder must keep selling. I say it's both. At about $300K a year, the founder is near the first tripling pain line (S028), and \"Entrepreneurs will not grow into pain.\" (S014) Twenty hours a week of calls is the red work, and you can't diagnose demand while burned out. Peel off the first-pass calls and spend those hours in the Fill step, studying why growth is only 5%. Staying put for six more months fails the Buyback Loop.\n\nI CONCEDE: Graham and Buffett's best point is that a closer with no playbook burns leads and oversells. That changes my sequence. No closer touches a live lead until the Camcorder Method recordings (S020) and a written definition of done exist. I'm also adopting Hormozi's cash-collected pay and Buffett's 90-day clawback.\n\nON THE CRUXES:\n1. Demand or capacity? Both. The calls are where you learn, so you keep discovery and pricing. The routine calls are where you burn out, so those go.\n2. Handoff before a playbook? No, not before recordings. After about four weeks of recording, yes, in limited form. Can a new person reach 70 to 80% from the documents alone (S097)? If not, the transfer isn't done.\n\nSTANCE: Conditional yes on B, gated by four weeks of recording first\nOPTION SCORES: A 3/10 · B 7/10 · C 3/10\nPILLAR SCORE: 7/10\nCONFIDENCE: 3/5\nRUIN RISK: none\nMOVED: yes, from \"B now, record in parallel\" to \"B only after the recording gate,\" because Gra",
+   "parsed": {
+    "stance": "Conditional yes on B, gated by four weeks of recording first",
+    "call": "",
+    "optionScores": {
+     "A": 3,
+     "B": 7,
+     "C": 3
+    },
+    "pillar": 7,
+    "finalScore": null,
+    "confidence": 3,
+    "ruin": "none",
+    "door": "",
+    "disagreeWith": "graham",
+    "disagreeLine": "Graham. His argument is that 5% growth is a demand problem, so the founder must keep selling. I say it's both. At about $300K a year, the founder is near the first tripling pain line (S028), and \"Entrepreneurs will not grow into pain.\" (S014) Twenty hours a week of calls is the red work, and you can't diagnose demand while burned out. Peel off the first-pass calls and spend those hours in the Fill step, studying why growth is only 5%. Staying put for six more months fails the Buyback Loop.",
+    "concede": "Graham and Buffett's best point is that a closer with no playbook burns leads and oversells. That changes my sequence. No closer touches a live lead until the Camcorder Method recordings (S020) and a written definition of done exist. I'm also adopting Hormozi's cash-collected pay and Buffett's 90-day clawback.",
+    "moved": "yes, from \"B now, record in parallel\" to \"B only after the recording gate,\" because Gra",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "",
+    "risk": "",
+    "thisWeek": ""
+   },
+   "quotes": [
+    {
+     "quote": "Entrepreneurs will not grow into pain.",
+     "source": "S014",
+     "verified": true
+    }
+   ],
+   "name": "Dan Martell"
+  },
+  {
+   "type": "seat_done",
+   "t": 49253,
+   "round": 2,
+   "seat": "hormozi",
+   "text": "SEAT: HORMOZI\n\nI DISAGREE MOST WITH: Graham. His argument is that 5% growth is a demand signal and the founder must stay on the calls to find the answer. The answer is in the calls, not in sitting on them live. Record them and you get the objections and the script without 20 hours a week. And 5% is $1,250 MRR a month, which is low volume, and \"what presents as volatility is typically a symptom of low volume.\" (S052) Burning out also makes you sell worse, so option C pays twice.\n\nI CONCEDE: Graham's best point is that with no playbook a closer burns leads. That changes my sequencing. The closer gets zero live calls until the script exists, and I won't judge them on five calls. Volume before verdict.\n\nON THE CRUXES:\n1. It's both, and I'm not sure which binds. Test it: if lead flow doubled, could you take the calls? If leads already go unanswered, it's capacity and a closer helps. If not, it's leads or offer, and a closer won't fix that. Check churn too. \"If you do not have what's called revenue retention, you have nothing.\" (S107)\n2. Yes, in a limited form. Record the calls, write the script, and hand off the average leads first.\n\nMy weakest point: commission-only closers rarely attract good people, and I assumed the 10% rate and the deal size. If the average contract is small, no strong closer takes the job and B fails.\n\nSTANCE: Conditional yes on B\nOPTION SCORES: A 3/10 · B 7/10 · C 4/10\nPILLAR SCORE: 6/10\nCONFIDENCE:",
+   "parsed": {
+    "stance": "Conditional yes on B",
+    "call": "",
+    "optionScores": {
+     "A": 3,
+     "B": 7,
+     "C": 4
+    },
+    "pillar": 6,
+    "finalScore": null,
+    "confidence": null,
+    "ruin": "",
+    "door": "",
+    "disagreeWith": "graham",
+    "disagreeLine": "Graham. His argument is that 5% growth is a demand signal and the founder must stay on the calls to find the answer. The answer is in the calls, not in sitting on them live. Record them and you get the objections and the script without 20 hours a week. And 5% is $1,250 MRR a month, which is low volume, and \"what presents as volatility is typically a symptom of low volume.\" (S052) Burning out also makes you sell worse, so option C pays twice.",
+    "concede": "Graham's best point is that with no playbook a closer burns leads. That changes my sequencing. The closer gets zero live calls until the script exists, and I won't judge them on five calls. Volume before verdict.",
+    "moved": "",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "",
+    "risk": "",
+    "thisWeek": ""
+   },
+   "quotes": [
+    {
+     "quote": "what presents as volatility is typically a symptom of low volume.",
+     "source": "S052",
+     "verified": true
+    },
+    {
+     "quote": "If you do not have what's called revenue retention, you have nothing.",
+     "source": "S107",
+     "verified": true
+    }
+   ],
+   "name": "Alex Hormozi"
+  },
+  {
+   "type": "seat_done",
+   "t": 49342,
+   "round": 2,
+   "seat": "buffett",
+   "text": "SEAT: BUFFETT\n\nI DISAGREE MOST WITH: Graham. His argument: 5% growth is a demand problem, and you can't hire your way out of selling. Part of that is right, but the cost side of his option C is missing. C costs no cash, but it costs the founder's energy, and that is the scarcest asset in the business. A tired solo founder is a key-person risk with no ark built (Noah's Law, S088). Graham's own risk line is burnout. Cutting calls is the cure, and B is the cheapest way to cut them. Doing nothing is a fine strategy when the downside is capped. Here the downside is the founder quitting.\n\nI CONCEDE: Graham's point that a closer with no playbook burns leads and teaches the founder nothing. That changes the sequence. The closer doesn't start until the calls are recorded and the script is written. The founder keeps discovery and pricing.\n\nON THE CRUXES:\n1. Demand or capacity? I can't tell from this brief, and I won't pretend to. It is knowable: count qualified leads left unanswered. Until then, keep the demand-learning calls (discovery) and hand off only the rest.\n2. Handoff before a playbook? No full handoff. A limited one, after recording, with payment only on cash collected and a clawback.\n\nSTANCE: Conditional yes (on B, gated)\nOPTION SCORES: A 4/10 · B 7/10 · C 5/10\nPILLAR SCORE: 7/10\nCONFIDENCE: 3/5\nRUIN RISK: possible (A only; none for B)\nMOVED: yes, from B at hire to B gated behind recorded calls and a written script, because Martell and Graham showed that an untrained closer is where the real loss would come from.\n\nMY CONDITIONS FOR YES:\n1. Ten recorded calls and a",
+   "parsed": {
+    "stance": "Conditional yes (on B, gated)",
+    "call": "",
+    "optionScores": {
+     "A": 4,
+     "B": 7,
+     "C": 5
+    },
+    "pillar": 7,
+    "finalScore": null,
+    "confidence": 3,
+    "ruin": "possible",
+    "door": "",
+    "disagreeWith": "graham",
+    "disagreeLine": "Graham. His argument: 5% growth is a demand problem, and you can't hire your way out of selling. Part of that is right, but the cost side of his option C is missing. C costs no cash, but it costs the founder's energy, and that is the scarcest asset in the business. A tired solo founder is a key-person risk with no ark built (Noah's Law, S088). Graham's own risk line is burnout. Cutting calls is the cure, and B is the cheapest way to cut them. Doing nothing is a fine strategy when the downside is capped. Here the downside is the founder quitting.",
+    "concede": "Graham's point that a closer with no playbook burns leads and teaches the founder nothing. That changes the sequence. The closer doesn't start until the calls are recorded and the script is written. The founder keeps discovery and pricing.",
+    "moved": "yes, from B at hire to B gated behind recorded calls and a written script, because Martell and Graham showed that an untrained closer is where the real loss would come from.",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "",
+    "risk": "",
+    "thisWeek": ""
+   },
+   "quotes": [],
+   "name": "Warren Buffett"
+  },
+  {
+   "type": "seat_done",
+   "t": 50068,
+   "round": 2,
+   "seat": "graham",
+   "text": "SEAT: GRAHAM\nI DISAGREE MOST WITH: Hormozi. Their argument: hand off the average leads, write the script, pay on cash collected. My rebuttal: the average leads are where you learn why growth is 5%. Those are the people who didn't buy. A closer with no playbook gets half your close rate and you can't tell if the leads or the closer are bad. That is noise, not learning. \"You have to do sales yourself initially.\" (S096)\n\nI CONCEDE: Buffett's and Martell's best point is that a commission-only closer costs a few thousand dollars a month at most, is capped, and is reversible, while a tired solo founder sells worse. That changes my sequencing. I was treating filtering leads as enough relief. It probably isn't, and a cheap trial is not a risk worth refusing once I have the data.\n\nON THE CRUXES:\n1. Demand problem first. 1.2% a week is a sign you haven't figured it out yet (S100), and the answer is in the calls, especially the lost ones. Capacity may become the issue, but nobody has shown me unanswered leads.\n2. Not before a playbook. A limited handoff works only after the founder can say why deals close and die. Record the calls first, and the trial follows from that.\n\nSTANCE: Conditional yes on C for 30 days with calls recorded and filtered, then a commission-only closer trial on average leads. No full-time AE.\nOPTION SCORES: A 2/10 · B 6/10 · C 6/10\nPILLAR SCORE: 7/10\nCONFIDENCE: 3/5\nRUIN RISK: possible (A only)\nMOVED: yes, from C to a 30-day C followed by a B trial, because the closer's capped cost makes the trial cheap and burnout is a real risk of quitting.\n\nMY CONDITIONS FOR YES:\n1. Every call recorded for 30 days, with the top five objections and lost-deal reasons written down.\n2. The closer is paid on cash collected only, with a clawback inside 90 days.\n3. I keep every discovery and pricing call and review the closer's calls weekly. If their close rate is under half mine after 20 calls, stop.",
+   "parsed": {
+    "stance": "Conditional yes on C for 30 days with calls recorded and filtered, then a commission-only closer trial on average leads. No full-time AE.",
+    "call": "",
+    "optionScores": {
+     "A": 2,
+     "B": 6,
+     "C": 6
+    },
+    "pillar": 7,
+    "finalScore": null,
+    "confidence": 3,
+    "ruin": "possible",
+    "door": "",
+    "disagreeWith": "hormozi",
+    "disagreeLine": "Hormozi. Their argument: hand off the average leads, write the script, pay on cash collected. My rebuttal: the average leads are where you learn why growth is 5%. Those are the people who didn't buy. A closer with no playbook gets half your close rate and you can't tell if the leads or the closer are bad. That is noise, not learning. \"You have to do sales yourself initially.\" (S096)",
+    "concede": "Buffett's and Martell's best point is that a commission-only closer costs a few thousand dollars a month at most, is capped, and is reversible, while a tired solo founder sells worse. That changes my sequencing. I was treating filtering leads as enough relief. It probably isn't, and a cheap trial is not a risk worth refusing once I have the data.",
+    "moved": "yes, from C to a 30-day C followed by a B trial, because the closer's capped cost makes the trial cheap and burnout is a real risk of quitting.",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "",
+    "risk": "",
+    "thisWeek": ""
+   },
+   "quotes": [
+    {
+     "quote": "You have to do sales yourself initially.",
+     "source": "S096",
+     "verified": true
+    }
+   ],
+   "name": "Paul Graham"
+  },
+  {
+   "type": "round_done",
+   "t": 50068,
+   "round": 2,
+   "scores": {
+    "A": {
+     "score": 3,
+     "math": "(3x3 + 3x3 + 2x4 + 2x2) / 10"
+    },
+    "B": {
+     "score": 6.8,
+     "math": "(3x7 + 3x7 + 2x7 + 2x6) / 10"
+    },
+    "C": {
+     "score": 4.3,
+     "math": "(3x3 + 3x4 + 2x5 + 2x6) / 10"
+    }
+   }
+  },
+  {
+   "type": "phase",
+   "t": 50068,
+   "phase": "skip3",
+   "label": "Quick mode: spread 1 and no ruin risk, so the vote round is skipped"
+  },
+  {
+   "type": "phase",
+   "t": 50068,
+   "phase": "verdict",
+   "label": "The Chair is writing the verdict"
+  },
+  {
+   "type": "verdict",
+   "t": 80225,
+   "verdict": {
+    "label": "GO WITH CONDITIONS",
+    "call": "Choose B, a part-time commission-only closer, but only after 30 days of recording every call and writing the script. Keep discovery, pricing, and your top leads yourself. Do not hire the $120k AE.",
+    "override_note": "",
+    "why": [
+     {
+      "point": "Staying the course for six more months is the riskiest path, not the safe one. A burned-out solo founder sells worse and may quit. Twenty hours a week of calls is the work to buy back first.",
+      "seat": "Martell",
+      "framework": "Buyback Loop and the tripling pain line (S028, S014)"
+     },
+     {
+      "point": "Option C costs no cash but spends the founder's energy, the scarcest asset here. A commission-only closer is capped in cost and easy to reverse. A $10k a month AE is about 40% of MRR, takes 3 to 6 months to ramp, and runway is unknown. That makes A the only option with a possible ruin risk.",
+      "seat": "Buffett",
+      "framework": "Noah's Law, key-person risk, capped downside (S088)"
+     },
+     {
+      "point": "A closer with no playbook burns leads. No closer touches a live lead until calls are recorded and the process is written down well enough that a new person can get 70 to 80% of the way from the documents alone.",
+      "seat": "Martell",
+      "framework": "Camcorder Method (S020, S097)"
+     },
+     {
+      "point": "The founder keeps discovery, pricing, and lost-deal review, because that is where you learn why growth is only 5%. Founders have to do sales themselves early, so only the routine calls get handed off.",
+      "seat": "Graham",
+      "framework": "Do sales yourself initially (S096, S100)"
+     },
+     {
+      "point": "Pay the closer only on cash collected and judge them on volume, not five calls. Check retention before blaming sales, because growth without revenue retention is nothing.",
+      "seat": "Hormozi",
+      "framework": "Cash-collected pay, volume before verdict, revenue retention (S052, S107)"
+     }
+    ],
+    "fights": [
+     {
+      "crux": "Is 5% monthly growth a demand problem or a capacity problem?",
+      "story": "Graham said demand: the answer is in the founder's own calls, especially the lost ones. Martell, Hormozi, and Buffett said capacity and energy, though Hormozi and Buffett admitted it may be both and the brief cannot tell. Graham moved, accepting that a capped closer trial is cheap and that burnout is a real risk of quitting. It resolved as a split: the founder keeps the calls where demand is learned (discovery, pricing, lost deals) and hands off routine ones. The question gets settled with data by counting unanswered qualified leads."
+     },
+     {
+      "crux": "Can sales be handed off before a written playbook exists?",
+      "story": "Graham said no. Martell, Hormozi, and Buffett said yes, in limited form. Those three moved, all gating the closer behind recorded calls and a written script after Graham showed an untrained closer is where the real loss comes from. Graham moved too, accepting a closer trial once 30 days of recordings and lost-deal reasons exist. It resolved as no live leads for the closer until roughly four weeks of recordings and a script are done."
+     }
+    ],
+    "minority": {
+     "seat": "Graham",
+     "quote": "the average leads are where you learn why growth is 5%. Those are the people who didn't buy.",
+     "would_have_to_be_true": "Growth is capped by an unsolved demand or offer problem, and no qualified leads are going unanswered, so handing calls to a closer only adds noise."
+    },
+    "amendments": [],
+    "conditions": [
+     "Record every sales call for 30 days before the closer takes any live lead.",
+     "Write down the top five objections and the top lost-deal reasons from those recordings.",
+     "Write a sales script good enough that a new person can reach 70 to 80% from the documents alone.",
+     "Pay the closer on cash collected only, with a clawback for customers who churn within 90 days.",
+     "The founder keeps all discovery calls, pricing calls, and top leads. The closer gets average qualified leads only.",
+     "The founder reviews the closer's recorded calls every week.",
+     "Count qualified leads that went unanswered or were delayed, and check revenue retention, before the closer starts.",
+     "No full-time AE at $120k base in this period."
+    ],
+    "next_steps": [
+     {
+      "when": "This week",
+      "action": "Start recording every sales call. Pull the last 60 days of leads and count any qualified ones that went unanswered or waited too long. Check churn and net revenue retention."
+     },
+     {
+      "when": "Weeks 1 to 4",
+      "action": "Log objections and lost-deal reasons after every call. Draft the script and a one-page definition of a qualified lead."
+     },
+     {
+      "when": "Week 3",
+      "action": "Post the commission-only closer role with cash-collected pay and a 90-day clawback. Screen for people who have sold at your deal size."
+     },
+     {
+      "when": "Week 5",
+      "action": "Closer starts on average qualified leads only. The founder keeps discovery, pricing, and top leads."
+     },
+     {
+      "when": "Weekly from week 5",
+      "action": "Review the closer's recorded calls and compare close rate, deal size, and churn against the founder's numbers."
+     },
+     {
+      "when": "After the closer's 20th call",
+      "action": "Run the kill check. Then decide whether to expand the closer's lead share."
+     }
+    ],
+    "cheapest_test": "Count the qualified leads from the last 60 days that went unanswered or were delayed, and record the next 10 calls. It costs nothing. If leads are being dropped, it is a capacity problem and a closer helps. If not, the founder should spend the freed hours on leads and the offer.",
+    "kill_criteria": "Stop the closer if their close rate is under half the founder's after 20 calls, if their customers churn within 90 days at a higher rate than the founder's, or if no capable closer accepts the role because deal size is too small. If MRR growth drops below 5% a month for two straight months during the trial, pull the leads back and revisit.",
+    "revisit": "After the closer's 20th call or 90 days, whichever comes first. Reopen the full-time AE question only when the playbook is proven, qualified leads are clearly going unanswered, and MRR can carry a $10k a month hire without risking runway.",
+    "recommended": "B",
+    "scores": {
+     "A": {
+      "score": 3,
+      "math": "(3x3 + 3x3 + 2x4 + 2x2) / 10"
+     },
+     "B": {
+      "score": 6.8,
+      "math": "(3x7 + 3x7 + 2x7 + 2x6) / 10"
+     },
+     "C": {
+      "score": 4.3,
+      "math": "(3x3 + 3x4 + 2x5 + 2x6) / 10"
+     }
+    },
+    "spread": 1,
+    "confidence": 6,
+    "support": null,
+    "votes": null,
+    "disclaimer": "Simulated advisors built from each person's public work. They are not the people and do not speak for them."
+   },
+   "seats": [
+    {
+     "key": "martell",
+     "weight": 3,
+     "stance": "Conditional yes on B, gated by four weeks of recording first",
+     "optionScores": {
+      "A": 3,
+      "B": 7,
+      "C": 3
+     },
+     "pillar": 7,
+     "moved": "yes, from \"B now, record in parallel\" to \"B only after the recording gate,\" because Gra",
+     "oneLine": "Conditional yes on B, gated by four weeks of recording first"
+    },
+    {
+     "key": "hormozi",
+     "weight": 3,
+     "stance": "Conditional yes on B",
+     "optionScores": {
+      "A": 3,
+      "B": 7,
+      "C": 4
+     },
+     "pillar": 6,
+     "moved": "",
+     "oneLine": "Conditional yes on B"
+    },
+    {
+     "key": "buffett",
+     "weight": 2,
+     "stance": "Conditional yes (on B, gated)",
+     "optionScores": {
+      "A": 4,
+      "B": 7,
+      "C": 5
+     },
+     "pillar": 7,
+     "moved": "yes, from B at hire to B gated behind recorded calls and a written script, because Martell and Graham showed that an untrained closer is where the real loss would come from.",
+     "oneLine": "Conditional yes (on B, gated)"
+    },
+    {
+     "key": "graham",
+     "weight": 2,
+     "stance": "Conditional yes on C for 30 days with calls recorded and filtered, then a commission-only closer trial on average leads. No full-time AE.",
+     "optionScores": {
+      "A": 2,
+      "B": 6,
+      "C": 6
+     },
+     "pillar": 7,
+     "moved": "yes, from C to a 30-day C followed by a B trial, because the closer's capped cost makes the trial cheap and burnout is a real risk of quitting.",
+     "oneLine": "Conditional yes on C for 30 days with calls recorded and filtered, then a commission-only closer trial on average leads. No full-time AE."
+    }
+   ]
+  },
+  {
+   "type": "usage",
+   "t": 80225,
+   "usage": {
+    "input": 29087,
+    "output": 16620,
+    "cacheRead": 163858,
+    "cacheWrite": 0,
+    "calls": 11
+   }
+  }
+ ]
+}

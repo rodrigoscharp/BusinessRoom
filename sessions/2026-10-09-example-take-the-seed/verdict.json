@@ -1,0 +1,21 @@
+{
+  "label": "GO WITH CONDITIONS",
+  "call": "Turn down the $4M seed and raise the $1M from operator angels once both co-founders sign one memo. Spend it on an onboarding owner first and a closer second.",
+  "why": [
+    {"point": "A 3x-in-18-months mandate needs 6.3% monthly growth from a company growing 4% with no paid engine.", "seat": "Graham", "framework": "Startup = Growth"},
+    {"point": "The constraint is the CEO's 65-hour week and 2.5% churn, not cash.", "seat": "Martell", "framework": "Buyback Rate"},
+    {"point": "Cutting churn from 2.5% to 1.5% is the cheapest growth lever on the table.", "seat": "Hormozi", "framework": "Constraint first"}
+  ],
+  "fights": [{"crux": "Is customer cash enough?", "story": "Hormozi corrected his own prepay math and moved to B; Buffett moved back to B in Round 3."}],
+  "minority": {"seat": "Martell", "quote": "Your 65 hours are the constraint, not the cash.", "would_have_to_be_true": "60 or more customers prepay and cash covers 12 months after both hires."},
+  "amendments": [],
+  "conditions": ["Both co-founders sign a one-page memo by October 16", "Cash never below 12 months of burn"],
+  "next_steps": [
+    {"when": "This week", "action": "Offer annual prepay to all 200 customers and call every churned customer."},
+    {"when": "Oct 16", "action": "Sign the memo, tell the VC no, confirm the angels."},
+    {"when": "Day 30", "action": "Onboarding owner in seat, owning churn."}
+  ],
+  "cheapest_test": "The prepay offer plus the churn calls, before any signature.",
+  "kill_criteria": "No signed memo by October 16, or churn above 2% at day 90.",
+  "revisit": "Day 90."
+}

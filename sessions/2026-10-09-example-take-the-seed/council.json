@@ -1,0 +1,22 @@
+{
+  "title": "Take the $4M seed or keep bootstrapping",
+  "decision": "Take a $4M VC seed, raise $1M from angels, or keep bootstrapping.",
+  "brief": "B2B SaaS for home-services companies, $40k MRR growing 4% a month, profitable, $180k in the bank. CEO works 65 hours and does all sales.",
+  "mode": "full",
+  "options": [
+    {"id": "A", "label": "Take the $4M seed at $20M post"},
+    {"id": "B", "label": "Raise $1M from operator angels on a SAFE"},
+    {"id": "C", "label": "Keep bootstrapping"}
+  ],
+  "assumptions": ["Two funded competitors above $3M ARR"],
+  "weights": {
+    "graham": {"weight": 3, "reason": "Fundraising and growth rate"},
+    "buffett": {"weight": 3, "reason": "Dilution and cost of capital"},
+    "bezos": {"weight": 2, "reason": "One-way door"},
+    "hormozi": {"weight": 2, "reason": "Can money turn into growth"},
+    "martell": {"weight": 2, "reason": "Founder at 65 hours"},
+    "wickman": {"weight": 2, "reason": "Can a 6-person team absorb it"},
+    "garyvee": {"weight": 1, "reason": "Distribution at the edges"}
+  },
+  "seats": ["bezos", "graham", "hormozi", "garyvee", "martell", "wickman", "buffett"]
+}

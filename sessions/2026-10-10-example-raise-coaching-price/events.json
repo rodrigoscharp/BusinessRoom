@@ -1,0 +1,1487 @@
+{
+ "id": "2026-10-10-mv2so4zk",
+ "prompt": "I run a coaching business doing $30k a month with 15 active clients at $2,000 each. I want to raise the price to $3,500. Options: raise for everyone now, raise for new clients only, or keep $2,000. Close rate is about 50% on sales calls. I am leaning toward raising for everyone because I am underpaid.",
+ "mode": "full",
+ "status": "done",
+ "title": "Raise coaching price to $3,500",
+ "events": [
+  {
+   "type": "phase",
+   "t": 1,
+   "phase": "setup",
+   "label": "The Chair is reading your question"
+  },
+  {
+   "type": "setup",
+   "t": 17151,
+   "title": "Raise coaching price to $3,500",
+   "decision": "Should the founder raise the coaching price from $2,000 to $3,500, and for whom?",
+   "brief": "The founder runs a coaching business doing $30k a month with 15 active clients at $2,000 each. Close rate on sales calls is about 50%. The proposal is to raise the price to $3,500. Three paths are on the table: raise for all 15 current clients now, raise for new clients only, or keep the price at $2,000. Success means more revenue per client without losing enough clients or closes to wipe out the gain. At $3,500, the same 15 clients would bring in $52,500 a month. If everyone is raised, the business stays ahead of today's $30k as long as at least 9 of 15 stay. The founder is leaning toward raising for everyone now, because they feel underpaid. The founder did not share capacity limits, contract terms, lead volume, or client results.",
+   "options": [
+    {
+     "id": "A",
+     "label": "Raise to $3,500 for everyone now"
+    },
+    {
+     "id": "B",
+     "label": "Raise to $3,500 for new clients only, keep current clients at $2,000"
+    },
+    {
+     "id": "C",
+     "label": "Keep the price at $2,000 for everyone"
+    }
+   ],
+   "assumptions": [
+    "The $2,000 and $3,500 prices are per client per month.",
+    "Current clients are not locked into contracts that block a price change.",
+    "The founder has capacity limits but did not state them.",
+    "The 50% close rate was measured at $2,000 and will likely drop at $3,500 by an unknown amount.",
+    "Lead flow is steady enough to replace clients who leave."
+   ],
+   "weights": {
+    "bezos": {
+     "weight": 2,
+     "reason": "Repricing existing clients is a trust call that is hard to reverse."
+    },
+    "graham": {
+     "weight": 1,
+     "reason": "Only touched if client results do or do not justify the new price."
+    },
+    "hormozi": {
+     "weight": 3,
+     "reason": "This is a pricing and offer decision at its core."
+    },
+    "garyvee": {
+     "weight": 1,
+     "reason": "How current clients feel affects referrals and reputation."
+    },
+    "martell": {
+     "weight": 2,
+     "reason": "Feeling underpaid ties to founder time, capacity, and burnout."
+    },
+    "wickman": {
+     "weight": 1,
+     "reason": "Fewer clients at higher prices changes delivery load at the edges."
+    },
+    "buffett": {
+     "weight": 2,
+     "reason": "Raising on everyone puts current monthly revenue at risk."
+    }
+   },
+   "seats": [
+    "bezos",
+    "graham",
+    "hormozi",
+    "garyvee",
+    "martell",
+    "wickman",
+    "buffett"
+   ],
+   "mode": "full"
+  },
+  {
+   "type": "phase",
+   "t": 17151,
+   "phase": "round1",
+   "label": "Round 1: opening positions"
+  },
+  {
+   "type": "round_start",
+   "t": 17151,
+   "round": 1
+  },
+  {
+   "type": "seat_start",
+   "t": 17152,
+   "round": 1,
+   "seat": "bezos"
+  },
+  {
+   "type": "seat_start",
+   "t": 17506,
+   "round": 1,
+   "seat": "graham"
+  },
+  {
+   "type": "seat_start",
+   "t": 17863,
+   "round": 1,
+   "seat": "hormozi"
+  },
+  {
+   "type": "seat_start",
+   "t": 18204,
+   "round": 1,
+   "seat": "garyvee"
+  },
+  {
+   "type": "seat_start",
+   "t": 18565,
+   "round": 1,
+   "seat": "martell"
+  },
+  {
+   "type": "seat_start",
+   "t": 18908,
+   "round": 1,
+   "seat": "wickman"
+  },
+  {
+   "type": "seat_start",
+   "t": 19252,
+   "round": 1,
+   "seat": "buffett"
+  },
+  {
+   "type": "seat_done",
+   "t": 29171,
+   "round": 1,
+   "seat": "hormozi",
+   "text": "SEAT: HORMOZI (Offers, pricing, and sales)\nSTANCE: Yes (on B)\nOPTION SCORES: A 4/10 · B 8/10 · C 2/10\nPILLAR SCORE: 8/10\nCONFIDENCE: 3/5\nRUIN RISK: none\nDOOR: two-way\n\nTHE CALL: Option B. Raise to $3,500 for new clients now, then move current clients on an announced date, after I see the new close rate.\n\nWHY:\n1. The math favors raising. At 50% close, each call is worth $1,000 ($2,000 x 0.5). At $3,500, the close rate can fall to about 29% and I still make the same per call. A 50 to 60% close rate means 1.5 to 2x headroom, and 1.75x sits inside it (Price raising rules, S021). The stop rule: \"I encourage everyone to continue to raise prices until your conversion rate times price equal less money\" (S015).\n2. Raising for everyone today is a bet on the wrong number. The 9 of 15 break-even assumes clients leave at random. I don't know their results, and the founder feeling underpaid is not data. \"If you do not have what's called revenue retention, you have nothing.\" (S107) A new-client test gets me the close-rate data before I touch the $30k I already collect.\n3. Option C leaves money on the table. Customers see value, not cost, and 50% close says there is headroom (Value Equation, S115).\n\nTHE RISK I SEE: Clients are at a $2,000 price on an offer that wasn't built for $3,500. If results aren't proven, closes fall below 29% and the raise fails. I'm assuming the price is per month and there are no contracts.\n\nWHAT WOULD CHANGE MY MIND: If the close rate at $3,500 is under 29% after about 20 calls, I'd drop to $3,000 and fix the offer. If current clients are on a 12-month term at $2,000, nothing changes for them until renewal.\n\nWHAT I'D DO THIS WEEK: Quote $3,500 on every new sales call.",
+   "parsed": {
+    "stance": "Yes (on B)",
+    "call": "Option B. Raise to $3,500 for new clients now, then move current clients on an announced date, after I see the new close rate.",
+    "optionScores": {
+     "A": 4,
+     "B": 8,
+     "C": 2
+    },
+    "pillar": 8,
+    "finalScore": null,
+    "confidence": 3,
+    "ruin": "none",
+    "door": "two-way",
+    "disagreeWith": null,
+    "disagreeLine": "",
+    "concede": "",
+    "moved": "",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "",
+    "risk": "Clients are at a $2,000 price on an offer that wasn't built for $3,500. If results aren't proven, closes fall below 29% and the raise fails. I'm assuming the price is per month and there are no contracts.",
+    "thisWeek": "Quote $3,500 on every new sales call."
+   },
+   "quotes": [
+    {
+     "quote": "I encourage everyone to continue to raise prices until your conversion rate times price equal less money",
+     "source": "S015",
+     "verified": true
+    },
+    {
+     "quote": "If you do not have what's called revenue retention, you have nothing.",
+     "source": "S107",
+     "verified": true
+    }
+   ],
+   "name": "Alex Hormozi"
+  },
+  {
+   "type": "seat_done",
+   "t": 29304,
+   "round": 1,
+   "seat": "graham",
+   "text": "SEAT: GRAHAM (Product and startups)\nSTANCE: Conditional yes (on B)\nOPTION SCORES: A 4/10 · B 8/10 · C 3/10\nPILLAR SCORE: 7/10\nCONFIDENCE: 3/5\nRUIN RISK: none\nDOOR: two-way\n\nTHE CALL: Option B: quote $3,500 to every new client starting now, leave the 15 at $2,000, and move them up later one at a time once the new price has proven itself.\n\nWHY:\n1. A price test is an experiment, and B is the only option that gives a clean read. Your 15 clients are your evidence that people want this. Raising everyone at once bets all of it on a guess. \"Launching teaches you what you should have been building.\" (S142) New-client quotes teach you the price in weeks without touching current revenue.\n2. The arithmetic favors testing. At a 50% close, each sales call is worth about $1,000 a month of new revenue ($2,000 x 0.5). At $3,500 you break even if closes fall to about 29%. You'd have to lose nearly half your closes to come out behind. For A, you break even at 9 of 15 staying. Why risk losing six clients for what a test would tell you cheaply?\n3. Feeling underpaid is not demand. I want the evidence: do clients get results, and would they be bummed to lose you? (S010, S098) If yes, price rises are easy. If clients are lukewarm, A will show you that the expensive way. I'm assuming you have results, but you didn't tell me.\n\nI'll also say plainly that a coaching business isn't a startup, and my growth-rate reflex fits it less well. This is a revenue-per-client question, not a growth question.\n\nTHE RISK I SEE: You raise for everyone, the clients who felt lucky at $2,000 feel squeezed, referrals dry up, and you find out 6 months later that word of mouth was your best channel.\n\nWHAT WOULD CHANGE MY MIND: Clients with documented results who say they'd happily pay $3,500, or a capacity cap that makes you need to cut headcount anyway. Then A or a staged A is fine.\n\nWHAT I'D DO THIS WEEK: Quote $3,500 on every sales call and log the close rate for the next 10 calls.\n\nQUESTION FOR THE FOUNDER: What have your 15 clients actually achieved, and how many would be upset if you stopped?",
+   "parsed": {
+    "stance": "Conditional yes (on B)",
+    "call": "Option B: quote $3,500 to every new client starting now, leave the 15 at $2,000, and move them up later one at a time once the new price has proven itself.",
+    "optionScores": {
+     "A": 4,
+     "B": 8,
+     "C": 3
+    },
+    "pillar": 7,
+    "finalScore": null,
+    "confidence": 3,
+    "ruin": "none",
+    "door": "two-way",
+    "disagreeWith": null,
+    "disagreeLine": "",
+    "concede": "",
+    "moved": "",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "What have your 15 clients actually achieved, and how many would be upset if you stopped?",
+    "risk": "You raise for everyone, the clients who felt lucky at $2,000 feel squeezed, referrals dry up, and you find out 6 months later that word of mouth was your best channel.",
+    "thisWeek": "Quote $3,500 on every sales call and log the close rate for the next 10 calls."
+   },
+   "quotes": [
+    {
+     "quote": "Launching teaches you what you should have been building.",
+     "source": "S142",
+     "verified": true
+    }
+   ],
+   "name": "Paul Graham"
+  },
+  {
+   "type": "seat_done",
+   "t": 29486,
+   "round": 1,
+   "seat": "bezos",
+   "text": "SEAT: BEZOS (Strategy and decisions)\nSTANCE: Yes (on B, with a variant)\nOPTION SCORES: A 3/10 · B 8/10 · C 4/10\nPILLAR SCORE: 8/10\nCONFIDENCE: 3/5\nRUIN RISK: none\nDOOR: two-way (B). Option A is a one-way door in disguise.\n\nTHE CALL: B. Raise to $3,500 for new clients now, and move current clients at renewal with 60 to 90 days' notice once the new price has proven itself.\n\nWHY:\n1. I sort the door first. \"Type 2 decisions can and should be made quickly by high judgment individuals or small groups.\" (S063) A new-client price is Type 2. If closes collapse, you walk it back. Repricing 15 existing clients looks reversible, but for a company this small a broken trust relationship is a fake two-way door (S063, S048).\n2. Decide at about 70 percent of the information (S064), and cheap tests beat debate. Assuming the 50% close rate holds at the old price, you break even per sales call at about 29% (50% × 2,000 / 3,500). Ten calls at $3,500 will tell you more than we can argue today.\n3. \"You earn trust slowly, over time, by doing hard things well\" (S041). The founder says they feel underpaid. That is a feeling, not a customer fact. Option A bets 15 relationships on it, and a cohort that can leave is exactly what the 9-of-15 break-even hides. I'd work backwards from what clients get, which we haven't seen.\n\nI concede C is safe, but it leaves money and a signal of value on the table. And my patience lens fits poorly here, because I don't know your runway.\n\nTHE RISK I SEE: Option A triggers 6 or more departures, revenue drops below $30k, and the referrals and reputation that feed lead flow go with them.\n\nWHAT WOULD CHANGE MY MIND: If client results are strong, contracts allow it, and ",
+   "parsed": {
+    "stance": "Yes (on B, with a variant)",
+    "call": "B. Raise to $3,500 for new clients now, and move current clients at renewal with 60 to 90 days' notice once the new price has proven itself.",
+    "optionScores": {
+     "A": 3,
+     "B": 8,
+     "C": 4
+    },
+    "pillar": 8,
+    "finalScore": null,
+    "confidence": 3,
+    "ruin": "none",
+    "door": "two-way",
+    "disagreeWith": null,
+    "disagreeLine": "",
+    "concede": "",
+    "moved": "",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "",
+    "risk": "Option A triggers 6 or more departures, revenue drops below $30k, and the referrals and reputation that feed lead flow go with them.",
+    "thisWeek": ""
+   },
+   "quotes": [
+    {
+     "quote": "Type 2 decisions can and should be made quickly by high judgment individuals or small groups.",
+     "source": "S063",
+     "verified": true
+    },
+    {
+     "quote": "You earn trust slowly, over time, by doing hard things well",
+     "source": "S041",
+     "verified": true
+    }
+   ],
+   "name": "Jeff Bezos"
+  },
+  {
+   "type": "seat_done",
+   "t": 30029,
+   "round": 1,
+   "seat": "garyvee",
+   "text": "SEAT: GARY V (Marketing and attention)\nSTANCE: Yes (on B)\nOPTION SCORES: A 3/10 · B 8/10 · C 4/10\nPILLAR SCORE: 8/10\nCONFIDENCE: 4/5\nRUIN RISK: none\nDOOR: two-way\n\nTHE CALL: Option B. Price new clients at $3,500 now, and give current clients a dated grandfather window instead of a surprise hike.\n\nWHY:\n1. Your 15 clients are your distribution. Coaching runs on word of mouth, and \"retention is the game lifetime value is the game and there's only one way to do it humans\" (Thank You Economy, S077, 2011). Raising all 15 at once to fix how you feel about your pay is the founder's emotion driving the decision. That is the wrong trade for a brand that lives on referrals (Brand beats sales, S076).\n2. Test the price on the market, not on your friends. \"I always tell people ask for a little bit more money on the next scope just as a testing mechanism because a lot of you have subjectively decided on your ceiling\" (S005, 2019). New calls are the cleanest test. My assumed math: $2,000 at 50% earns $1,000 per call. $3,500 beats that if it closes above about 29%. That is a low bar, and you learn the real number in two weeks.\n3. Option A needs 9 of 15 to stay just to break even, and every client who leaves is a lost referral source. Option C leaves money on the table while you have no data. \"The market is the market is the market is the market\" (S031, 2016).\n\nTHE RISK I SEE: The $3,500 close rate falls below about 29%, or the price gap leaves you with a roster of resentful $2,000 clients who feel like second-class citizens.\n\nWHAT WOULD CHANGE MY MIND: If 12 or more of your 15 clients have clear results and would say yes to $3,500, I would move toward A. If the new-client close rate holds above 35%, I would raise everyone sooner.\n\nWHAT I'D DO THIS WEEK: Quote $3,500 on every sales call for the next 14 days and log the closes. Post one client-result piece a day. Call each current client personally, thank them, and tell them their rate",
+   "parsed": {
+    "stance": "Yes (on B)",
+    "call": "Option B. Price new clients at $3,500 now, and give current clients a dated grandfather window instead of a surprise hike.",
+    "optionScores": {
+     "A": 3,
+     "B": 8,
+     "C": 4
+    },
+    "pillar": 8,
+    "finalScore": null,
+    "confidence": 4,
+    "ruin": "none",
+    "door": "two-way",
+    "disagreeWith": null,
+    "disagreeLine": "",
+    "concede": "",
+    "moved": "",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "",
+    "risk": "The $3,500 close rate falls below about 29%, or the price gap leaves you with a roster of resentful $2,000 clients who feel like second-class citizens.",
+    "thisWeek": "Quote $3,500 on every sales call for the next 14 days and log the closes. Post one client-result piece a day. Call each current client personally, thank them, and tell them their rate"
+   },
+   "quotes": [
+    {
+     "quote": "I always tell people ask for a little bit more money on the next scope just as a testing mechanism because a lot of you have subjectively decided on your ceiling",
+     "source": "S005",
+     "verified": true
+    },
+    {
+     "quote": "The market is the market is the market is the market",
+     "source": "S031",
+     "verified": true
+    }
+   ],
+   "name": "Gary Vaynerchuk"
+  },
+  {
+   "type": "seat_done",
+   "t": 30170,
+   "round": 1,
+   "seat": "wickman",
+   "text": "SEAT: WICKMAN (Operations and scaling)\nSTANCE: Yes (on a variant of B)\nOPTION SCORES: A 5/10 · B 8/10 · C 3/10\nPILLAR SCORE: 7/10\nCONFIDENCE: 3/5\nRUIN RISK: none\nDOOR: two-way\n\nTHE CALL: B. Raise to $3,500 for every new client this week, and move the 15 current clients up at their renewal date with 60 days' notice.\n\nWHY:\n1. Staying at $2,000 is fear, not strategy. \"Most companies are under charging for their product or service\" (S053). Option C scores lowest for that reason.\n2. The math backs B. At a 50% close rate, a call is worth $1,000 at $2,000. At $3,500 it is worth $1,000 as long as close rate stays above about 29% (my arithmetic, $2,000 / $3,500 x 50%). Hold above 29% and you win. The current $30k stays intact while you learn.\n3. Option A fails the stress test. \"Always have six months of cash/dry powder saved up and be prepared for a 30, 40, even 50 percent hit to your revenue\" (S098). If 5 of 15 stay, you fall to $17.5k, a 42% drop, and I don't know your cash. A feeling of being underpaid is not a Scorecard number (Scorecard, S077). Test the price on new clients first. Then raise the current ones with real data.\n\nTHE RISK I SEE: Delivery. With no stated capacity limit, I can't tell whether the founder can serve 15 clients well. If quality slips at $3,500, the close rate falls and referrals dry up.\n\nWHAT WOULD CHANGE MY MIND: Live cash of six months or more and a client base showing results, plus evidence that 9 ",
+   "parsed": {
+    "stance": "Yes (on a variant of B)",
+    "call": "B. Raise to $3,500 for every new client this week, and move the 15 current clients up at their renewal date with 60 days' notice.",
+    "optionScores": {
+     "A": 5,
+     "B": 8,
+     "C": 3
+    },
+    "pillar": 7,
+    "finalScore": null,
+    "confidence": 3,
+    "ruin": "none",
+    "door": "two-way",
+    "disagreeWith": null,
+    "disagreeLine": "",
+    "concede": "",
+    "moved": "",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "",
+    "risk": "Delivery. With no stated capacity limit, I can't tell whether the founder can serve 15 clients well. If quality slips at $3,500, the close rate falls and referrals dry up.",
+    "thisWeek": ""
+   },
+   "quotes": [
+    {
+     "quote": "Most companies are under charging for their product or service",
+     "source": "S053",
+     "verified": true
+    },
+    {
+     "quote": "Always have six months of cash/dry powder saved up and be prepared for a 30, 40, even 50 percent hit to your revenue",
+     "source": "S098",
+     "verified": true
+    }
+   ],
+   "name": "Gino Wickman"
+  },
+  {
+   "type": "seat_done",
+   "t": 30324,
+   "round": 1,
+   "seat": "buffett",
+   "text": "SEAT: BUFFETT (Money and capital)\nSTANCE: Yes (on B)\nOPTION SCORES: A 4/10 · B 8/10 · C 4/10\nPILLAR SCORE: 8/10\nCONFIDENCE: 3/5\nRUIN RISK: none\nDOOR: two-way\n\nTHE CALL: Option B. Charge $3,500 to every new client starting now, leave the 15 at $2,000, and revisit the current clients after you have real closes at the new price.\n\nWHY:\n1. The arithmetic. Today is $30,000 a month. Under A you break even at 9 of 15 staying, so you can lose 6 and tread water. Why risk $30,000 a month to find that out? Under B the base stays at $30,000 and every new close at $3,500 is added on top. Per sales call, 50% of $2,000 is $1,000 of expected first-month revenue, so a $3,500 price wins if the close rate stays above about 29%. I'm assuming monthly pricing and no contracts. \"The roads of business are riddled with potholes; a plan that requires dodging them all is a plan for disaster.\" (S063)\n2. Test pricing power before you bank it. Nobody knows yet whether the price holds. B tells you with new buyers, at no cost to the base. \"Charlie and I had one important insight: We saw that the business had untapped pricing power.\" (S064)\n3. Reputation. Surprising current clients mid-engagement is a trust cost. \"We can afford to lose money – even a lot of money. But we can't afford to lose reputation – even a shred of reputation.\" (S083) Feeling underpaid is not evidence that clients will pay.\n\nTHE RISK I SEE: The close rate falls below 29% at $3,500, and you swap volume for price without noticing because you never wrote down the number.\n\nWHAT WOULD CHANGE MY MIND: Capacity is full, or a waitlist exists, so lost clients refill within weeks. Then A, or a staged raise to $2,500 for current clients, is nearly free.\n\nWHAT I'D DO THIS WEEK: Quote $3,500 ",
+   "parsed": {
+    "stance": "Yes (on B)",
+    "call": "Option B. Charge $3,500 to every new client starting now, leave the 15 at $2,000, and revisit the current clients after you have real closes at the new price.",
+    "optionScores": {
+     "A": 4,
+     "B": 8,
+     "C": 4
+    },
+    "pillar": 8,
+    "finalScore": null,
+    "confidence": 3,
+    "ruin": "none",
+    "door": "two-way",
+    "disagreeWith": null,
+    "disagreeLine": "",
+    "concede": "",
+    "moved": "",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "",
+    "risk": "The close rate falls below 29% at $3,500, and you swap volume for price without noticing because you never wrote down the number.",
+    "thisWeek": "Quote $3,500"
+   },
+   "quotes": [
+    {
+     "quote": "The roads of business are riddled with potholes; a plan that requires dodging them all is a plan for disaster.",
+     "source": "S063",
+     "verified": true
+    },
+    {
+     "quote": "Charlie and I had one important insight: We saw that the business had untapped pricing power.",
+     "source": "S064",
+     "verified": true
+    },
+    {
+     "quote": "We can afford to lose money – even a lot of money. But we can't afford to lose reputation – even a shred of reputation.",
+     "source": "S083",
+     "verified": true
+    }
+   ],
+   "name": "Warren Buffett"
+  },
+  {
+   "type": "seat_done",
+   "t": 30332,
+   "round": 1,
+   "seat": "martell",
+   "text": "SEAT: MARTELL (People, hiring, and founder time)\nSTANCE: Conditional yes (B, with a dated step-up for current clients)\nOPTION SCORES: A 5/10 · B 8/10 · C 2/10\nPILLAR SCORE: 8/10\nCONFIDENCE: 3/5\nRUIN RISK: none\nDOOR: two-way\n\nTHE CALL: I'd go with B now, with a variant: new clients pay $3,500 starting this week, and the 15 current clients get 60 days' notice and move to $3,500 at their next cycle.\n\nWHY:\n1. Price is the first lever, and founders pull it too late. \"Most people do not charge enough for their software or their products in their business or services. Period. Full stop.\" (S056). Feeling underpaid is data, not a mood.\n2. This is a calendar decision. At $3,500, 9 clients match today's $30k. That frees 6 clients' worth of founder hours, about 40% of the load. Those hours only pay off if they have a job (Buyback Loop, Fill step, S108).\n3. Test before you tax. The 10-5-20 rule says keep raising until about 20% of prospects push back (S089). New-client calls give me that number in weeks without risking a base that already pays. My assumption: $2,000 per client per month. Break-even close rate at $3,500 is 2,000 x 50% / 3,500, about 29%. If you close above that, you win on revenue per call.\n\nTHE RISK I SEE: A flat jump from $2,000 to $3,500 on current clients, with no new value attached, sends the best ones out the door. Then I'm back to chasing replacements, and my capacity assumption, which the brief never gave me, decides whether I can.\n\nWHAT WOULD CHANGE MY MIND: If new-client closes at $3,500 fall below about 25% over 15 or more calls, I'd hold current",
+   "parsed": {
+    "stance": "Conditional yes (B, with a dated step-up for current clients)",
+    "call": "I'd go with B now, with a variant: new clients pay $3,500 starting this week, and the 15 current clients get 60 days' notice and move to $3,500 at their next cycle.",
+    "optionScores": {
+     "A": 5,
+     "B": 8,
+     "C": 2
+    },
+    "pillar": 8,
+    "finalScore": null,
+    "confidence": 3,
+    "ruin": "none",
+    "door": "two-way",
+    "disagreeWith": null,
+    "disagreeLine": "",
+    "concede": "",
+    "moved": "",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "",
+    "risk": "A flat jump from $2,000 to $3,500 on current clients, with no new value attached, sends the best ones out the door. Then I'm back to chasing replacements, and my capacity assumption, which the brief never gave me, decides whether I can.",
+    "thisWeek": ""
+   },
+   "quotes": [
+    {
+     "quote": "Most people do not charge enough for their software or their products in their business or services. Period. Full stop.",
+     "source": "S056",
+     "verified": true
+    }
+   ],
+   "name": "Dan Martell"
+  },
+  {
+   "type": "round_done",
+   "t": 30332,
+   "round": 1,
+   "scores": {
+    "A": {
+     "score": 4,
+     "math": "(2x3 + 1x4 + 3x4 + 1x3 + 2x5 + 1x5 + 2x4) / 12"
+    },
+    "B": {
+     "score": 8,
+     "math": "(2x8 + 1x8 + 3x8 + 1x8 + 2x8 + 1x8 + 2x8) / 12"
+    },
+    "C": {
+     "score": 3,
+     "math": "(2x4 + 1x3 + 3x2 + 1x4 + 2x2 + 1x3 + 2x4) / 12"
+    }
+   }
+  },
+  {
+   "type": "phase",
+   "t": 30332,
+   "phase": "cruxes",
+   "label": "The Chair is finding the fault lines"
+  },
+  {
+   "type": "cruxes",
+   "t": 45541,
+   "cruxes": [
+    {
+     "question": "Strongest unargued alternative: should all 15 current clients move to $3,500 now (Option A), given that 9 of 15 staying matches today's revenue and fewer clients frees founder hours?",
+     "sides": [
+      {
+       "position": "No. Test on new clients first, because current clients are the referral base and a trust break is hard to undo.",
+       "seats": [
+        "bezos",
+        "graham",
+        "garyvee",
+        "buffett",
+        "wickman"
+       ]
+      },
+      {
+       "position": "Must argue A at full strength: price is pulled too late, capacity is likely the real constraint, and a smaller roster at a higher price may be the better business.",
+       "seats": [
+        "martell",
+        "hormozi"
+       ]
+      }
+     ]
+    },
+    {
+     "question": "Do current clients get a fixed date to move to $3,500, or stay at $2,000 until the new-client data says otherwise?",
+     "sides": [
+      {
+       "position": "Set a dated step-up now, with 60 to 90 days' notice or at renewal.",
+       "seats": [
+        "bezos",
+        "hormozi",
+        "garyvee",
+        "martell",
+        "wickman"
+       ]
+      },
+      {
+       "position": "Leave them at $2,000 and revisit only after real closes at $3,500.",
+       "seats": [
+        "graham",
+        "buffett"
+       ]
+      }
+     ]
+    },
+    {
+     "question": "Is the founder's feeling of being underpaid evidence for raising, or only a feeling?",
+     "sides": [
+      {
+       "position": "It is data. Founders undercharge, and the feeling points at a real gap.",
+       "seats": [
+        "martell"
+       ]
+      },
+      {
+       "position": "It is a feeling. Client results and close rates are the evidence.",
+       "seats": [
+        "bezos",
+        "graham",
+        "hormozi",
+        "garyvee",
+        "wickman",
+        "buffett"
+       ]
+      }
+     ]
+    }
+   ],
+   "unanimous": true,
+   "note": "Every seat picks B at 8 out of 10, so the real fight is about your current 15: whether to give them a dated move to $3,500 or leave them alone until new-client closes prove the price. Nobody has yet made the full case for raising everyone now, so two seats will argue it next round.",
+   "pressure": {
+    "martell": "Argue Option A at full strength: show how freeing 6 clients' worth of founder hours at an unknown capacity limit could beat B, and answer Wickman's point that a drop to 5 of 15 clients cuts revenue 42% with unknown cash.",
+    "hormozi": "Argue Option A at full strength using your own 1.5 to 2x headroom rule, and answer Bezos's claim that repricing 15 existing clients is a one-way door for a business this small.",
+    "graham": "Answer Gary V's risk that leaving 15 clients at $2,000 with no date creates a resentful two-tier roster, and say when your later one-at-a-time raise actually happens.",
+    "buffett": "Answer the five seats that want a dated step-up: explain why an open-ended 'revisit later' does not leave $22,500 a month on the table indefinitely if closes at $3,500 hold above 29%."
+   }
+  },
+  {
+   "type": "phase",
+   "t": 45541,
+   "phase": "round2",
+   "label": "Round 2: the debate"
+  },
+  {
+   "type": "round_start",
+   "t": 45541,
+   "round": 2
+  },
+  {
+   "type": "seat_start",
+   "t": 45545,
+   "round": 2,
+   "seat": "bezos"
+  },
+  {
+   "type": "seat_start",
+   "t": 45902,
+   "round": 2,
+   "seat": "graham"
+  },
+  {
+   "type": "seat_start",
+   "t": 46245,
+   "round": 2,
+   "seat": "hormozi"
+  },
+  {
+   "type": "seat_start",
+   "t": 46603,
+   "round": 2,
+   "seat": "garyvee"
+  },
+  {
+   "type": "seat_start",
+   "t": 46944,
+   "round": 2,
+   "seat": "martell"
+  },
+  {
+   "type": "seat_start",
+   "t": 47306,
+   "round": 2,
+   "seat": "wickman"
+  },
+  {
+   "type": "seat_start",
+   "t": 47651,
+   "round": 2,
+   "seat": "buffett"
+  },
+  {
+   "type": "seat_done",
+   "t": 57448,
+   "round": 2,
+   "seat": "bezos",
+   "text": "SEAT: BEZOS\n\nI DISAGREE MOST WITH: Martell. Their argument: the feeling of being underpaid is data, and the founder should pull the price lever. My rebuttal: a feeling about the founder's pay is not a fact about the customer. I start with the customer and work backwards, and nobody has told us what clients get. The founder's feeling is a hypothesis, and the sales calls are how we test it. That is why this is a two-way door for new clients. Raising the 15 on a hunch is a fake two-way door.\n\nI CONCEDE: Martell's capacity point. If 9 clients at $3,500 replace 15, the smaller roster may be the better business. I'm also conceding that ten calls is a thin sample. It changes my plan: ask about capacity first, and if the founder is full or has a waitlist, a staged raise for current clients is nearly free.\n\nON THE CRUXES:\n1. Not A now. Capacity may favor it later, but the evidence comes first. I'll attack my own case here: B leaves two prices on one roster, and that gap has its own trust cost if it runs long.\n2. Set the date now. Graham and Buffett's open-ended hold is drift. Current clients get 60 to 90 days' notice, effective at renewal, and the step-up is conditional on the test result.\n3. A feeling is where the question starts. It is not the answer. Client results and the close rate are the evidence.\n\nSTANCE: Yes, on B with a dated step-up\nOPTION SCORES: A 3/10 · B 8/10 · C 3/10\nPILLAR SCORE: 8/10\nCONFIDENCE: 3/5\nRUIN RISK: none\nMOVED",
+   "parsed": {
+    "stance": "Yes, on B with a dated step-up",
+    "call": "",
+    "optionScores": {
+     "A": 3,
+     "B": 8,
+     "C": 3
+    },
+    "pillar": 8,
+    "finalScore": null,
+    "confidence": 3,
+    "ruin": "none",
+    "door": "",
+    "disagreeWith": "martell",
+    "disagreeLine": "Martell. Their argument: the feeling of being underpaid is data, and the founder should pull the price lever. My rebuttal: a feeling about the founder's pay is not a fact about the customer. I start with the customer and work backwards, and nobody has told us what clients get. The founder's feeling is a hypothesis, and the sales calls are how we test it. That is why this is a two-way door for new clients. Raising the 15 on a hunch is a fake two-way door.",
+    "concede": "Martell's capacity point. If 9 clients at $3,500 replace 15, the smaller roster may be the better business. I'm also conceding that ten calls is a thin sample. It changes my plan: ask about capacity first, and if the founder is full or has a waitlist, a staged raise for current clients is nearly free.",
+    "moved": "",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "",
+    "risk": "",
+    "thisWeek": ""
+   },
+   "quotes": [],
+   "name": "Jeff Bezos"
+  },
+  {
+   "type": "seat_done",
+   "t": 57594,
+   "round": 2,
+   "seat": "graham",
+   "text": "SEAT: GRAHAM\n\nI DISAGREE MOST WITH: Martell. He says feeling underpaid is data. It is data about the founder. I want data about users: who would be bummed if this went away (S010, S098). A feeling doesn't tell me whether a client would say yes to $3,500, and the 10 calls at the new price will.\n\nI CONCEDE: Gary V's two-tier roster risk, and the weakness in my \"revisit later\" with no date. An open-ended promise drifts, and the founder's resentment of the $2,000 clients grows with it. I now attach a trigger.\n\nON THE CRUXES:\n1. Don't do A yet. Capacity is the unknown that could change my mind. If the roster is full and a waitlist exists, a staged A is nearly free.\n2. Give current clients a date, but tie it to the test. The step-up happens after 15 logged calls at $3,500 or 30 days, whichever is later. Then move them one at a time, starting with the clients who have the best results. Talk to each personally and give 60 days' notice. Clients rarely compare prices, but referrals mean some will, so don't leave the gap open for months.\n3. It is a feeling. Close rate and client results are the evidence.\n\nSTANCE: Conditional yes (B, with a dated trigger for current clients)\nOPTION SCORES: A 4/10 · B 8/10 · C 3/10\nPILLAR SCORE: 7/10\nCONFIDENCE: 3/5\nRUIN RISK: none\nMOVED: yes, from \"move current clients later, no date\" to \"move them after 15 calls or 30 days, whichever is later,\" because Gary V is right that an undated gap breeds resentment and I had no answer to it.\n\nMY CONDITIONS FOR YES:\n1. The close rate at $3,500 stays above 29% after 15 logged calls.\n2. At least 12 of 15 clients can name a concrete result and would not quit at the step-up (check by asking them).\n3. Current clients have no contracts blocking a change, and the founder confirms capacity.",
+   "parsed": {
+    "stance": "Conditional yes (B, with a dated trigger for current clients)",
+    "call": "",
+    "optionScores": {
+     "A": 4,
+     "B": 8,
+     "C": 3
+    },
+    "pillar": 7,
+    "finalScore": null,
+    "confidence": 3,
+    "ruin": "none",
+    "door": "",
+    "disagreeWith": "martell",
+    "disagreeLine": "Martell. He says feeling underpaid is data. It is data about the founder. I want data about users: who would be bummed if this went away (S010, S098). A feeling doesn't tell me whether a client would say yes to $3,500, and the 10 calls at the new price will.",
+    "concede": "Gary V's two-tier roster risk, and the weakness in my \"revisit later\" with no date. An open-ended promise drifts, and the founder's resentment of the $2,000 clients grows with it. I now attach a trigger.",
+    "moved": "yes, from \"move current clients later, no date\" to \"move them after 15 calls or 30 days, whichever is later,\" because Gary V is right that an undated gap breeds resentment and I had no answer to it.",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "",
+    "risk": "",
+    "thisWeek": ""
+   },
+   "quotes": [],
+   "name": "Paul Graham"
+  },
+  {
+   "type": "seat_done",
+   "t": 58449,
+   "round": 2,
+   "seat": "hormozi",
+   "text": "SEAT: HORMOZI\nI DISAGREE MOST WITH: Bezos. His claim is that repricing 15 clients is a one-way door for a company this small. Raising is the reversible move. If 6 leave, I offer a win-back at $2,500 or a changed-terms tier, and I've lost nothing I can't rebuild. Trust breaks from surprises, not from prices. A dated notice isn't a surprise. And \"I never discount but I will change terms\" (S046). Leaving 15 people on the same package at 43% off forever is a permanent discount.\n\nI CONCEDE: Bezos and Graham are right that 9 of 15 assumes random departures, and I haven't seen client results. A strong case for A needs proof of results, so A only works with documented outcomes. That moves A up a notch, not to the top.\n\n",
+   "parsed": {
+    "stance": "",
+    "call": "",
+    "optionScores": {},
+    "pillar": null,
+    "finalScore": null,
+    "confidence": null,
+    "ruin": "",
+    "door": "",
+    "disagreeWith": "bezos",
+    "disagreeLine": "Bezos. His claim is that repricing 15 clients is a one-way door for a company this small. Raising is the reversible move. If 6 leave, I offer a win-back at $2,500 or a changed-terms tier, and I've lost nothing I can't rebuild. Trust breaks from surprises, not from prices. A dated notice isn't a surprise. And \"I never discount but I will change terms\" (S046). Leaving 15 people on the same package at 43% off forever is a permanent discount.",
+    "concede": "Bezos and Graham are right that 9 of 15 assumes random departures, and I haven't seen client results. A strong case for A needs proof of results, so A only works with documented outcomes. That moves A up a notch, not to the top.",
+    "moved": "",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "",
+    "risk": "",
+    "thisWeek": ""
+   },
+   "quotes": [
+    {
+     "quote": "I never discount but I will change terms",
+     "source": "S046",
+     "verified": true
+    }
+   ],
+   "name": "Alex Hormozi"
+  },
+  {
+   "type": "seat_done",
+   "t": 58580,
+   "round": 2,
+   "seat": "garyvee",
+   "text": "SEAT: GARY V\n\nI DISAGREE MOST WITH: Martell. Their argument: feeling underpaid is data, so move the 15 clients to $3,500 on a calendar. My rebuttal: the only data that counts is what the customer does. \"The market is the market is the market is the market\" (S031, 2016). A founder's feeling is a reason to run the test, not a result. Day Trading Attention starts with what people actually consume, and so far nobody has bought at $3,500. Also, cash is oxygen (S128, 2015). Don't spend the base on a hunch.\n\nI CONCEDE: Martell and Hormozi are right that capacity may be the real constraint, and that a two-tier roster can't last forever. If the founder is full and has a waitlist, losing six clients costs almost nothing and A gets much stronger. So the grandfather window needs a hard date. It can't be open-ended.\n\nON THE CRUXES:\n1. Not A yet. I'd argue A at full strength only if capacity is full. The founder hasn't said, so I won't bet 15 referral sources on it.\n2. Dated step-up. Call each client personally, thank them, and give 60 to 90 days' notice. Surprise is what breaks trust, not price.\n3. It's a feeling. I'm assuming results are strong, and nobody has shown me that.\n\nThe weakest part of my case: I'm assuming referrals drive lead flow, and the brief never says so. Also, 14 days may give only about 10 calls, which is a noisy sample. I'm betting on humans without having seen the humans.\n\nSTANCE: Yes on B, with a dated step-up for current clients\nOPTION SCORES: A 3/10 · B 8/10 · C 4/10\nPILLAR SCORE: 8/10\nCONFIDENCE: 3/5\nRUIN RISK: none\nMOVED: no\n\nMY CONDITIONS FOR YES:\n1. Close rate at $3,500 stays above about 29% across at least 15 calls. Above 35%, I'd raise everyone sooner.",
+   "parsed": {
+    "stance": "Yes on B, with a dated step-up for current clients",
+    "call": "",
+    "optionScores": {
+     "A": 3,
+     "B": 8,
+     "C": 4
+    },
+    "pillar": 8,
+    "finalScore": null,
+    "confidence": 3,
+    "ruin": "none",
+    "door": "",
+    "disagreeWith": "martell",
+    "disagreeLine": "Martell. Their argument: feeling underpaid is data, so move the 15 clients to $3,500 on a calendar. My rebuttal: the only data that counts is what the customer does. \"The market is the market is the market is the market\" (S031, 2016). A founder's feeling is a reason to run the test, not a result. Day Trading Attention starts with what people actually consume, and so far nobody has bought at $3,500. Also, cash is oxygen (S128, 2015). Don't spend the base on a hunch.",
+    "concede": "Martell and Hormozi are right that capacity may be the real constraint, and that a two-tier roster can't last forever. If the founder is full and has a waitlist, losing six clients costs almost nothing and A gets much stronger. So the grandfather window needs a hard date. It can't be open-ended.",
+    "moved": "no",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "",
+    "risk": "",
+    "thisWeek": ""
+   },
+   "quotes": [
+    {
+     "quote": "The market is the market is the market is the market",
+     "source": "S031",
+     "verified": true
+    }
+   ],
+   "name": "Gary Vaynerchuk"
+  },
+  {
+   "type": "seat_done",
+   "t": 58831,
+   "round": 2,
+   "seat": "wickman",
+   "text": "SEAT: WICKMAN\n\nI DISAGREE MOST WITH: Martell. Their argument: feeling underpaid is data. Rebuttal: a feeling is an issue to put on the Issues List and take through IDS, not a Scorecard number (S077). The root is the Vision component. Who is this business for, and what is it worth to them? Client results answer that, and the feeling doesn't. Martell is right that undercharging is a pattern (S053), but the pattern doesn't tell us the gap is $1,500.\n\nI CONCEDE: Martell and Buffett's point that capacity may be the real constraint, and that a full roster makes a staged A nearly free. That changes my plan. I wrote a 60-day notice at renewal before seeing any data, which is a commitment ahead of the numbers. I'd set the step-up date only after 15 calls at $3,500, and I'd put weekly capacity (active clients, founder hours) on the Scorecard now.\n\nON THE CRUXES:\n1. A at full strength: it wins only if the founder is full and has a waitlist. The brief shows neither, so no to A now.\n2. Dated step-up, but the founder picks the date after the 15 calls. Leaving current clients at $2,000 indefinitely is \"live with it,\" and that is the last resort (S067). It's a decision, not a default.\n3. It's a feeling. Client results, close rate, and capacity are the evidence. Whoever owns pricing gets one Rock for the next 90 days.\n\nSTANCE: Yes on B, with the step-up date set after 15 calls\nOPTION SCORES: A 4/10 · B 8/10 · C 3/10\nPILLAR SCORE: 7/10\nCONFIDENCE: 3/5\nRUIN RISK: none\nMOVED: no. Martell's capacity point sharpened my timing but not my call, because they gave no number for it either.\n\nMY CONDITIONS FOR YES:\n1. The close rate at $3,500 stays above 29% across the first 15 calls.\n2. Six months of cash on hand before any current client moves, so a 30 to 50 ",
+   "parsed": {
+    "stance": "Yes on B, with the step-up date set after 15 calls",
+    "call": "",
+    "optionScores": {
+     "A": 4,
+     "B": 8,
+     "C": 3
+    },
+    "pillar": 7,
+    "finalScore": null,
+    "confidence": 3,
+    "ruin": "none",
+    "door": "",
+    "disagreeWith": "martell",
+    "disagreeLine": "Martell. Their argument: feeling underpaid is data. Rebuttal: a feeling is an issue to put on the Issues List and take through IDS, not a Scorecard number (S077). The root is the Vision component. Who is this business for, and what is it worth to them? Client results answer that, and the feeling doesn't. Martell is right that undercharging is a pattern (S053), but the pattern doesn't tell us the gap is $1,500.",
+    "concede": "Martell and Buffett's point that capacity may be the real constraint, and that a full roster makes a staged A nearly free. That changes my plan. I wrote a 60-day notice at renewal before seeing any data, which is a commitment ahead of the numbers. I'd set the step-up date only after 15 calls at $3,500, and I'd put weekly capacity (active clients, founder hours) on the Scorecard now.",
+    "moved": "no. Martell's capacity point sharpened my timing but not my call, because they gave no number for it either.",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "",
+    "risk": "",
+    "thisWeek": ""
+   },
+   "quotes": [],
+   "name": "Gino Wickman"
+  },
+  {
+   "type": "seat_done",
+   "t": 59389,
+   "round": 2,
+   "seat": "martell",
+   "text": "SEAT: MARTELL\n\nI DISAGREE MOST WITH: Buffett. His argument is that A risks $30,000 a month to learn what a test would tell you free. My rebuttal is that B isn't free, because the cost lands on the calendar. If capacity is full, new $3,500 clients can't be served without dropping $2,000 ones, so B turns into A by accident. At 9 clients and $31.5k, I get 6 clients' worth of hours back, about 40% of the load. That's the Fill step (S108). Those hours go to sales and referrals, which refill the roster at the new price. Fifteen clients at $2,000 is a founder with no slack. \"If you can't afford it means you're not charging enough\" (S019).\n\nI CONCEDE: Wickman's point that 5 of 15 staying is a 42% drop with unknown cash. It stands. My Buyback Rate lens underweights runway. It changes my score on A, and it's why I won't flat-jump current clients without a dated notice and a cash check.\n\nON THE CRUXES:\n1. A at full strength is a bet that capacity is the real constraint. Without that fact I can't recommend it over B, but I'd argue it's the better business if it holds.\n2. Set the date: 60 days' notice, move at next cycle. Leaving clients at $2,000 indefinitely means paying a discount to the people least likely to leave.\n3. Feeling underpaid is a pointer, not proof. Founders undercharge (S056), but the close rate at $3,500 is the evidence.\n\nSTANCE: Conditional yes (B now, dated step-up for current clients)\nOPTION SCORES: A 5/10 · B 8/10 · C 2/10\nPILLAR SCORE: 8/10\nC",
+   "parsed": {
+    "stance": "Conditional yes (B now, dated step-up for current clients)",
+    "call": "",
+    "optionScores": {
+     "A": 5,
+     "B": 8,
+     "C": 2
+    },
+    "pillar": 8,
+    "finalScore": null,
+    "confidence": null,
+    "ruin": "",
+    "door": "",
+    "disagreeWith": "buffett",
+    "disagreeLine": "Buffett. His argument is that A risks $30,000 a month to learn what a test would tell you free. My rebuttal is that B isn't free, because the cost lands on the calendar. If capacity is full, new $3,500 clients can't be served without dropping $2,000 ones, so B turns into A by accident. At 9 clients and $31.5k, I get 6 clients' worth of hours back, about 40% of the load. That's the Fill step (S108). Those hours go to sales and referrals, which refill the roster at the new price. Fifteen clients at $2,000 is a founder with no slack. \"If you can't afford it means you're not charging enough\" (S019).",
+    "concede": "Wickman's point that 5 of 15 staying is a 42% drop with unknown cash. It stands. My Buyback Rate lens underweights runway. It changes my score on A, and it's why I won't flat-jump current clients without a dated notice and a cash check.",
+    "moved": "",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "",
+    "risk": "",
+    "thisWeek": ""
+   },
+   "quotes": [
+    {
+     "quote": "If you can't afford it means you're not charging enough",
+     "source": "S019",
+     "verified": true
+    }
+   ],
+   "name": "Dan Martell"
+  },
+  {
+   "type": "seat_done",
+   "t": 60619,
+   "round": 2,
+   "seat": "buffett",
+   "text": "SEAT: BUFFETT\n\nI DISAGREE MOST WITH: Martell. His argument: feeling underpaid is data, so move current clients to $3,500 on a date. I'd rather count dollars than feelings. A founder's feeling tells me nothing about whether a client gets more than $3,500 of value. The $22,500 is also a gross figure. It assumes all 15 stay. If 12 stay, the gain is $12,000, and at 9 it's zero. The cost of waiting is capped and known. The cost of losing the referral base is not. That is the asymmetry, and it is my translation of margin of safety (S065), not his words.\n\nI CONCEDE: The five step-up seats are right that \"revisit later\" is how a founder drifts. \"The biggest mistakes... are the mistakes of omission rather than commission\" (S028), and they never show on the books. So I'm changing my answer. I now want a written trigger set today, not an open-ended revisit. I still reject a fixed date for current clients before I see a single close at $3,500.\n\nON THE CRUXES:\n1.",
+   "parsed": {
+    "stance": "",
+    "call": "",
+    "optionScores": {},
+    "pillar": null,
+    "finalScore": null,
+    "confidence": null,
+    "ruin": "",
+    "door": "",
+    "disagreeWith": "martell",
+    "disagreeLine": "Martell. His argument: feeling underpaid is data, so move current clients to $3,500 on a date. I'd rather count dollars than feelings. A founder's feeling tells me nothing about whether a client gets more than $3,500 of value. The $22,500 is also a gross figure. It assumes all 15 stay. If 12 stay, the gain is $12,000, and at 9 it's zero. The cost of waiting is capped and known. The cost of losing the referral base is not. That is the asymmetry, and it is my translation of margin of safety (S065), not his words.",
+    "concede": "The five step-up seats are right that \"revisit later\" is how a founder drifts. \"The biggest mistakes... are the mistakes of omission rather than commission\" (S028), and they never show on the books. So I'm changing my answer. I now want a written trigger set today, not an open-ended revisit. I still reject a fixed date for current clients before I see a single close at $3,500.",
+    "moved": "",
+    "vote": "",
+    "amendment": "",
+    "oneLine": "",
+    "question": "",
+    "risk": "",
+    "thisWeek": ""
+   },
+   "quotes": [
+    {
+     "quote": "The biggest mistakes... are the mistakes of omission rather than commission",
+     "source": "S028",
+     "verified": false
+    }
+   ],
+   "name": "Warren Buffett"
+  },
+  {
+   "type": "round_done",
+   "t": 60619,
+   "round": 2,
+   "scores": {
+    "A": {
+     "score": 3.9,
+     "math": "(2x3 + 1x4 + 1x3 + 2x5 + 1x4) / 7"
+    },
+    "B": {
+     "score": 8,
+     "math": "(2x8 + 1x8 + 1x8 + 2x8 + 1x8) / 7"
+    },
+    "C": {
+     "score": 2.9,
+     "math": "(2x3 + 1x3 + 1x4 + 2x2 + 1x3) / 7"
+    }
+   }
+  },
+  {
+   "type": "phase",
+   "t": 60619,
+   "phase": "draft",
+   "label": "The Chair is drafting a resolution"
+  },
+  {
+   "type": "draft",
+   "t": 77196,
+   "draft": {
+    "option": "B",
+    "label": "GO",
+    "recommendation": "Raise to $3,500 for new clients starting now, and keep current clients at $2,000 only until a written trigger moves them up. The room is unanimous on B (8.0 weighted). Capacity is the one fact that could favor a staged raise for everyone, so confirm it first.",
+    "conditions": [
+     "Close rate at $3,500 stays above 29% across the first 15 logged sales calls. This is the break-even line Graham, Gary V, and Wickman all named. Above 35%, move current clients sooner (Gary V).",
+     "Current clients step up after 15 calls at $3,500 or 30 days, whichever is later (Graham's trigger). They get 60 days' personal notice, effective at their next billing cycle (Martell, Bezos, Gary V).",
+     "At least 12 of 15 current clients can name a concrete result and say they would stay at the step-up, checked by asking each one (Graham).",
+     "Six months of operating cash on hand before any current client is moved, so a 30 to 50% drop in clients does not threaten runway (Wickman).",
+     "Founder confirms in writing that no client contract blocks a price change, and states max client capacity and weekly hours (Graham, Wickman, Martell)."
+    ],
+    "next_steps": [
+     "Day 1: Write down max client capacity, current weekly coaching hours, and whether a waitlist exists. If the roster is full with a waitlist, flag it for review, since Martell, Bezos, and Gary V say a staged raise for everyone gets much stronger then.",
+     "Day 1: Review all 15 client agreements for terms that block a price change.",
+     "Day 1: Update the sales page and call script to $3,500 for every new prospect.",
+     "Day 2: Start a scorecard tracking calls, closes at $3,500, active clients, founder hours, and cash on hand, updated weekly (Wickman).",
+     "Days 1 to 14: Hold short check-in calls with each current client. Ask what result they got and what the coaching is worth to them. Do not announce the raise yet.",
+     "Day 30 or after call 15, whichever is later: Compare the close rate to 29%. If it clears, call each current client personally, starting with the strongest results, and give 60 days' notice.",
+     "Day 90: Every client on one price. No two-tier roster past this date."
+    ],
+    "cheapest_test": "Quote $3,500 on the next 15 sales calls with no other change to the offer, log each outcome, and compare the close rate to the 29% break-even line.",
+    "kill_criteria": "If the close rate at $3,500 is below 29% after 15 calls, return new-client pricing to $2,000, keep current clients where they are, and treat the raise as unproven until client results are documented. If 4 or more current clients say they would quit at the step-up, do not move current clients. Re-run the check in 90 days."
+   }
+  },
+  {
+   "type": "phase",
+   "t": 77196,
+   "phase": "round3",
+   "label": "Round 3: the vote"
+  },
+  {
+   "type": "round_start",
+   "t": 77196,
+   "round": 3
+  },
+  {
+   "type": "seat_start",
+   "t": 77202,
+   "round": 3,
+   "seat": "bezos"
+  },
+  {
+   "type": "seat_start",
+   "t": 77548,
+   "round": 3,
+   "seat": "graham"
+  },
+  {
+   "type": "seat_start",
+   "t": 77905,
+   "round": 3,
+   "seat": "hormozi"
+  },
+  {
+   "type": "seat_start",
+   "t": 78249,
+   "round": 3,
+   "seat": "garyvee"
+  },
+  {
+   "type": "seat_start",
+   "t": 78606,
+   "round": 3,
+   "seat": "martell"
+  },
+  {
+   "type": "seat_start",
+   "t": 78952,
+   "round": 3,
+   "seat": "wickman"
+  },
+  {
+   "type": "seat_start",
+   "t": 79299,
+   "round": 3,
+   "seat": "buffett"
+  },
+  {
+   "type": "seat_done",
+   "t": 83657,
+   "round": 3,
+   "seat": "bezos",
+   "text": "SEAT: BEZOS\nVOTE: Endorse with amendment\nOPTION SCORES: A 2/10 · B 8/10 · C 3/10\nFINAL SCORE: 8/10\nFINAL PILLAR SCORE: 8/10\nAMENDMENT OR DISSENT: Name one owner, the founder, and make Day 90 a decision date, not a drift date. If the cash or client-result conditions are unmet that day, the founder either sets one price for everyone (up or down) or writes down the new review date. Also, 15 calls is a thin sample, so log why each prospect said no, not just the count.\n\nONE LINE FOR THE FOUNDER: Feeling underpaid is where the question starts, not the answer. Start with what the customer gets, test the price on two-way doors, and don't raise your 15 clients on a hunch.",
+   "parsed": {
+    "stance": "",
+    "call": "",
+    "optionScores": {
+     "A": 2,
+     "B": 8,
+     "C": 3
+    },
+    "pillar": 8,
+    "finalScore": 8,
+    "confidence": null,
+    "ruin": "",
+    "door": "",
+    "disagreeWith": null,
+    "disagreeLine": "",
+    "concede": "",
+    "moved": "",
+    "vote": "amend",
+    "amendment": "Name one owner, the founder, and make Day 90 a decision date, not a drift date. If the cash or client-result conditions are unmet that day, the founder either sets one price for everyone (up or down) or writes down the new review date. Also, 15 calls is a thin sample, so log why each prospect said no, not just the count.",
+    "oneLine": "Feeling underpaid is where the question starts, not the answer. Start with what the customer gets, test the price on two-way doors, and don't raise your 15 clients on a hunch.",
+    "question": "",
+    "risk": "",
+    "thisWeek": ""
+   },
+   "quotes": [],
+   "name": "Jeff Bezos"
+  },
+  {
+   "type": "seat_done",
+   "t": 83670,
+   "round": 3,
+   "seat": "martell",
+   "text": "SEAT: MARTELL\nVOTE: Endorse with amendment\nOPTION SCORES: A 4/10 · B 8/10 · C 2/10\nFINAL SCORE: 8/10\nFINAL PILLAR SCORE: 8/10\nAMENDMENT OR DISSENT: Add a Fill plan: before anyone moves, name what the freed hours buy, such as sales calls and referral asks (Buyback Loop, S108), and put founder hours on the weekly scorecard. Also make day 90 a hard date even if call 15 slips, so \"until a trigger\" can't become \"forever.\"\n\nONE LINE FOR THE FOUNDER: Write this down: your oldest clients at $2,000 are a discount you're paying for with your own calendar, so set the date, give the notice, and spend the hours you get back on building.",
+   "parsed": {
+    "stance": "",
+    "call": "",
+    "optionScores": {
+     "A": 4,
+     "B": 8,
+     "C": 2
+    },
+    "pillar": 8,
+    "finalScore": 8,
+    "confidence": null,
+    "ruin": "",
+    "door": "",
+    "disagreeWith": null,
+    "disagreeLine": "",
+    "concede": "",
+    "moved": "",
+    "vote": "amend",
+    "amendment": "Add a Fill plan: before anyone moves, name what the freed hours buy, such as sales calls and referral asks (Buyback Loop, S108), and put founder hours on the weekly scorecard. Also make day 90 a hard date even if call 15 slips, so \"until a trigger\" can't become \"forever.\"",
+    "oneLine": "Write this down: your oldest clients at $2,000 are a discount you're paying for with your own calendar, so set the date, give the notice, and spend the hours you get back on building.",
+    "question": "",
+    "risk": "",
+    "thisWeek": ""
+   },
+   "quotes": [],
+   "name": "Dan Martell"
+  },
+  {
+   "type": "seat_done",
+   "t": 84410,
+   "round": 3,
+   "seat": "graham",
+   "text": "SEAT: GRAHAM\nVOTE: Endorse with amendment\nOPTION SCORES: A 3/10 · B 8/10 · C 3/10\nFINAL SCORE: 8/10\nFINAL PILLAR SCORE: 7/10\nAMENDMENT OR DISSENT: \"Whichever is later\" can drift if lead flow is thin and 15 calls take 90 days. Add a hard cap: at day 60, decide with the calls you have. Five closes in 15 clears 29%, and four doesn't.\n\nONE LINE FOR THE FOUNDER: Feeling underpaid is not evidence. Fifteen real calls at $3,500 and fifteen real conversations with clients are, so run them before you touch anyone's price.",
+   "parsed": {
+    "stance": "",
+    "call": "",
+    "optionScores": {
+     "A": 3,
+     "B": 8,
+     "C": 3
+    },
+    "pillar": 7,
+    "finalScore": 8,
+    "confidence": null,
+    "ruin": "",
+    "door": "",
+    "disagreeWith": null,
+    "disagreeLine": "",
+    "concede": "",
+    "moved": "",
+    "vote": "amend",
+    "amendment": "\"Whichever is later\" can drift if lead flow is thin and 15 calls take 90 days. Add a hard cap: at day 60, decide with the calls you have. Five closes in 15 clears 29%, and four doesn't.",
+    "oneLine": "Feeling underpaid is not evidence. Fifteen real calls at $3,500 and fifteen real conversations with clients are, so run them before you touch anyone's price.",
+    "question": "",
+    "risk": "",
+    "thisWeek": ""
+   },
+   "quotes": [],
+   "name": "Paul Graham"
+  },
+  {
+   "type": "seat_done",
+   "t": 84417,
+   "round": 3,
+   "seat": "garyvee",
+   "text": "SEAT: GARY V\nVOTE: Endorse with amendment\nOPTION SCORES: A 3/10 · B 8/10 · C 3/10\nFINAL SCORE: 8/10\nFINAL PILLAR SCORE: 8/10\nAMENDMENT OR DISSENT: Day 90 for one price can't hold if the 15 calls drag, because \"whichever is later\" plus 60 days' notice plus the billing cycle pushes past it. Set a hard calendar date now for the step-up, and if the founder doesn't hit 15 calls by day 30, the call volume is the problem, not the price.\n\nONE LINE FOR THE FOUNDER: Feeling underpaid is a reason to run the test, not the result. Let 15 real prospects say yes or no at $3,500, then call every current client yourself, say thank you, and give them time. Surprise breaks trust, not price.",
+   "parsed": {
+    "stance": "",
+    "call": "",
+    "optionScores": {
+     "A": 3,
+     "B": 8,
+     "C": 3
+    },
+    "pillar": 8,
+    "finalScore": 8,
+    "confidence": null,
+    "ruin": "",
+    "door": "",
+    "disagreeWith": null,
+    "disagreeLine": "",
+    "concede": "",
+    "moved": "",
+    "vote": "amend",
+    "amendment": "Day 90 for one price can't hold if the 15 calls drag, because \"whichever is later\" plus 60 days' notice plus the billing cycle pushes past it. Set a hard calendar date now for the step-up, and if the founder doesn't hit 15 calls by day 30, the call volume is the problem, not the price.",
+    "oneLine": "Feeling underpaid is a reason to run the test, not the result. Let 15 real prospects say yes or no at $3,500, then call every current client yourself, say thank you, and give them time. Surprise breaks trust, not price.",
+    "question": "",
+    "risk": "",
+    "thisWeek": ""
+   },
+   "quotes": [],
+   "name": "Gary Vaynerchuk"
+  },
+  {
+   "type": "seat_done",
+   "t": 84763,
+   "round": 3,
+   "seat": "wickman",
+   "text": "SEAT: WICKMAN\nVOTE: Endorse with amendment\nOPTION SCORES: A 3/10 · B 8/10 · C 3/10\nFINAL SCORE: 8/10\nFINAL PILLAR SCORE: 7/10\nAMENDMENT OR DISSENT: Name one owner and make pricing a single 90-day Rock, with the weekly numbers on the Scorecard (calls, closes at $3,500, active clients, founder hours, cash). Also fix the dates: a trigger at day 30 plus 60 days' notice lands at day 90 at the earliest, so \"everyone on one price by day 90\" can't hold. Make it \"one price within one billing cycle after the notice ends.\"\n\nONE LINE FOR THE FOUNDER: Feeling underpaid is an issue for your list, not a number. Let the call log and client results decide, then put a tidy bow on it with one owner and one date. Stay focused.",
+   "parsed": {
+    "stance": "",
+    "call": "",
+    "optionScores": {
+     "A": 3,
+     "B": 8,
+     "C": 3
+    },
+    "pillar": 7,
+    "finalScore": 8,
+    "confidence": null,
+    "ruin": "",
+    "door": "",
+    "disagreeWith": null,
+    "disagreeLine": "",
+    "concede": "",
+    "moved": "",
+    "vote": "amend",
+    "amendment": "Name one owner and make pricing a single 90-day Rock, with the weekly numbers on the Scorecard (calls, closes at $3,500, active clients, founder hours, cash). Also fix the dates: a trigger at day 30 plus 60 days' notice lands at day 90 at the earliest, so \"everyone on one price by day 90\" can't hold. Make it \"one price within one billing cycle after the notice ends.\"",
+    "oneLine": "Feeling underpaid is an issue for your list, not a number. Let the call log and client results decide, then put a tidy bow on it with one owner and one date. Stay focused.",
+    "question": "",
+    "risk": "",
+    "thisWeek": ""
+   },
+   "quotes": [],
+   "name": "Gino Wickman"
+  },
+  {
+   "type": "seat_done",
+   "t": 85505,
+   "round": 3,
+   "seat": "buffett",
+   "text": "SEAT: BUFFETT\nVOTE: Endorse with amendment\nOPTION SCORES: A 3/10 · B 8/10 · C 4/10\nFINAL SCORE: 8/10\nFINAL PILLAR SCORE: 8/10\nAMENDMENT OR DISSENT: Day 90 \"every client on one price\" must apply only if the triggers clear. Otherwise it contradicts your own kill criteria, and a calendar shouldn't force a move before the evidence is in.\n\nONE LINE FOR THE FOUNDER: Your downside on B is a few weeks of waiting, which is capped and known. On A it is the referral base, which isn't. Count the dollars, not the feeling of being underpaid, and don't take the 50% close rate at $2,000 as a promise about $3,500. Get 15 real calls first.",
+   "parsed": {
+    "stance": "",
+    "call": "",
+    "optionScores": {
+     "A": 3,
+     "B": 8,
+     "C": 4
+    },
+    "pillar": 8,
+    "finalScore": 8,
+    "confidence": null,
+    "ruin": "",
+    "door": "",
+    "disagreeWith": null,
+    "disagreeLine": "",
+    "concede": "",
+    "moved": "",
+    "vote": "amend",
+    "amendment": "Day 90 \"every client on one price\" must apply only if the triggers clear. Otherwise it contradicts your own kill criteria, and a calendar shouldn't force a move before the evidence is in.",
+    "oneLine": "Your downside on B is a few weeks of waiting, which is capped and known. On A it is the referral base, which isn't. Count the dollars, not the feeling of being underpaid, and don't take the 50% close rate at $2,000 as a promise about $3,500. Get 15 real calls first.",
+    "question": "",
+    "risk": "",
+    "thisWeek": ""
+   },
+   "quotes": [],
+   "name": "Warren Buffett"
+  },
+  {
+   "type": "seat_done",
+   "t": 86833,
+   "round": 3,
+   "seat": "hormozi",
+   "text": "SEAT: HORMOZI\nVOTE: Endorse with amendment\nOPTION SCORES: A 4/10 · B 8/10 · C 2/10\nFINAL SCORE: 8/10\nFINAL PILLAR SCORE: 8/10\nAMENDMENT OR DISSENT: Fifteen calls is about 4 to 5 closes at 29%, which is noise, so run 30 calls before the verdict (\"what presents as volatility is typically a symptom of low volume,\" S052). If it fails, don't snap back to $2,000, because that is a discount. Test $2,750 or change terms instead.\nONE LINE FOR THE FOUNDER: Revenue per sales call is the only number that matters. You make $1,000 a call today, and $3,500 has to beat that. \"The sweet spot isn't the most yes's, it's the most money\" (S021). Feeling underpaid isn't data, so let the calls decide.",
+   "parsed": {
+    "stance": "",
+    "call": "",
+    "optionScores": {
+     "A": 4,
+     "B": 8,
+     "C": 2
+    },
+    "pillar": 8,
+    "finalScore": 8,
+    "confidence": null,
+    "ruin": "",
+    "door": "",
+    "disagreeWith": null,
+    "disagreeLine": "",
+    "concede": "",
+    "moved": "",
+    "vote": "amend",
+    "amendment": "Fifteen calls is about 4 to 5 closes at 29%, which is noise, so run 30 calls before the verdict (\"what presents as volatility is typically a symptom of low volume,\" S052). If it fails, don't snap back to $2,000, because that is a discount. Test $2,750 or change terms instead.",
+    "oneLine": "Revenue per sales call is the only number that matters. You make $1,000 a call today, and $3,500 has to beat that. \"The sweet spot isn't the most yes's, it's the most money\" (S021). Feeling underpaid isn't data, so let the calls decide.",
+    "question": "",
+    "risk": "",
+    "thisWeek": ""
+   },
+   "quotes": [
+    {
+     "quote": "The sweet spot isn't the most yes's, it's the most money",
+     "source": "S021",
+     "verified": true
+    }
+   ],
+   "name": "Alex Hormozi"
+  },
+  {
+   "type": "round_done",
+   "t": 86834,
+   "round": 3,
+   "scores": {
+    "A": {
+     "score": 3.3,
+     "math": "(2x2 + 1x3 + 3x4 + 1x3 + 2x4 + 1x3 + 2x3) / 12"
+    },
+    "B": {
+     "score": 8,
+     "math": "(2x8 + 1x8 + 3x8 + 1x8 + 2x8 + 1x8 + 2x8) / 12"
+    },
+    "C": {
+     "score": 2.8,
+     "math": "(2x3 + 1x3 + 3x2 + 1x3 + 2x2 + 1x3 + 2x4) / 12"
+    }
+   }
+  },
+  {
+   "type": "phase",
+   "t": 86834,
+   "phase": "verdict",
+   "label": "The Chair is writing the verdict"
+  },
+  {
+   "type": "verdict",
+   "t": 132674,
+   "verdict": {
+    "label": "GO",
+    "call": "Go with Option B. Quote $3,500 to every new prospect starting today, keep current clients at $2,000 until the test clears, and set a hard decision date so the two-price roster cannot become permanent.",
+    "override_note": "",
+    "why": [
+     {
+      "point": "Feeling underpaid tells you about the founder, not the customer. Nobody has shown what clients get. Testing $3,500 on new prospects is a two-way door. Raising all 15 on a hunch only looks reversible.",
+      "seat": "bezos",
+      "framework": "Work backwards from the customer; one-way vs two-way doors"
+     },
+     {
+      "point": "The cost of waiting a few weeks is capped and known. The cost of losing the referral base is not. The $22,500 gain assumes all 15 stay. At 12 it is $12,000, and at 9 it is zero.",
+      "seat": "buffett",
+      "framework": "Margin of safety; count dollars, not feelings"
+     },
+     {
+      "point": "Revenue per sales call is the number to beat. Today a call is worth $1,000 (50% of $2,000). At $3,500, the close rate must stay above about 29% to win. Fifteen calls is noisy, so get more volume before the verdict.",
+      "seat": "hormozi",
+      "framework": "Revenue per call; volume reduces volatility"
+     },
+     {
+      "point": "Surprise breaks trust, not price. An undated gap breeds resentment and lets clients compare notes. Current clients need a personal call, thanks, and real notice tied to a trigger.",
+      "seat": "garyvee",
+      "framework": "Day Trading Attention; the market is the market"
+     },
+     {
+      "point": "Capacity is the unknown that could flip this to a raise for everyone. Put active clients, founder hours, and cash on a weekly scorecard now. Give pricing to one owner as a single 90-day Rock.",
+      "seat": "wickman",
+      "framework": "EOS Scorecard, Rocks, Issues List"
+     }
+    ],
+    "fights": [
+     {
+      "crux": "Should all 15 current clients move to $3,500 now (Option A)?",
+      "story": "Bezos, Graham, Gary V, Buffett, and Wickman said no and wanted to test on new clients first. Martell and Hormozi argued A at full strength because capacity is likely the real constraint. Hormozi conceded that A needs documented client results. Martell conceded Wickman's cash risk and would not jump current clients without notice and a cash check. Resolved for B. A stays open only if the founder is full and has a waitlist."
+     },
+     {
+      "crux": "Do current clients get a fixed date to move up, or stay at $2,000 until data says otherwise?",
+      "story": "Bezos, Hormozi, Gary V, Martell, and Wickman wanted a dated step-up. Graham and Buffett wanted to hold until real closes came in. Graham moved and added a trigger: 15 calls or 30 days, whichever is later. Buffett moved to a written trigger set today but still rejected a fixed date before any closes. Wickman moved the other way and wanted the date set after the calls. Resolved: the step-up is tied to the test, with a hard decision date so it cannot drift."
+     },
+     {
+      "crux": "Is feeling underpaid evidence for raising?",
+      "story": "Martell alone called it data. The other six called it a feeling and pointed to client results and the close rate as the evidence. By Round 2, Martell called it a pointer, not proof. Resolved unanimously: the feeling starts the question, and the calls answer it."
+     }
+    ],
+    "minority": {
+     "seat": "martell",
+     "quote": "If capacity is full, new $3,500 clients can't be served without dropping $2,000 ones, so B turns into A by accident.",
+     "would_have_to_be_true": "The founder is at full capacity with a waitlist and can show documented client results, so losing a few $2,000 clients costs almost nothing."
+    },
+    "amendments": [
+     {
+      "seat": "bezos",
+      "amendment": "Name the founder as sole owner, make the decision date a real decision (one price for everyone, up or down, or a written new review date), and log why each prospect said no.",
+      "adopted": true,
+      "reason": "No seat objected. Wickman made the same owner point. The reason log makes a thin sample more useful."
+     },
+     {
+      "seat": "graham",
+      "amendment": "Cap 'whichever is later' with a hard deadline: decide at day 60 with the calls you have.",
+      "adopted": true,
+      "reason": "Unanswered drift risk if lead flow is thin. Merged with Hormozi's volume target: verdict at 30 calls or day 60, whichever comes first."
+     },
+     {
+      "seat": "hormozi",
+      "amendment": "Run 30 calls before the verdict instead of 15. If $3,500 fails, test $2,750 or change terms instead of snapping back to $2,000.",
+      "adopted": true,
+      "reason": "No seat answered the noise argument or objected to the no-discount fallback. Day 60 caps the timeline, with 15 calls as the minimum to decide."
+     },
+     {
+      "seat": "garyvee",
+      "amendment": "Set a hard calendar date now for the step-up. If 15 calls are not done by day 30, treat call volume as the problem, not price.",
+      "adopted": true,
+      "reason": "Adopted as a hard decision date, not a forced move, to respect Buffett's objection. The volume diagnosis was unanswered."
+     },
+     {
+      "seat": "martell",
+      "amendment": "Write a Fill plan for the freed hours before anyone moves, track founder hours weekly, and make day 90 a hard date even if call 15 slips.",
+      "adopted": true,
+      "reason": "No seat objected to the Fill plan. The hard date is adopted as a decision date, consistent with Bezos and Buffett."
+     },
+     {
+      "seat": "wickman",
+      "amendment": "One owner, pricing as a single 90-day Rock with weekly scorecard numbers. Change 'one price by day 90' to 'one price within one billing cycle after the notice ends.'",
+      "adopted": true,
+      "reason": "The date math was correct. A day 30 trigger plus 60 days' notice cannot finish by day 90. No seat objected."
+     },
+     {
+      "seat": "buffett",
+      "amendment": "The 'every client on one price' deadline applies only if the triggers clear. A calendar should not force a move before the evidence is in.",
+      "adopted": true,
+      "reason": "It removes a contradiction with the kill criteria. It fits with the hard decision date: the date forces a decision, not a raise."
+     }
+    ],
+    "conditions": [
+     "The founder is the single owner of pricing, run as one 90-day Rock.",
+     "Verdict at 30 logged calls at $3,500 or day 60, whichever comes first, with at least 15 calls. Fewer than 15 by day 60 means call volume is the problem to fix first.",
+     "The close rate at $3,500 stays above 29%, which means revenue per call beats today's $1,000. Above 35%, move current clients sooner.",
+     "At least 12 of 15 current clients can name a concrete result and say they would stay at the step-up, checked by asking each one.",
+     "Six months of operating cash on hand before any current client moves.",
+     "The founder confirms in writing that no client contract blocks a price change, and states max client capacity and weekly coaching hours.",
+     "A written Fill plan says what the freed hours will buy (sales calls, referral asks) before any current client moves.",
+     "If the triggers clear, current clients get 60 days' personal notice, and everyone is on one price within one billing cycle after the notice ends."
+    ],
+    "next_steps": [
+     {
+      "when": "Day 1",
+      "action": "Write down max client capacity, weekly coaching hours, and whether a waitlist exists. If full with a waitlist, bring the staged raise for everyone back for review."
+     },
+     {
+      "when": "Day 1",
+      "action": "Review all 15 client agreements for terms that block a price change. Check cash on hand against six months of costs."
+     },
+     {
+      "when": "Day 1",
+      "action": "Update the sales page and call script to $3,500 for every new prospect, with no other change to the offer."
+     },
+     {
+      "when": "Day 2",
+      "action": "Start a weekly scorecard: calls, closes at $3,500, revenue per call, reasons for each no, active clients, founder hours, cash on hand."
+     },
+     {
+      "when": "Days 1 to 14",
+      "action": "Hold short check-ins with each current client. Ask what result they got and what the coaching is worth to them. Do not announce the raise."
+     },
+     {
+      "when": "Day 30",
+      "action": "If fewer than 15 calls are logged, work on lead volume before judging price."
+     },
+     {
+      "when": "30 calls or day 60, whichever comes first",
+      "action": "Compare the close rate to 29%. If it clears and the other conditions hold, write the Fill plan and call each current client personally, starting with the strongest results, to give 60 days' notice."
+     },
+     {
+      "when": "Day 60 hard decision date",
+      "action": "The founder decides in writing: move to one price, test $2,750 or new terms, or set a dated new review."
+     },
+     {
+      "when": "One billing cycle after notice ends",
+      "action": "Every client on one price."
+     }
+    ],
+    "cheapest_test": "Quote $3,500 on the next 30 sales calls, or as many as day 60 allows with a minimum of 15. Change nothing else, log each outcome and the reason for each no, and compare revenue per call to today's $1,000 (a close rate of about 29%).",
+    "kill_criteria": "If the close rate at $3,500 is below 29% at the verdict, do not return to $2,000. Test $2,750 (break-even about 36%) or change terms, and keep current clients where they are. If 4 or more current clients say they would quit at the step-up, or cash is under six months, do not move current clients and set a dated review in 90 days.",
+    "revisit": "Day 60 hard decision date, or sooner if the founder confirms a full roster with a waitlist, which would reopen a staged raise for all 15.",
+    "recommended": "B",
+    "scores": {
+     "A": {
+      "score": 3.3,
+      "math": "(2x2 + 1x3 + 3x4 + 1x3 + 2x4 + 1x3 + 2x3) / 12"
+     },
+     "B": {
+      "score": 8,
+      "math": "(2x8 + 1x8 + 3x8 + 1x8 + 2x8 + 1x8 + 2x8) / 12"
+     },
+     "C": {
+      "score": 2.8,
+      "math": "(2x3 + 1x3 + 3x2 + 1x3 + 2x2 + 1x3 + 2x4) / 12"
+     }
+    },
+    "spread": 0,
+    "confidence": 6,
+    "support": 8,
+    "votes": {
+     "amend": 7
+    },
+    "disclaimer": "Simulated advisors built from each person's public work. They are not the people and do not speak for them."
+   },
+   "seats": [
+    {
+     "key": "bezos",
+     "weight": 2,
+     "stance": "amend",
+     "optionScores": {
+      "A": 2,
+      "B": 8,
+      "C": 3
+     },
+     "pillar": 8,
+     "moved": "",
+     "oneLine": "Feeling underpaid is where the question starts, not the answer. Start with what the customer gets, test the price on two-way doors, and don't raise your 15 clients on a hunch."
+    },
+    {
+     "key": "graham",
+     "weight": 1,
+     "stance": "amend",
+     "optionScores": {
+      "A": 3,
+      "B": 8,
+      "C": 3
+     },
+     "pillar": 7,
+     "moved": "yes, from \"move current clients later, no date\" to \"move them after 15 calls or 30 days, whichever is later,\" because Gary V is right that an undated gap breeds resentment and I had no answer to it.",
+     "oneLine": "Feeling underpaid is not evidence. Fifteen real calls at $3,500 and fifteen real conversations with clients are, so run them before you touch anyone's price."
+    },
+    {
+     "key": "hormozi",
+     "weight": 3,
+     "stance": "amend",
+     "optionScores": {
+      "A": 4,
+      "B": 8,
+      "C": 2
+     },
+     "pillar": 8,
+     "moved": "",
+     "oneLine": "Revenue per sales call is the only number that matters. You make $1,000 a call today, and $3,500 has to beat that. \"The sweet spot isn't the most yes's, it's the most money\" (S021). Feeling underpaid isn't data, so let the calls decide."
+    },
+    {
+     "key": "garyvee",
+     "weight": 1,
+     "stance": "amend",
+     "optionScores": {
+      "A": 3,
+      "B": 8,
+      "C": 3
+     },
+     "pillar": 8,
+     "moved": "no",
+     "oneLine": "Feeling underpaid is a reason to run the test, not the result. Let 15 real prospects say yes or no at $3,500, then call every current client yourself, say thank you, and give them time. Surprise breaks trust, not price."
+    },
+    {
+     "key": "martell",
+     "weight": 2,
+     "stance": "amend",
+     "optionScores": {
+      "A": 4,
+      "B": 8,
+      "C": 2
+     },
+     "pillar": 8,
+     "moved": "",
+     "oneLine": "Write this down: your oldest clients at $2,000 are a discount you're paying for with your own calendar, so set the date, give the notice, and spend the hours you get back on building."
+    },
+    {
+     "key": "wickman",
+     "weight": 1,
+     "stance": "amend",
+     "optionScores": {
+      "A": 3,
+      "B": 8,
+      "C": 3
+     },
+     "pillar": 7,
+     "moved": "no. Martell's capacity point sharpened my timing but not my call, because they gave no number for it either.",
+     "oneLine": "Feeling underpaid is an issue for your list, not a number. Let the call log and client results decide, then put a tidy bow on it with one owner and one date. Stay focused."
+    },
+    {
+     "key": "buffett",
+     "weight": 2,
+     "stance": "amend",
+     "optionScores": {
+      "A": 3,
+      "B": 8,
+      "C": 4
+     },
+     "pillar": 8,
+     "moved": "",
+     "oneLine": "Your downside on B is a few weeks of waiting, which is capped and known. On A it is the referral base, which isn't. Count the dollars, not the feeling of being underpaid, and don't take the 50% close rate at $2,000 as a promise about $3,500. Get 15 real calls first."
+    }
+   ]
+  },
+  {
+   "type": "usage",
+   "t": 132674,
+   "usage": {
+    "input": 90705,
+    "output": 33717,
+    "cacheRead": 282042,
+    "cacheWrite": 141021,
+    "calls": 25
+   }
+  }
+ ]
+}
