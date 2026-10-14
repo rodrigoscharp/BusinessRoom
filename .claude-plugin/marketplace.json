@@ -1,0 +1,14 @@
+{
+  "name": "business-room",
+  "description": "BusinessRoom: a founders' table for startup decisions, as a Claude Code plugin.",
+  "owner": {
+    "name": "Rodrigo Scharp"
+  },
+  "plugins": [
+    {
+      "name": "business-room",
+      "source": "./",
+      "description": "A table of simulated founders debates your startup decision live in a local room, then hands you a scored verdict and a PDF."
+    }
+  ]
+}

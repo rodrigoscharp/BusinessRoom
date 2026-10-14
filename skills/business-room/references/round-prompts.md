@@ -2,9 +2,9 @@
 
 Paste these into each seat's Agent call. Replace the bracketed parts. Seats read the brief and earlier rounds from the session folder, so the cards stay verbatim without being pasted into every prompt.
 
-Agent type: `council-<seat>`. If that type is not registered in this session (agent files load at session start), spawn `general-purpose` and put these lines first: `Read .claude/agents/council-<seat>.md and follow it as your instructions for this whole task. Only read files; do not write anything.`
+Agent type: `business-room:council-<seat>` (or `council-<seat>` in a dev checkout). If neither type is registered in this session (agent files load at session start), spawn `general-purpose` and put these lines first: `Read <plugin root>/agents/council-<seat>.md and follow it as your instructions for this whole task. Only read files; do not write anything.`
 
-Paths in prompts are relative to the repo root; give the absolute repo root once at the top of each prompt.
+Give the absolute plugin root once at the top of each prompt; seats find their brain under it. Give the session folder as an absolute path too: it lives in the user's `SESSIONS_DIR`, outside the plugin.
 
 **Options.** When the brief lists options (A, B, C, including "don't do it"), every card scores every option. When it is a single yes or no decision, the options are "do it as proposed" and "don't".
 
@@ -17,7 +17,7 @@ Paths in prompts are relative to the repo root; give the absolute repo root once
 ```
 ROAST ROOM COUNCIL, ROUND 1 OF 3: OPENING POSITION
 
-Repo root: [absolute path]. You hold the [SEAT] seat ([pillar]). Read your brain's _hot.md, then at most three more brain files that fit this decision (frameworks.md and positions.md are usually the right ones).
+Plugin root: [absolute path]. You hold the [SEAT] seat ([pillar]). Read your brain's _hot.md, then at most three more brain files that fit this decision (frameworks.md and positions.md are usually the right ones).
 
 Read the brief: [session folder]/brief.md
 
@@ -53,7 +53,7 @@ Rules: argue from your pillar first. Use real numbers when the brief has them, a
 ```
 ROAST ROOM COUNCIL, ROUND 2 OF 3: DEBATE
 
-Repo root: [absolute path]. You hold the [SEAT] seat. Read your brain's _hot.md again and any brain file you need to answer the others (at most three).
+Plugin root: [absolute path]. You hold the [SEAT] seat. Read your brain's _hot.md again and any brain file you need to answer the others (at most three).
 
 Read: [session folder]/brief.md and [session folder]/round-1.md (every seat's card and the Chair's cruxes).
 
@@ -85,7 +85,7 @@ Rules: engage the actual arguments on the table. Move only for a better argument
 ```
 ROAST ROOM COUNCIL, ROUND 3 OF 3: VOTE ON THE DRAFT RESOLUTION
 
-Repo root: [absolute path]. You hold the [SEAT] seat. You already argued this in two rounds; read only your _hot.md if you need it.
+Plugin root: [absolute path]. You hold the [SEAT] seat. You already argued this in two rounds; read only your _hot.md if you need it.
 
 Read: [session folder]/brief.md, your own section of [session folder]/round-2.md, and [session folder]/draft-resolution.md.
 
@@ -107,7 +107,7 @@ ONE LINE FOR THE FOUNDER: the thing from your pillar they must not forget.
 ```
 ROAST ROOM COUNCIL, SINGLE-SEAT CONSULT
 
-Repo root: [absolute path]. You hold the [SEAT] seat. Read your brain's _hot.md, then at most four more brain files that fit the question.
+Plugin root: [absolute path]. You hold the [SEAT] seat. Read your brain's _hot.md, then at most four more brain files that fit the question.
 
 THE QUESTION
 [question, plus any context]

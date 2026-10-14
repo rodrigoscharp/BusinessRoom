@@ -3,7 +3,7 @@ import path from "node:path";
 import { SEATS, byKey, systemFor, parseCard, checkQuotes } from "./seats.mjs";
 import * as ai from "./anthropic.mjs";
 import { S } from "./anthropic.mjs";
-import { SESSIONS_DIR } from "./env.mjs";
+import { SESSIONS_DIR, sessionFolders } from "./env.mjs";
 
 export const MODELS = {
   seat: process.env.SEAT_MODEL || "claude-sonnet-5-5",
@@ -466,9 +466,8 @@ function verdictMarkdown(st) {
 }
 
 export function listSaved() {
-  if (!fs.existsSync(SESSIONS_DIR)) return [];
-  return fs.readdirSync(SESSIONS_DIR)
-    .map((d) => path.join(SESSIONS_DIR, d, "events.json"))
+  return [...sessionFolders().values()]
+    .map((d) => path.join(d, "events.json"))
     .filter((p) => fs.existsSync(p))
     .map((p) => { const j = JSON.parse(fs.readFileSync(p, "utf8")); return { id: j.id, title: j.title || j.prompt.slice(0, 60), prompt: j.prompt, mode: j.mode, status: j.status, file: p }; })
     .sort((a, b) => (a.id < b.id ? 1 : -1));

@@ -1,15 +1,15 @@
-// Viewer mode: /roast-room runs in Claude Code and writes its session folder as it
+// Viewer mode: /business-room runs in Claude Code and writes its session folder as it
 // goes. This watches the sessions folder and turns those files into the same events the
 // API runner emits, so the room plays a Claude Code council live without calling any API.
 //
-// Files the Chair writes, in order (spec: .claude/skills/roast-room/references/live-room.md):
+// Files the Chair writes, in order (spec: skills/business-room/references/live-room.md):
 //   council.json  -> setup        round-1.md -> Round 1 cards   cruxes.json -> fault lines
 //   round-2.md    -> debate cards  draft.json -> proposal       round-3.md  -> votes
 //   verdict.json  -> the verdict
 import fs from "node:fs";
 import path from "node:path";
 import { SEATS, byKey, parseCard, checkQuotes } from "./seats.mjs";
-import { SESSIONS_DIR } from "./env.mjs";
+import { sessionFolders } from "./env.mjs";
 import { optionScores, finalNumbers, verdictSeats, DISCLAIMER } from "./council.mjs";
 
 const live = new Map(); // folder name -> session
@@ -182,8 +182,8 @@ function lastTouched(dir) {
 }
 
 function load(name) {
-  const dir = path.join(SESSIONS_DIR, name);
   let x = live.get(name);
+  const dir = x?.dir || sessionFolders().get(name);
   if (!x) {
     x = { id: name, dir, events: [], subs: new Set(), status: "running", started: Date.now(), step: "setup", title: "", mode: "full",
       st: { cards: { 1: {}, 2: {}, 3: {} }, scores: {}, rounds: [] } };
@@ -198,8 +198,7 @@ function load(name) {
 
 /** Folders written by the skill (council.json, no events.json from the API runner). */
 function skillFolders() {
-  if (!fs.existsSync(SESSIONS_DIR)) return [];
-  return fs.readdirSync(SESSIONS_DIR).filter((d) => fs.existsSync(path.join(SESSIONS_DIR, d, "council.json")) && !fs.existsSync(path.join(SESSIONS_DIR, d, "events.json")));
+  return [...sessionFolders()].filter(([, d]) => fs.existsSync(path.join(d, "council.json")) && !fs.existsSync(path.join(d, "events.json"))).map(([name]) => name);
 }
 
 export function scan() {

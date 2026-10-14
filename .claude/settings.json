@@ -1,9 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Edit(/sessions/**)",
-      "Bash(python .claude/skills/roast-room/scripts/check_quotes.py:*)",
-      "Bash(python3 .claude/skills/roast-room/scripts/check_quotes.py:*)"
+      "Bash(python3 skills/business-room/scripts/check_quotes.py:*)",
+      "Bash(node app/scripts/open-room.mjs:*)"
     ]
   }
 }

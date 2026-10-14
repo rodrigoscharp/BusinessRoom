@@ -1,21 +1,36 @@
 ---
-name: roast-room
-description: Use when a founder wants a hard business decision debated by a council of world-class operators, says "roast room", "put this in the Roast Room", "founder council", "convene the council", "take this to the board", "what would Hormozi, Bezos, or Buffett say", "should I do X", or can't make up their mind on pricing, hiring, raising money, a new product, a partnership, a pivot, an event, or spending. Seven sub-agents, each built from one expert's public work (Bezos, Paul Graham, Hormozi, Gary Vaynerchuk, Dan Martell, Gino Wickman, Buffett), argue it over three rounds, then a Chair returns a scored verdict, the reasoning, the dissent, and next steps. Also does a one-seat consult ("ask the Hormozi seat"). Not /roast (generic personas, idea validation).
-argument-hint: "[the decision] [--quick] [--seats hormozi,buffett,...] | ask <seat> [question]"
+name: business-room
+description: Use when a founder wants a hard business decision debated by a council of world-class operators, says "business room", "open the business room", "put this in the BusinessRoom", "founder council", "convene the council", "take this to the board", "what would Hormozi, Bezos, or Buffett say", "should I do X", or can't make up their mind on pricing, hiring, raising money, a new product, a partnership, a pivot, an event, or spending. Seven sub-agents, each built from one expert's public work (Bezos, Paul Graham, Hormozi, Gary Vaynerchuk, Dan Martell, Gino Wickman, Buffett), argue it over three rounds, then a Chair returns a scored verdict, the reasoning, the dissent, and next steps. Also does a one-seat consult ("ask the Hormozi seat"). Not /roast (generic personas, idea validation).
+argument-hint: "[the decision] [--quick] [--seats hormozi,buffett,...] | ask <seat> [question] | open"
 ---
 
 ## What this does
 
-The Roast Room: runs a board meeting on one decision. Seven seats, one per business pillar, each a sub-agent that reasons and talks the way its expert does, grounded in a brain compiled from that person's videos, essays, letters, talks, and books as they teach them in public. The seats argue across three rounds: open, debate, vote. You act as the **Chair**: you never argue a side, you run the room, keep the score, and write the verdict.
+BusinessRoom runs a board meeting on one decision. Seven seats, one per business pillar, each a sub-agent that reasons and talks the way its expert does, grounded in a brain compiled from that person's videos, essays, letters, talks, and books as they teach them in public. The seats argue across three rounds: open, debate, vote. You act as the **Chair**: you never argue a side, you run the room, keep the score, and write the verdict.
 
-Read once before the first run: `references/seats.md` (roster, weights, tensions), `references/round-prompts.md` (what each seat gets), `references/scoring.md` (math and overrides), `references/report-template.md` (output), `references/live-room.md` (the small JSON files the visual room plays). A finished example council lives in `sessions/2026-10-09-example-take-the-seed/`.
+Read once before the first run: `references/seats.md` (roster, weights, tensions), `references/round-prompts.md` (what each seat gets), `references/scoring.md` (math and overrides), `references/report-template.md` (output), `references/live-room.md` (the small JSON files the visual room plays). A finished example council lives in `<plugin root>/sessions/2026-10-09-example-take-the-seed/`.
+
+**Paths.** This skill ships inside the `business-room` plugin. The skill folder is the base directory Claude Code gave you when it loaded this skill; the **plugin root** is two folders above it (it holds `app/`, `agents/`, and `skills/`). Use absolute paths built from these two everywhere below.
 
 ## Modes
 
 - **Full council** (default): all seven seats, three rounds. For decisions that are expensive or hard to undo.
 - **Quick** (`--quick`): four seats chosen per `seats.md`, Rounds 1 and 2, Round 3 only if the scores did not converge. For reversible calls.
 - **Named seats** (`--seats a,b,c`): only those seats, three rounds.
-- **Consult** (`ask <seat> ...`): one seat, one answer, using the single-seat prompt. No scoring, no session folder needed.
+- **Consult** (`ask <seat> ...`): one seat, one answer, using the single-seat prompt. No scoring, no session folder needed, and no need to open the room.
+- **Open** (`open`, or no arguments): run Step 0 only, then tell the user the room is open and ask them for the decision.
+
+## Step 0: Open the room
+
+For every mode except Consult, run this first, in the foreground:
+
+```bash
+node "<plugin root>/app/scripts/open-room.mjs"
+```
+
+It starts the room if it is not running and opens it in the default browser. It prints `ROOM_URL`, `SESSIONS_DIR`, and `STATUS` lines. Keep `SESSIONS_DIR`: every council folder goes there. Tell the user in one line that the room is open at `ROOM_URL`.
+
+If the script fails, say why in one line (it needs Node 20 or newer; a busy port is fixed by setting `BUSINESS_ROOM_PORT`) and carry on: the council runs the same without the room.
 
 ## Step 1: The brief
 
@@ -34,12 +49,12 @@ Keep the brief under 300 words. Mark every assumption as `(assumed)`.
 ## Step 2: Set up the room
 
 - Set a relevance weight per seat (1 to 3) with a one-line reason, per `seats.md`.
-- Create the session folder: `sessions/YYYY-MM-DD-<decision-slug>/` at the project root. Save `brief.md` (the brief, the options, and the weights table) and `council.json` (`live-room.md`).
-- Tell the user once: "Watch it live at http://localhost:4730" (the Roast Room plays the council as these files land; it is optional and the council runs the same without it).
+- Create the session folder: `<SESSIONS_DIR>/YYYY-MM-DD-<decision-slug>/`, using the `SESSIONS_DIR` from Step 0 (default `~/.business-room/sessions`). Save `brief.md` (the brief, the options, and the weights table) and `council.json` (`live-room.md`).
+- The room plays the council as these files land. If Step 0 could not open it, the council runs the same without it.
 
 ## Step 3: Round 1, opening positions
 
-Spawn every seat in **one message**, in parallel, foreground (`run_in_background: false`), `subagent_type: council-<seat>`, with the Round 1 prompt. If a `council-*` type is not registered in this session, use `general-purpose` with the fallback lines from `round-prompts.md`.
+Spawn every seat in **one message**, in parallel, foreground (`run_in_background: false`), `subagent_type: business-room:council-<seat>`, with the Round 1 prompt. If that type is not registered in this session, try `council-<seat>` (a dev checkout that loads the agents without the plugin namespace); if neither is registered, use `general-purpose` with the fallback lines from `round-prompts.md`.
 
 When the cards come back, save them verbatim to `round-1.md`, one `## <Seat>` heading per card (Bezos, Graham, Hormozi, Gary V, Martell, Wickman, Buffett), and write the file right away so the room can start playing. Check each card has every field; send a card back once if it is missing scores or a stance. Then add a `## Chair notes` section at the bottom of `round-1.md`:
 
@@ -65,9 +80,9 @@ Quick mode skips this round when the Round 2 spread on the top option is 3 or le
 
 ## Step 7: Verify, then verdict
 
-1. Run `python .claude/skills/roast-room/scripts/check_quotes.py <session folder>` (try `python3` if `python` is missing). Every quote attributed to a source id must be in a brain. Remove any unverified quote from the verdict (and say so in the Chair notes). If Python is not installed, do not stop or ask the user to install it: check each attributed quote yourself by searching that seat's brain folder for the exact words, and treat any you cannot find as unverified.
+1. Run `python3 "<skill folder>/scripts/check_quotes.py" "<session folder>"` (try `python` if `python3` is missing). Every quote attributed to a source id must be in a brain. Remove any unverified quote from the verdict (and say so in the Chair notes). If Python is not installed, do not stop or ask the user to install it: check each attributed quote yourself by searching that seat's brain folder for the exact words, and treat any you cannot find as unverified.
 2. Compute the numbers from the last round's cards per `scoring.md`, apply the overrides, and write `verdict.md` from `report-template.md`. Write `verdict.json` last (`live-room.md`); it tells the room the council is over.
-3. Show the user a short verdict in chat, not the full report: the label and the call, the option scores on one line, the three arguments that carried the room (one line each, with the seat), the strongest objection (one line, with the seat), and the next steps (at most three). Then the path to `verdict.md` for the full detail, one line saying the branded PDF is one click away ("Download PDF" on the verdict at http://localhost:4730), and one line offering a follow-up with any seat or a rerun with new facts. Keep it under 200 words: a founder should be able to decide from it at a glance.
+3. Show the user a short verdict in chat, not the full report: the label and the call, the option scores on one line, the three arguments that carried the room (one line each, with the seat), the strongest objection (one line, with the seat), and the next steps (at most three). Then the path to `verdict.md` for the full detail, one line saying the branded PDF is one click away ("Download PDF" on the verdict in the room, at the `ROOM_URL` from Step 0), and one line offering a follow-up with any seat or a rerun with new facts. Keep it under 200 words: a founder should be able to decide from it at a glance.
 
 ## Chair rules
 
@@ -80,11 +95,12 @@ Quick mode skips this round when the Round 2 spread on the top option is 3 or le
 
 ## Without sub-agents (Codex or a runtime that cannot spawn agents)
 
-Run the same protocol sequentially yourself. For each seat, read `.claude/agents/council-<seat>.md` and its brain, write that seat's card, then clear your head before the next seat: do not let one seat's card shape the next one's in Round 1. Rounds 2 and 3 work the same way with the prior cards in view.
+Run the same protocol sequentially yourself. For each seat, read `<plugin root>/agents/council-<seat>.md` and its brain, write that seat's card, then clear your head before the next seat: do not let one seat's card shape the next one's in Round 1. Rounds 2 and 3 work the same way with the prior cards in view.
 
 ## Files
 
 - `brains/<slug>/`: one brain per seat (`_hot.md`, `frameworks.md`, `principles.md`, `positions.md`, `voice.md`, `stories.md`, `books.md`, `sources.md`).
 - `scripts/check_quotes.py`: verifies every attributed quote in a session against the brains.
-- Agents: `.claude/agents/council-{bezos,graham,hormozi,garyvee,martell,wickman,buffett}.md`.
+- Agents: `<plugin root>/agents/council-{bezos,graham,hormozi,garyvee,martell,wickman,buffett}.md`.
+- The room app: `<plugin root>/app/`. `app/scripts/open-room.mjs` starts and opens it; `--stop` stops it.
 - The room app: `app/` (start at the project `README.md`).

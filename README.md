@@ -1,42 +1,58 @@
-# Roast Room
+# BusinessRoom
 
-![The Roast Room](docs/room.jpg)
+![The room](docs/room.jpg)
 
-Bring a hard business decision and seven AI advisors argue it out, then hand you a scored verdict and a one-click PDF. The seats are Jeff Bezos, Paul Graham, Alex Hormozi, Gary Vaynerchuk, Dan Martell, Gino Wickman, and Warren Buffett, each built from that person's public work: their letters, essays, talks, and videos. The council runs in Claude Code, and a small local web app shows them around a table talking it through.
+Bring a hard startup decision to a table of simulated founders. They argue it out live in a local room, then hand you a scored verdict and a one-click PDF. Each seat is built from that person's public work: letters, essays, talks, and interviews.
 
-| Seat | Pillar | The question they own |
-|---|---|---|
-| Jeff Bezos | Strategy and decisions | Is this the right bet, and how reversible is it? |
-| Paul Graham | Product and startups | Do people actually want this, and is it growing? |
-| Alex Hormozi | Offers, pricing, and sales | Will people pay, how much, and how do we close? |
-| Gary Vaynerchuk | Marketing and attention | Where does the attention come from? |
-| Dan Martell | People, hiring, and founder time | Who does this, and what does it cost your calendar? |
-| Gino Wickman | Operations and scaling | Can the business run this without you holding it together? |
-| Warren Buffett | Money and capital | What does it do to cash, risk, and long-term value? |
+BusinessRoom is a Claude Code plugin. Install it once, type one command, and the room opens in your browser.
+
+> Work in progress. The v1 scope is in [docs/SCOPE.md](docs/SCOPE.md). The current roster is still the one inherited from Roast Room; the founder roster (Bezos, Paul Graham, Hormozi, Musk, Zuckerberg, Jensen Huang, Daniel Ek) is next.
 
 ## What you need
 
 - [Claude Code](https://claude.com/claude-code). Your Claude plan covers it; no API key needed.
-- [Node.js](https://nodejs.org) 20 or newer, for the room. There's nothing to install beyond that.
+- [Node.js](https://nodejs.org) 20 or newer, for the room. Nothing else to install.
 
-## Setup
+## Install
 
-```bash
-git clone https://github.com/nateherkai/roast-room.git
-cd roast-room
+In Claude Code:
+
+```
+/plugin marketplace add rodrigoscharp/BusinessRoom
+/plugin install business-room@business-room
 ```
 
-Or open Claude Code anywhere and say: "Clone github.com/nateherkai/roast-room and start the room for me."
+Restart Claude Code (or run `/reload-plugins`) so the new skill and agents load.
 
-## Run a roast
+## Use
 
-1. Start the room: `npm start`, then open http://localhost:4730. Leave it open.
-2. Open Claude Code in the same folder: `claude`
-3. Type `/roast-room` and your decision.
-4. Answer the Chair's questions, then watch the council argue it out in the room.
-5. When the verdict lands, click **Download PDF**.
+```
+/business-room open
+```
 
-You also get a short verdict in Claude Code, and the full report lands in `sessions/<date>-<decision>/verdict.md`.
+Claude starts the room and opens it in your browser. Then give it your decision:
+
+```
+/business-room I run a B2B SaaS at R$8k MRR with 40 customers at R$200 a month.
+Should I raise to R$250 for everyone, for new customers only, or keep R$200?
+Churn is about 3% a month and I have 6 months of runway. I'm leaning toward raising for everyone.
+```
+
+Answer the Chair's questions, then watch the council argue it out in the room. When the verdict lands, click **Download PDF**.
+
+More ways to run it:
+
+- `/business-room --quick ...` seats four advisors for two rounds. Use it for smaller, reversible calls. It uses far less of your plan.
+- `/business-room --seats hormozi,bezos ...` seats only the advisors you name.
+- `/business-room ask hormozi ...` gets one answer from one seat.
+
+If Claude Code shows the skill with its plugin prefix, use `/business-room:business-room` instead.
+
+## Where your councils go
+
+Every council is saved in `~/.business-room/sessions/<date>-<decision>/`, with the full report in `verdict.md`. The plugin folder is replaced on every update, so your councils live outside it. Set `BUSINESS_ROOM_HOME` to keep them somewhere else.
+
+The room runs at http://localhost:4740. Set `BUSINESS_ROOM_PORT` if that port is taken.
 
 ## What to put in your question
 
@@ -44,55 +60,46 @@ The council is only as good as what you give it. Include:
 
 - **The decision** in one line.
 - **Your options.** Two or three. "Keep doing what I do now" counts.
-- **Your numbers.** Revenue, cash, and team size.
+- **Your numbers.** Revenue, customers, churn, cash, and team size.
 - **Your limits.** Deadline, hours, and budget.
 - **What success looks like**, and by when.
 - **Which way you're leaning**, and why. The council tests your lean instead of agreeing with it.
 
-Left something out? The Chair asks before the council starts. Example:
-
-```
-/roast-room I run a coaching business at $30k a month with 15 clients at $2,000 each.
-Should I raise to $3,500 for everyone, raise for new clients only, or keep $2,000?
-Close rate is about 50% and I have $40k in the bank. Success is $45k a month by March.
-I'm leaning toward raising for everyone because I'm underpaid.
-```
-
-More ways to run it:
-
-- `/roast-room --quick ...` seats four advisors for two rounds. Use it for smaller, reversible calls. It uses far less of your plan.
-- `/roast-room --seats hormozi,buffett ...` seats only the advisors you name.
-- `/roast-room ask hormozi ...` gets one answer from one seat.
-
-The room is optional. The council runs the same in Claude Code without it.
-
-## Watch an example first
-
-Run `npm start`, open http://localhost:4730, and click **Past sessions**. Three finished councils ship with the repo, so you can see how it works (and download their PDFs) before you run your own.
+Left something out? The Chair asks before the council starts.
 
 ## How it works
 
-- **The council runs in Claude Code.** Each seat is a sub-agent (`.claude/agents/council-*.md`) that reads its own brain (`.claude/skills/roast-room/brains/<name>/`): frameworks, principles, positions, stories, and voice notes compiled from public sources, with every quote tied to a source. Claude Code acts as the Chair. It runs the rounds, keeps score, and writes the verdict (`.claude/skills/roast-room/SKILL.md`).
+- **The council runs in Claude Code.** Each seat is a sub-agent (`agents/council-*.md`) that reads its own brain (`skills/business-room/brains/<name>/`): frameworks, principles, positions, stories, and voice notes compiled from public sources, with every quote tied to a source. Claude Code acts as the Chair. It runs the rounds, keeps score, and writes the verdict (`skills/business-room/SKILL.md`).
 - **Each seat scores every option**, weighted by how much that seat's pillar matters to your decision. The Chair caps the verdict when a seat flags ruin risk, and it forces a real argument when everyone agrees too fast.
-- **The room only watches.** As the Chair works, it writes each step to `sessions/`, and the app plays those files back. Between rounds it shows which round is running, how long it has been, and what each advisor is weighing. The room makes no AI calls of its own.
-- **Every council is saved** in `sessions/`. Past sessions replays any of them and downloads its PDF.
+- **The room only watches.** As the Chair works, it writes each step to your sessions folder, and the room plays those files back. The room makes no AI calls of its own.
 - **Usage:** a full council is 21 sub-agent runs, so it takes a real bite out of your plan's usage. Use `--quick` for small calls.
 
 ## Optional: let the room run councils itself
 
-If you'd rather type a decision straight into the room, copy `.env.example` to `.env`, add an `ANTHROPIC_API_KEY`, set `COUNCIL_RUNNER=api`, and restart `npm start`. That mode bills your Anthropic API account (about 25 calls per full council).
+To type a decision straight into the room without Claude Code, create `~/.business-room/.env` with an `ANTHROPIC_API_KEY` and `COUNCIL_RUNNER=api` (see `.env.example`), then restart the room. That mode bills your Anthropic API account (about 25 calls per full council).
 
-## What's inside
+## Develop
+
+```bash
+git clone https://github.com/rodrigoscharp/BusinessRoom.git
+cd BusinessRoom
+claude --plugin-dir .
+```
+
+`--plugin-dir .` loads this checkout as the plugin, so edits show up after `/reload-plugins`. `npm start` starts and opens the room, `npm stop` stops it, and `claude plugin validate .` checks the manifests.
 
 | Path | What |
 |---|---|
-| `.claude/skills/roast-room/` | The skill: protocol, prompts, scoring, report template, and the seven brains |
-| `.claude/agents/` | The seven seat agents |
+| `.claude-plugin/` | Plugin and marketplace manifests |
+| `skills/business-room/` | The skill: protocol, prompts, scoring, report template, and the brains |
+| `agents/` | The seat agents |
 | `app/` | The room: a zero-dependency Node server, the web page, and the PDF builder |
-| `sessions/` | Your councils (kept out of git) and the three examples |
+| `sessions/` | The example councils that ship with the plugin |
 
 ## About the advisors
 
-These are simulations built from each person's public work. They are not the people, they don't speak for them, and none of them is affiliated with or endorses this project. A seat only quotes a person verbatim when the line is in its brain with a source, and `python .claude/skills/roast-room/scripts/check_quotes.py sessions/<session>` checks every quote in a council against the brains. Each brain's `sources.md` lists what it was built from.
+These are simulations built from each person's public work. They are not the people, they don't speak for them, and none of them is affiliated with or endorses this project. A seat only quotes a person verbatim when the line is in its brain with a source, and `python3 skills/business-room/scripts/check_quotes.py <session folder>` checks every quote in a council against the brains. Each brain's `sources.md` lists what it was built from.
 
-Built by AI Automation Society. The code is MIT licensed; see `LICENSE`. The PDF builder bundles [jsPDF](https://github.com/parallax/jsPDF) (MIT) and [Montserrat](https://github.com/JulietaUla/Montserrat) (SIL Open Font License); their licenses sit next to them in `app/public/`.
+## Credits
+
+Built on [Roast Room](https://github.com/nateherkai/roast-room) by AI Automation Society, under the MIT License; see `LICENSE`. The PDF builder bundles [jsPDF](https://github.com/parallax/jsPDF) (MIT) and [Montserrat](https://github.com/JulietaUla/Montserrat) (SIL Open Font License); their licenses sit next to them in `app/public/`.

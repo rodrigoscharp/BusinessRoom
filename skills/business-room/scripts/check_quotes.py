@@ -3,7 +3,7 @@
 Check every quoted line in a council session against the seats' brains.
 
 Usage:
-  python .claude/skills/roast-room/scripts/check_quotes.py <session folder>
+  python3 skills/business-room/scripts/check_quotes.py <session folder>
 
 Scans round-*.md and verdict.md for quotes attributed to a source id, like "..." (S095), and looks
 for each in the brain files. A quote that is in no brain is either a quote of

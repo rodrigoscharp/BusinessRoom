@@ -3,7 +3,7 @@
 Written by the Chair in plain English. No em dashes. No AI filler: state each point once, no tee-ups, no "here's the thing". Seat quotes keep their own voice. Keep the whole report under about 1,000 words; the round files hold the detail. Reference report: `sessions/2026-10-09-example-take-the-seed/verdict.md`.
 
 ```markdown
-# Roast Room: [decision in a few words]
+# BusinessRoom: [decision in a few words]
 
 [date] · Seats: [list] · Rounds: [n] · Mode: [full | quick | named seats]
 

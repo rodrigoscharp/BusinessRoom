@@ -10,7 +10,7 @@
 | Wickman | `council-wickman` | Operations and scaling | Can the business run this without the founder holding it together? | `brains/gino-wickman/` |
 | Buffett | `council-buffett` | Money and capital | What does it do to cash, risk, and long-term value? | `brains/warren-buffett/` |
 
-Brain paths are relative to `.claude/skills/roast-room/`.
+Brain paths are relative to the skill folder (`<plugin root>/skills/business-room/`).
 
 ## Relevance weights
 
