@@ -58,6 +58,26 @@ const GUIDE = `
 const SHAPES = ["base", "open", "mid", "blink"];
 const portrait = (key, shape = "base") => `/portraits/${key}-${shape}.webp`;
 const ROUND_NAME = ["", "Opening", "Debate", "Vote"];
+// What each founder wears, for the hand that lifts the cup.
+const OUTFIT = {
+  bezos: { skin: "#e6ad8b", sleeve: "#1f2a44", cuff: "#bcd3ee" },
+  graham: { skin: "#efbf9f", sleeve: "#3f6fb0" },
+  hormozi: { skin: "#d8a07a", sleeve: "#1b1b1d", bare: true },
+  musk: { skin: "#f0c09f", sleeve: "#1b1b1d", bare: true },
+  zuckerberg: { skin: "#f3d4c2", sleeve: "#8c8c90", bare: true },
+  huang: { skin: "#e0ae8a", sleeve: "#161616" },
+  ek: { skin: "#f0c3a6", sleeve: "#2c2c2f" },
+};
+
+// A cartoon hand around the mug's handle, with the founder's sleeve running off below.
+const handSvg = (o) => `<g class="hand">
+    <path d="M44 47 L66 86" stroke="${o.bare ? o.skin : o.sleeve}" stroke-width="12" stroke-linecap="round"/>
+    ${o.bare ? `<path d="M58 72 L70 92" stroke="${o.sleeve}" stroke-width="14" stroke-linecap="round"/>` : `<path d="M47 52 L51 59" stroke="${o.cuff || o.sleeve}" stroke-width="13" stroke-linecap="butt" opacity=".9"/>`}
+    <ellipse cx="42" cy="40" rx="7.5" ry="9" fill="${o.skin}"/>
+    <path d="M36 36 q-3 2 0 4 M36 41 q-3 2 0 4" stroke="rgba(0,0,0,.18)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  </g>`;
+
+
 // A cup of coffee on a saucer. The saucer stays on the table; the mug (with its steam)
 // is the part that lifts when a founder takes a sip.
 const CUP_SVG = `<svg class="saucer" viewBox="0 0 48 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -84,6 +104,7 @@ const CUP_SVG = `<svg class="saucer" viewBox="0 0 48 60" xmlns="http://www.w3.or
   <ellipse cx="24" cy="27" rx="14" ry="3.6" fill="#f7f5f1"/>
   <ellipse cx="24" cy="27.4" rx="12" ry="2.8" fill="url(#cupCoffee)"/>
   <ellipse cx="21" cy="26.8" rx="4" ry=".9" fill="rgba(255,240,220,.35)"/>
+  __HAND__
 </svg>`;
 const CHAIR_ICON = "data:image/svg+xml;charset=utf-8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#f2f2f3"/><ellipse cx="16" cy="16" rx="10" ry="6" fill="#1a1a1c"/></svg>');
 
@@ -174,7 +195,7 @@ function renderSeats() {
       <div class="think" aria-hidden="true"><i></i><i></i><i></i></div>
       <div class="bust" data-shape="base">${SHAPES.map((sh) => `<img class="${sh}" src="${portrait(s.key, sh)}" alt="" draggable="false">`).join("")}</div>
     </div>`).join("");
-  $("#cups").innerHTML = state.seats.map((s, i) => `<div class="cup" id="cup-${s.key}" style="--d:-${(i * 0.9) % 3}s" aria-hidden="true">${CUP_SVG}</div>`).join("");
+  $("#cups").innerHTML = state.seats.map((s, i) => `<div class="cup" id="cup-${s.key}" style="--d:-${(i * 0.9) % 3}s" aria-hidden="true">${CUP_SVG.replace("__HAND__", handSvg(OUTFIT[s.key] || OUTFIT.ek))}</div>`).join("");
   $("#plates").innerHTML = state.seats.map((s) => `
     <div class="nameplate" id="plate-${s.key}" data-seat="${s.key}">
       <b>${esc(s.name)}</b>
@@ -643,6 +664,9 @@ function startSipping() {
       const cup = $(`#cup-${s.key}`);
       lastActive[s.key] = now;
       cup.classList.add("sip");
+      const bust = $(`#seat-${s.key} .bust`);
+      setTimeout(() => { if (state.speaking !== s.key && bust) bust.dataset.shape = "blink"; }, 950);
+      setTimeout(() => { if (bust?.dataset.shape === "blink") bust.dataset.shape = "base"; }, 2050);
       setTimeout(() => cup.classList.remove("sip"), 3200);
     }
     setTimeout(tick, 6000 + Math.random() * 6000);

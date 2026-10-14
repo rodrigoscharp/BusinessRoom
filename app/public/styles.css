@@ -661,3 +661,7 @@ button { font: inherit; cursor: pointer; }
 }
 .msg.quick { flex-wrap: wrap; gap: 6px; padding-left: 30px; }
 .msg.quick .ghost { font-size: 12.5px; padding: 6px 12px; }
+/* the hand appears only while the cup is lifted */
+.cup .hand { opacity: 0; }
+.cup.sip .hand { animation: hand 3.2s var(--ease-out) both; }
+@keyframes hand { 0%, 6% { opacity: 0; } 14%, 86% { opacity: 1; } 94%, 100% { opacity: 0; } }
