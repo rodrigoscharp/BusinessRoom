@@ -23,6 +23,8 @@ Read the brief: [session folder]/brief.md
 
 Your weight on this decision: [w]/3 ([one-line reason]).
 
+Language: [English or Portuguese, the room's language]. Write the content of your answer in that language. Keep every field label (SEAT:, STANCE:, OPTION SCORES:, and the rest) and the fixed values (Strong yes, Yes, Conditional yes, No, Strong no; none, possible, likely; one-way, two-way; Endorse, Endorse with amendment, Dissent; MOVED: no or yes) in English exactly as shown, and keep verbatim brain quotes in their original wording.
+
 Answer in your seat's voice, plain text, under 350 words, in exactly this shape:
 
 SEAT: [SEAT] ([pillar])
@@ -61,6 +63,8 @@ THE CRUXES THE CHAIR SEES
 1. [crux]: [seats on each side]. [If this seat is on one side, name the argument it must answer.]
 2. ...
 
+Language: [English or Portuguese, the room's language]. Write the content of your answer in that language. Keep every field label (SEAT:, STANCE:, OPTION SCORES:, and the rest) and the fixed values (Strong yes, Yes, Conditional yes, No, Strong no; none, possible, likely; one-way, two-way; Endorse, Endorse with amendment, Dissent; MOVED: no or yes) in English exactly as shown, and keep verbatim brain quotes in their original wording.
+
 Answer in your seat's voice, plain text, under 300 words, in exactly this shape:
 
 SEAT: [SEAT]
@@ -89,6 +93,8 @@ Plugin root: [absolute path]. You hold the [SEAT] seat. You already argued this 
 
 Read: [session folder]/brief.md, your own section of [session folder]/round-2.md, and [session folder]/draft-resolution.md.
 
+Language: [English or Portuguese, the room's language]. Write the content of your answer in that language. Keep every field label (SEAT:, STANCE:, OPTION SCORES:, and the rest) and the fixed values (Strong yes, Yes, Conditional yes, No, Strong no; none, possible, likely; one-way, two-way; Endorse, Endorse with amendment, Dissent; MOVED: no or yes) in English exactly as shown, and keep verbatim brain quotes in their original wording.
+
 Answer in your seat's voice, under 150 words, in exactly this shape:
 
 SEAT: [SEAT]
@@ -111,6 +117,8 @@ Plugin root: [absolute path]. You hold the [SEAT] seat. Read your brain's _hot.m
 
 THE QUESTION
 [question, plus any context]
+
+Language: [English or Portuguese, the room's language]. Write the content of your answer in that language. Keep every field label (SEAT:, STANCE:, OPTION SCORES:, and the rest) and the fixed values (Strong yes, Yes, Conditional yes, No, Strong no; none, possible, likely; one-way, two-way; Endorse, Endorse with amendment, Dissent; MOVED: no or yes) in English exactly as shown, and keep verbatim brain quotes in their original wording.
 
 Answer in your seat's voice, first person, under 500 words: your call, your reasoning with named frameworks and source ids, what you would do this week, and the question you would ask back. Do not narrate the expert in the third person. End with "Sources:" and the source ids you used.
 ```

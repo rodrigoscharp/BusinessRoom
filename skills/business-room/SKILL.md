@@ -37,12 +37,26 @@ If the script fails, say why in one line (it needs Node 20 or newer; a busy port
 The room has a chat box under the table. Messages typed there reach you through `<plugin root>/app/scripts/chat.mjs`:
 
 - `node "<plugin root>/app/scripts/chat.mjs" say "text"` posts your message to the room as the Chair.
-- `node "<plugin root>/app/scripts/chat.mjs" wait` waits up to 9 minutes for the founder's next message. It prints `MESSAGE` and the text, or `TIMEOUT`. On `TIMEOUT`, run it again; after three timeouts in a row, say in Claude Code that you stopped listening and how to start again (`/business-room open`).
+- `node "<plugin root>/app/scripts/chat.mjs" ask "text" "Option A|Option B"` posts a message with up to four reply buttons. A tap sends the option's text as the founder's message.
+- `node "<plugin root>/app/scripts/chat.mjs" wait` waits up to 9 minutes for the founder's next message. It prints `MESSAGE lang=<en|pt>` and the text, or `TIMEOUT`. On `TIMEOUT`, run it again; after three timeouts in a row, say in Claude Code that you stopped listening and how to start again (`/business-room open`).
+- `node "<plugin root>/app/scripts/chat.mjs" lang` prints the language the room is shown in (`en` or `pt`).
 - `node "<plugin root>/app/scripts/chat.mjs" reset` starts a fresh conversation. Run it once at the start of Open mode.
 
-Run `wait` in the foreground with a 600000 ms command timeout, so it is not cut off at the default 2 minutes. Write chat messages in the founder's language, short and plain.
+Run `wait` in the foreground with a 600000 ms command timeout, so it is not cut off at the default 2 minutes. Keep chat messages short and plain.
 
-In Open mode: reset the chat, `say` a one-line greeting that asks for the decision, then `wait`. Treat the message as the user's request and continue with Step 1. When the founder came from the room, ask the Step 1 questions in the chat (`say` them as one short numbered list, then `wait`) instead of AskUserQuestion, and post the Step 7 verdict summary to the chat as well as in Claude Code. After the verdict, `say` that they can bring another decision, and `wait` again.
+**Language.** The room has an English and a Portuguese mode. Use the room's language (`lang`, or the `lang=` on each message) for everything the founder sees: chat messages, the brief, `council.json` titles and labels, the Chair notes, `cruxes.json`, `draft.json`, `verdict.md`, and `verdict.json`. Tell every seat in its round prompt to write its card in that language, with the field labels (`SEAT:`, `STANCE:`, `OPTION SCORES:`, and the rest) and their fixed values (stances, ruin risk, door, votes) kept in English exactly as in the template, because the room parses them. Verbatim quotes from a brain stay in their original language. Verdict labels (GO, GO WITH CONDITIONS, RESHAPE, WAIT, DON'T DO IT) stay in English.
+
+**Open mode.** Reset the chat, read `lang`, then `ask` a one-line greeting in that language with two reply buttons:
+
+- "Analyze this project" / "Analisar este projeto": the founder wants the table to debate the project open in this Claude Code session.
+- "Bring a new case" / "Trazer um caso novo": the founder will describe a different business or decision.
+
+Then `wait`.
+
+- **This project:** read the project's own files in the current working directory (not the plugin folder): `README.md`, `package.json` or other manifest, `CLAUDE.md`, and anything in `docs/` that describes the product, at most six files. Write a short brief: what the product is, who it is for, how it makes or could make money, and its stage. Frame the decision as how to sell it, grow it, and turn it into a real startup, with three options (for example: sell it as is to a first niche, reshape it into a product with a business model, or keep it as a side project). `say` the brief and the options in the chat and ask the founder to confirm or correct them, plus any numbers you do not have (users, revenue, time, cash). `wait`, then continue with Step 1 using their answer.
+- **New case:** `say` that they can describe the business and the decision, then `wait`, and continue with Step 1.
+
+When the founder came from the room, ask the Step 1 questions in the chat (`say` them as one short numbered list, then `wait`) instead of AskUserQuestion, and post the Step 7 verdict summary to the chat as well as in Claude Code. After the verdict, `ask` whether they want to bring another decision, with the same two buttons, and `wait` again.
 
 ## Step 1: The brief
 

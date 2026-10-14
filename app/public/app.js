@@ -1,4 +1,5 @@
 import { downloadVerdictPdf } from "./pdf.js";
+import { startI18n, LANG } from "./i18n.js";
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -57,21 +58,34 @@ const GUIDE = `
 const SHAPES = ["base", "open", "mid", "blink"];
 const portrait = (key, shape = "base") => `/portraits/${key}-${shape}.webp`;
 const ROUND_NAME = ["", "Opening", "Debate", "Vote"];
-// A cup of coffee on a saucer, with three wisps of steam that drift up (styles.css animates them).
-const CUP_SVG = `<svg viewBox="0 0 40 60" xmlns="http://www.w3.org/2000/svg">
-  <g class="steam" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round">
-    <path d="M15 26 C11 21, 19 18, 15 12 C12 8, 17 5, 15 1"/>
-    <path d="M20 26 C16 20, 24 17, 20 11 C17 7, 22 4, 20 0"/>
-    <path d="M25 26 C21 21, 29 18, 25 12 C22 8, 27 5, 25 1"/>
+// A cup of coffee on a saucer. The saucer stays on the table; the mug (with its steam)
+// is the part that lifts when a founder takes a sip.
+const CUP_SVG = `<svg class="saucer" viewBox="0 0 48 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <radialGradient id="cupSaucer" cx="50%" cy="35%" r="65%"><stop offset="0" stop-color="#ffffff"/><stop offset=".7" stop-color="#e7e4df"/><stop offset="1" stop-color="#b9b4ad"/></radialGradient>
+  </defs>
+  <ellipse cx="24" cy="54" rx="22" ry="5.6" fill="rgba(0,0,0,.35)"/>
+  <ellipse cx="24" cy="52" rx="22" ry="5.6" fill="url(#cupSaucer)"/>
+  <ellipse cx="24" cy="51.2" rx="13" ry="3" fill="#cfcac3"/>
+</svg>
+<svg class="mug" viewBox="0 0 48 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="cupBody" x1="0" x2="1"><stop offset="0" stop-color="#d9d5cf"/><stop offset=".35" stop-color="#ffffff"/><stop offset=".75" stop-color="#f1eee9"/><stop offset="1" stop-color="#bdb8b0"/></linearGradient>
+    <radialGradient id="cupCoffee" cx="45%" cy="40%" r="70%"><stop offset="0" stop-color="#9a6a42"/><stop offset=".55" stop-color="#5b3a22"/><stop offset="1" stop-color="#2e1c10"/></radialGradient>
+  </defs>
+  <g class="steam" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="1.8" stroke-linecap="round">
+    <path d="M18 22 C14 17, 22 14, 18 8 C15 4, 20 2, 18 -2"/>
+    <path d="M24 22 C20 16, 28 13, 24 7 C21 3, 26 1, 24 -3"/>
+    <path d="M30 22 C26 17, 34 14, 30 8 C27 4, 32 2, 30 -2"/>
   </g>
-  <ellipse cx="20" cy="53" rx="18" ry="5" fill="#e9e4dc"/>
-  <ellipse cx="20" cy="52" rx="13" ry="3.2" fill="#d4cdc2"/>
-  <path d="M30 36 q8 0 7 7 q-1 6 -9 5" fill="none" stroke="#f3efe8" stroke-width="3"/>
-  <path d="M8 31 h24 l-2.5 17 q-0.6 4 -4.5 4 h-10 q-3.9 0 -4.5 -4 z" fill="#f6f2ec"/>
-  <ellipse cx="20" cy="31" rx="12" ry="3.2" fill="#f6f2ec"/>
-  <ellipse cx="20" cy="31.4" rx="10.2" ry="2.5" fill="#5a3a22"/>
+  <path d="M36 32 c7 -1 10 3 9 8 c-1 6 -6 8 -11 7" fill="none" stroke="#e9e5df" stroke-width="3.6" stroke-linecap="round"/>
+  <path d="M36 32 c7 -1 10 3 9 8 c-1 6 -6 8 -11 7" fill="none" stroke="#bdb8b0" stroke-width="1" stroke-linecap="round" transform="translate(.8 .8)" opacity=".6"/>
+  <path d="M10 27 h28 l-2.6 18.5 q-.7 4.5 -5.2 4.5 h-12.4 q-4.5 0 -5.2 -4.5 z" fill="url(#cupBody)"/>
+  <ellipse cx="24" cy="27" rx="14" ry="3.6" fill="#f7f5f1"/>
+  <ellipse cx="24" cy="27.4" rx="12" ry="2.8" fill="url(#cupCoffee)"/>
+  <ellipse cx="21" cy="26.8" rx="4" ry=".9" fill="rgba(255,240,220,.35)"/>
 </svg>`;
-const CHAIR_ICON = "data:image/svg+xml;charset=utf-8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#c9973a"/><ellipse cx="16" cy="16" rx="10" ry="6" fill="#fff"/></svg>');
+const CHAIR_ICON = "data:image/svg+xml;charset=utf-8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#f2f2f3"/><ellipse cx="16" cy="16" rx="10" ry="6" fill="#1a1a1c"/></svg>');
 
 // The company line under a founder's role: logo and name per company.
 const companyLine = (s) => !s.companies?.length ? "" : `<span class="co">${s.companies.map((c) => `<span class="co-item">${c.logo ? `<i class="co-logo" style="--logo:url('/logos/${c.logo}.svg')" aria-hidden="true"></i>` : ""}${esc(c.name)}</span>`).join("")}</span>`;
@@ -98,6 +112,8 @@ const state = {
 
 // ------------------------------------------------------------- boot
 async function boot() {
+  startI18n();
+  fetch("/api/lang", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ lang: LANG }) }).catch(() => {});
   const r = await fetch("/api/seats").then((x) => x.json());
   state.seats = r.seats;
   state.byKey = Object.fromEntries(r.seats.map((s) => [s.key, s]));
@@ -108,6 +124,7 @@ async function boot() {
   bindUI();
   new ResizeObserver(() => { layoutStage(); drawLinks(); }).observe($("#stage"));
   startBlinking();
+  startSipping();
   reset();
   typeIn($("#composer h2"));
   typeIn($("#waiting h2"));
@@ -190,11 +207,15 @@ function layoutStage() {
     const bottom = edge(x) + size * 0.2;
     const el = $(`#seat-${s.key}`);
     Object.assign(el.style, { left: `${x - size / 2}px`, top: `${bottom - size}px`, width: `${size}px`, height: `${size}px`, zIndex: 10 + Math.round(d * 10) });
+    // the cup sits on the table right in front of the founder, beside the nameplate.
+    // --sx/--sy carry it to the founder's mouth for a sip (see startSipping).
     const cup = $(`#cup-${s.key}`);
-    // the cup sits on the table just in front of the seat, beside the nameplate
-    const cs = H * (narrow ? 0.07 : 0.055);
-    const cupX = x + size * 0.36;
-    Object.assign(cup.style, { left: `${cupX - cs / 2}px`, top: `${edge(x) + H * 0.035}px`, width: `${cs}px`, height: `${cs * 1.5}px` });
+    const cs = H * (narrow ? 0.07 : 0.06);
+    const cupX = x + size * 0.27, cupTop = edge(x) - cs * 0.55;
+    const mouthY = bottom - size * 0.47;
+    Object.assign(cup.style, { left: `${cupX - cs / 2}px`, top: `${cupTop}px`, width: `${cs}px`, height: `${cs * 1.25}px` });
+    cup.style.setProperty("--sx", `${x + size * 0.04 - cupX}px`);
+    cup.style.setProperty("--sy", `${mouthY - (cupTop + cs * 0.5)}px`);
     const pl = $(`#plate-${s.key}`);
     pl.style.left = `${x}px`;
     pl.style.top = `${edge(x) + H * 0.01}px`; // straddles the table edge, over the chest
@@ -278,6 +299,20 @@ function chatMessage(m) {
   d.className = `msg ${m.from === "user" ? "user" : "chair"}`;
   d.innerHTML = `${m.from === "user" ? "" : `<img class="av" src="${CHAIR_ICON}" alt="">`}<div class="bubble">${esc(m.text).replace(/\n/g, "<br>")}</div>`;
   feedAppend(d);
+  // quick replies: one tap sends the option as the founder's message
+  if (m.options?.length) {
+    const row = document.createElement("div");
+    row.className = "msg quick";
+    row.innerHTML = m.options.map((o) => `<button type="button" class="ghost">${esc(o)}</button>`).join("");
+    row.addEventListener("click", (e) => {
+      const b = e.target.closest("button");
+      if (!b) return;
+      $("#chatInput").value = b.textContent;
+      row.remove();
+      $("#chatForm").requestSubmit();
+    });
+    feedAppend(row);
+  }
 }
 
 async function pollChat() {
@@ -308,7 +343,7 @@ async function sendChat(e) {
       if (!r.ok) return toast(j.error || "Could not start the council.");
       attach(j.id);
     } else {
-      const r = await fetch("/api/chat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ text }) });
+      const r = await fetch("/api/chat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ text, lang: LANG }) });
       if (!r.ok) return toast((await r.json()).error || "Could not send.");
       await pollChat();
     }
@@ -457,11 +492,7 @@ function onSetup(ev) {
   for (const s of state.seats) {
     const absent = !ev.seats.includes(s.key);
     $(`#seat-${s.key}`).classList.toggle("absent", absent);
-    const cup = $(`#cup-${s.key}`);
-    // the cup sits on the table just in front of the seat, beside the nameplate
-    const cs = H * (narrow ? 0.07 : 0.055);
-    const cupX = x + size * 0.36;
-    Object.assign(cup.style, { left: `${cupX - cs / 2}px`, top: `${edge(x) + H * 0.035}px`, width: `${cs}px`, height: `${cs * 1.5}px` });
+    $(`#cup-${s.key}`)?.classList.toggle("absent", absent);
     const pl = $(`#plate-${s.key}`);
     pl.classList.toggle("absent", absent);
     const w = ev.weights[s.key]?.weight || 1;
@@ -524,6 +555,8 @@ function setShape(key, shape) { const b = $(`#seat-${key} .bust`); if (b) b.data
 
 function setSpeaker(key, target) {
   state.speaking = key;
+  if (key) lastActive[key] = Date.now();
+  if (target) lastActive[target] = Date.now();
   $$(".seat").forEach((el) => { el.classList.toggle("speaking", el.dataset.seat === key); el.classList.toggle("addressed", el.dataset.seat === target); });
   $$(".nameplate").forEach((el) => el.classList.toggle("speaking", el.dataset.seat === key));
   const el = key && $(`#seat-${key}`);
@@ -598,6 +631,25 @@ async function speak(key, text, { tag = "", target = null, sub = "" } = {}) {
 }
 
 // idle blinking for everyone, so the room feels alive between lines
+// Now and then a founder who has been quiet for a while lifts the cup and takes a sip.
+const lastActive = {};
+function startSipping() {
+  const tick = () => {
+    const now = Date.now();
+    const quiet = state.seats.filter((s) => s.key !== state.speaking && now - (lastActive[s.key] || 0) > 20000
+      && !$(`#seat-${s.key}`)?.classList.contains("absent") && !$(`#cup-${s.key}`)?.classList.contains("sip"));
+    if (quiet.length && Math.random() < 0.6) {
+      const s = quiet[Math.floor(Math.random() * quiet.length)];
+      const cup = $(`#cup-${s.key}`);
+      lastActive[s.key] = now;
+      cup.classList.add("sip");
+      setTimeout(() => cup.classList.remove("sip"), 3200);
+    }
+    setTimeout(tick, 6000 + Math.random() * 6000);
+  };
+  setTimeout(tick, 5000);
+}
+
 function startBlinking() {
   const blink = (key) => {
     const b = $(`#seat-${key} .bust`);

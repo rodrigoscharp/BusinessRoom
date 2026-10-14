@@ -1,10 +1,13 @@
 // The Chair's side of the room's chat box. The skill runs these commands.
 //
 //   node app/scripts/chat.mjs say "text"        post a message from the Chair to the room
+//   node app/scripts/chat.mjs ask "text" "A|B"  post a message with up to 4 reply buttons
 //   node app/scripts/chat.mjs wait [seconds]    wait for the founder's next message (default 540s)
 //   node app/scripts/chat.mjs reset             start a fresh conversation
+//   node app/scripts/chat.mjs lang              print the room's language (en or pt)
 //
-// wait prints the new message text after a "MESSAGE" line, or "TIMEOUT" if none arrived,
+// wait prints "MESSAGE lang=<en|pt>" (the language the room is shown in) and then the
+// new message text, or "TIMEOUT" if none arrived,
 // so the skill can run it again. It stays under Claude Code's 10 minute command limit.
 import * as chat from "../lib/chat.mjs";
 
@@ -13,6 +16,11 @@ const [cmd, ...rest] = process.argv.slice(2);
 if (cmd === "say") {
   const msg = chat.append("chair", rest.join(" "));
   console.log(`SENT ${msg.id}`);
+} else if (cmd === "ask") {
+  const msg = chat.append("chair", rest[0], undefined, String(rest[1] || "").split("|").map((o) => o.trim()).filter(Boolean));
+  console.log(`SENT ${msg.id}`);
+} else if (cmd === "lang") {
+  console.log(chat.roomLang());
 } else if (cmd === "reset") {
   chat.reset();
   console.log("RESET");
@@ -29,12 +37,12 @@ if (cmd === "say") {
   if (got.length) {
     chat.setCursor(got.at(-1).id);
     chat.heartbeat();
-    console.log("MESSAGE");
+    console.log(`MESSAGE lang=${got.at(-1).lang || "en"}`);
     console.log(got.map((m) => m.text).join("\n\n"));
   } else {
     console.log("TIMEOUT");
   }
 } else {
-  console.error('Usage: chat.mjs say "text" | wait [seconds] | reset');
+  console.error('Usage: chat.mjs say "text" | ask "text" "A|B" | wait [seconds] | reset');
   process.exit(1);
 }

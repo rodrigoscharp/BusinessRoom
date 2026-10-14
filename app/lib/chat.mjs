@@ -19,12 +19,12 @@ export function readAll() {
   }
 }
 
-export function append(from, text) {
+export function append(from, text, lang, options) {
   const t = String(text || "").trim().slice(0, MAX_TEXT);
   if (!t) throw new Error("empty message");
   fs.mkdirSync(DATA_DIR, { recursive: true });
   const all = readAll();
-  const msg = { id: (all.at(-1)?.id || 0) + 1, at: new Date().toISOString(), from, text: t };
+  const msg = { id: (all.at(-1)?.id || 0) + 1, at: new Date().toISOString(), from, text: t, ...(lang ? { lang } : {}), ...(options?.length ? { options: options.slice(0, 4).map((o) => String(o).slice(0, 80)) } : {}) };
   fs.appendFileSync(CHAT_FILE, JSON.stringify(msg) + "\n");
   return msg;
 }
@@ -45,6 +45,11 @@ export function setCursor(id) {
 }
 
 /** The Chair's wait loop touches this so the page can say whether Claude Code is listening. */
+/** The language the room is shown in, so the Chair greets in the right one. */
+const LANG_FILE = path.join(DATA_DIR, "room.lang");
+export function setRoomLang(l) { fs.mkdirSync(DATA_DIR, { recursive: true }); fs.writeFileSync(LANG_FILE, l === "pt" ? "pt" : "en"); }
+export function roomLang() { try { return fs.readFileSync(LANG_FILE, "utf8").trim() || "en"; } catch { return "en"; } }
+
 export function heartbeat() {
   fs.mkdirSync(DATA_DIR, { recursive: true });
   fs.writeFileSync(LISTENER_FILE, String(Date.now()));

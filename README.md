@@ -42,6 +42,8 @@ Restart Claude Code (or run `/reload-plugins`) so the new skill and agents load.
 
 Claude starts the room, opens it in your browser, and listens to the chat box under the table. Write your decision there; the Chair asks its questions in the same chat, and the founders debate it live at the table.
 
+The Chair first asks whether the table should **analyze this project** (it reads the README and docs of the project open in Claude Code and frames how to sell it, grow it, and turn it into a startup) or **take a new case** you describe. The room has an English and a Portuguese mode (the PT / EN button at the top); the founders answer in the room's language.
+
 You can also give the decision straight in Claude Code:
 
 ```

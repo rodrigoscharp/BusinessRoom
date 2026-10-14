@@ -1,10 +1,12 @@
+import { tr } from "./i18n.js";
+
 // The BusinessRoom verdict as a one or two page branded PDF, built in the browser with a
 // vendored jsPDF, so the room still needs nothing installed. White page, Helvetica,
-// charcoal type, brass as the only accent (the BusinessRoom palette).
+// charcoal type and a charcoal mark (the BusinessRoom palette).
 
 const C = {
   ink: [24, 22, 20], soft: [70, 66, 62], mute: [124, 118, 112], rule: [230, 226, 220],
-  tint: [247, 244, 239], track: [233, 228, 220], accent: [201, 151, 58], white: [255, 255, 255],
+  tint: [247, 244, 239], track: [233, 228, 220], accent: [38, 38, 40], white: [255, 255, 255],
 };
 const LABEL = { go: [63, 207, 142], amber: [255, 144, 37], red: [255, 90, 79] };
 const labelColor = (l) => (/DON'T/.test(l) ? LABEL.red : /RESHAPE|WAIT/.test(l) ? LABEL.amber : LABEL.go);
@@ -98,24 +100,24 @@ export async function downloadVerdictPdf({ setup, verdict: ev, byKey, id }) {
   };
 
   // ---------------------------------------------------------------- header
-  // the BusinessRoom mark: a brass tile with the table seen from above
+  // the BusinessRoom mark: a charcoal tile with the table seen from above
   doc.setFillColor(...C.accent); doc.roundedRect(M, y - 2, 22, 22, 5, 5, "F");
   doc.setFillColor(...C.white); doc.ellipse(M + 11, y + 9, 7, 4.2, "F");
   font(12, "bold", C.ink); doc.text("BusinessRoom", M + 30, y + 13);
-  font(12, "bold", C.ink); doc.text("Founders' verdict", W - M, y + 12, { align: "right" });
-  font(8.5, "normal", C.mute); doc.text(`Verdict report · ${dateLine(id)}`, W - M, y + 25, { align: "right" });
+  font(12, "bold", C.ink); doc.text(tr("Founders' verdict"), W - M, y + 12, { align: "right" });
+  font(8.5, "normal", C.mute); doc.text(tr(`Verdict report · ${dateLine(id)}`), W - M, y + 25, { align: "right" });
   y += 40;
   doc.setDrawColor(...C.ink); doc.setLineWidth(1.2); doc.line(M, y, W - M, y);
   y += 26;
 
   // ---------------------------------------------------------------- the decision
-  kicker("The decision");
-  const title = lines(setup.title || "Untitled decision", CW, 22, "bold");
+  kicker(tr("The decision"));
+  const title = lines(setup.title || tr("Untitled decision"), CW, 22, "bold");
   font(22, "bold", C.ink); doc.text(title, M, y + 20, { lineHeightFactor: 1.18 });
   y += title.length * 22 * 1.18 + 8;
   const n = seats.length || (setup.seats || []).length;
   const rounds = v.votes ? 3 : 2;
-  para(`${setup.mode === "quick" ? "Quick council" : "Full council"} · ${n} advisors · ${rounds} rounds`, { size: 9.5, color: C.mute, gap: 4 });
+  para(`${tr(setup.mode === "quick" ? "Quick council" : "Full council")} · ${n} ${tr("advisors")} · ${rounds} ${tr("rounds")}`, { size: 9.5, color: C.mute, gap: 4 });
   if (setup.decision) para(setup.decision, { size: 10.5, color: C.soft, gap: 8 });
 
   // ---------------------------------------------------------------- the verdict box
@@ -138,7 +140,7 @@ export async function downloadVerdictPdf({ setup, verdict: ev, byKey, id }) {
   y += boxH + 8;
 
   // ---------------------------------------------------------------- scores
-  section("Scores");
+  section(tr("Scores"));
   const best = v.recommended;
   for (const o of options) {
     const sc = v.scores?.[o.id]?.score;
@@ -156,17 +158,17 @@ export async function downloadVerdictPdf({ setup, verdict: ev, byKey, id }) {
     if (isBest) { font(7.5, "semibold", C.accent); doc.text("RECOMMENDED", bx, y + 24); }
     y += rowH + 6;
   }
-  para("Each advisor scores every option from 1 to 10, weighted by how much their area matters to this decision.", { size: 8.5, color: C.mute, gap: 0 });
+  para(tr("Each advisor scores every option from 1 to 10, weighted by how much their area matters to this decision."), { size: 8.5, color: C.mute, gap: 0 });
 
   // Kept short on purpose: the call, the scores, the reasons, the strongest objection, and
   // the plan. The full report (conditions, amendments, every card) stays in verdict.md.
-  if (v.why?.length) { section("Why the council landed here"); for (const w of v.why.slice(0, 3)) bullet(who(w.seat), w.point); }
+  if (v.why?.length) { section(tr("Why the council landed here")); for (const w of v.why.slice(0, 3)) bullet(who(w.seat), w.point); }
 
   // ---------------------------------------------------------------- how each advisor scored it
   if (seats.length) {
-    section("How each advisor scored it", 18 + seats.length * 22); // the table stays on one page
+    section(tr("How each advisor scored it"), 18 + seats.length * 22); // the table stays on one page
     const showVote = Boolean(v.votes);
-    const cols = [{ t: "Advisor", w: 150 }, { t: "Weight", w: 52, c: true }, ...options.map((o) => ({ t: o.id, w: 40, c: true })), ...(showVote ? [{ t: "Vote", w: 70 }] : [])];
+    const cols = [{ t: tr("Advisor"), w: 150 }, { t: tr("Weight"), w: 52, c: true }, ...options.map((o) => ({ t: o.id, w: 40, c: true })), ...(showVote ? [{ t: "Vote", w: 70 }] : [])];
     const head = () => {
       let x = M; font(8, "semibold", C.mute);
       for (const c of cols) { doc.text(c.t.toUpperCase(), c.c ? x + c.w / 2 : x, y + 8, c.c ? { align: "center" } : undefined); x += c.w; }
@@ -187,17 +189,17 @@ export async function downloadVerdictPdf({ setup, verdict: ev, byKey, id }) {
 
   // ---------------------------------------------------------------- watch out, what to do
   if (v.minority?.quote) {
-    section("Watch out");
+    section(tr("Watch out"));
     para(`${who(v.minority.seat)}: "${clean(v.minority.quote)}"`, { size: 10.5, style: "semibold", color: C.ink, gap: 4 });
     if (v.minority.would_have_to_be_true) para(`For this to be right: ${v.minority.would_have_to_be_true}`, { size: 9.5, color: C.mute });
   }
   if (v.next_steps?.length || v.cheapest_test || v.kill_criteria) {
-    section("What to do next");
+    section(tr("What to do next"));
     for (const s of (v.next_steps || []).slice(0, 3)) bullet(s.when, s.action);
-    if (v.cheapest_test) bullet("Cheapest test", v.cheapest_test);
-    if (v.kill_criteria) bullet("Kill it if", v.kill_criteria);
+    if (v.cheapest_test) bullet(tr("Cheapest test"), v.cheapest_test);
+    if (v.kill_criteria) bullet(tr("Kill it if"), v.kill_criteria);
   }
-  if (v.fights?.length) { section("Where they fought"); for (const f of v.fights.slice(0, 3)) bullet(f.crux, f.story); }
+  if (v.fights?.length) { section(tr("Where they fought")); for (const f of v.fights.slice(0, 3)) bullet(f.crux, f.story); }
 
   // ---------------------------------------------------------------- footer on every page
   const pages = doc.getNumberOfPages();
@@ -209,7 +211,7 @@ export async function downloadVerdictPdf({ setup, verdict: ev, byKey, id }) {
     const tagW = doc.getTextWidth(tag);
     doc.text(tag, W - M, H - 34, { align: "right" });
     font(7.5, "normal", C.mute);
-    doc.text(doc.splitTextToSize(v.disclaimer || "Simulated advisors built from each person's public work. They are not the people and do not speak for them.", CW - tagW - 24), M, H - 34, { lineHeightFactor: 1.35 });
+    doc.text(doc.splitTextToSize(v.disclaimer || tr("Simulated advisors built from each person's public work. They are not the people and do not speak for them."), CW - tagW - 24), M, H - 34, { lineHeightFactor: 1.35 });
   }
 
   const name = `BusinessRoom - ${String(setup.title || id || "verdict").replace(/[\\/:*?"<>|]+/g, "").slice(0, 80)}.pdf`;

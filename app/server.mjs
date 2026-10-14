@@ -37,9 +37,14 @@ const server = http.createServer(async (req, res) => {
     if (p === "/api/health") return send(res, 200, { app: "business-room", version: VERSION, sessionsDir: SESSIONS_DIR });
     // The chat box: the founder's messages go to Claude Code through chat.jsonl.
     if (p === "/api/chat" && req.method === "POST") {
-      const { text } = await readJson(req);
+      const { text, lang } = await readJson(req);
       if (!text || !String(text).trim()) return send(res, 400, { error: "Write a message first." });
-      return send(res, 200, chat.append("user", text));
+      return send(res, 200, chat.append("user", text, lang === "pt" ? "pt" : "en"));
+    }
+    if (p === "/api/lang" && req.method === "POST") {
+      const { lang } = await readJson(req);
+      chat.setRoomLang(lang);
+      return send(res, 200, { lang: chat.roomLang() });
     }
     if (p === "/api/chat") {
       const after = Number(url.searchParams.get("after")) || 0;
