@@ -307,6 +307,7 @@ function bindUI() {
   $("#chatInput").addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); $("#chatForm").requestSubmit(); } });
   $("#chatInput").addEventListener("input", (e) => { e.target.style.height = "auto"; e.target.style.height = Math.min(e.target.scrollHeight, 140) + "px"; });
   $("#waitHistory").addEventListener("click", openHistory);
+  $("#wcLeave").addEventListener("click", leaveCouncil);
   $("#waitGuide").addEventListener("click", openGuide);
   $("#guideBtn").addEventListener("click", openGuide);
   document.addEventListener("click", async (e) => {
@@ -583,7 +584,7 @@ async function handle(ev) {
   switch (ev.type) {
     case "phase": {
       state.wait = { phase: ev.phase, at: ev.at || Date.now() };
-      setStep(STEP_OF[ev.phase] || "setup");
+      if (ev.phase !== "resumed") setStep(STEP_OF[ev.phase] || "setup");
       feedPhase(ev.label);
       const thinking = ["setup", "cruxes", "draft", "verdict"].includes(ev.phase);
       if (thinking || ev.phase === "skip3") {
@@ -607,7 +608,30 @@ async function handle(ev) {
     case "draft": await onDraft(ev.draft); break;
     case "verdict": state.wait = null; onVerdict(ev); break;
     case "error": state.wait = null; toast(`The council stopped: ${ev.error}`); chairSays(`The council stopped: ${ev.error}`); break;
+    case "stopped": await onStopped(); break;
   }
+}
+
+// A council nobody is running any more (dropped, replaced by a new conversation, or idle):
+// clear the table instead of leaving everyone "thinking", and let a resumed one attach again.
+async function onStopped() {
+  if (state.replaying) return;
+  const id = state.session;
+  state.wait = null;
+  $$(".seat").forEach((el) => el.classList.remove("thinking", "musing"));
+  chairSays("This council stopped before the verdict. Bring your pitch in the chat to start a new one.");
+  await player.sleep(2600);
+  if (state.session === id) { seenLive.delete(id); reset(); }
+}
+
+async function leaveCouncil() {
+  const id = state.session;
+  if (!id) return;
+  $("#wcLeave").disabled = true;
+  try { await fetch(`/api/sessions/${encodeURIComponent(id)}/stop`, { method: "POST" }); } catch {}
+  $("#wcLeave").disabled = false;
+  state.es?.close();
+  reset();
 }
 
 function onSetup(ev) {

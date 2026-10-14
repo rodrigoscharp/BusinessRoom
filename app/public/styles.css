@@ -693,3 +693,4 @@ button { font: inherit; cursor: pointer; }
 .v-deals .tag.out { background: #3f3f46; color: #e4e4e7; }
 .ask-seat { margin-top: 10px; }
 @keyframes dealstamp { from { transform: translateX(-50%) rotate(-6deg) scale(1.8); opacity: 0; } to { transform: translateX(-50%) rotate(-6deg) scale(1); opacity: 1; } }
+.wc-leave { margin-top: 10px; font-size: 12px; padding: 5px 10px; }

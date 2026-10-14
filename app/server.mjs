@@ -96,6 +96,10 @@ const server = http.createServer(async (req, res) => {
       const apiRunning = running && getSession(running)?.status === "running" ? running : null;
       return send(res, 200, { sessions: all, running: apiRunning, live: watch.runningId() });
     }
+    if (p.startsWith("/api/sessions/") && p.endsWith("/stop") && req.method === "POST") {
+      const id = decodeURIComponent(p.split("/").at(-2));
+      return watch.drop(id) ? send(res, 200, { stopped: id }) : send(res, 404, { error: "No unfinished council by that name." });
+    }
     if (p.startsWith("/api/sessions/")) {
       const id = decodeURIComponent(p.split("/").pop());
       const x = watch.getLive(id);

@@ -29,10 +29,19 @@ export function append(from, text, lang, options) {
   return msg;
 }
 
+const RESET_FILE = path.join(DATA_DIR, "chat.reset");
+
 /** Start a fresh conversation: keep the old one next to it for reference. */
 export function reset() {
   if (fs.existsSync(CHAT_FILE)) fs.renameSync(CHAT_FILE, path.join(DATA_DIR, `chat-${Date.now()}.jsonl`));
   fs.rmSync(CURSOR_FILE, { force: true });
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  fs.writeFileSync(RESET_FILE, String(Date.now()));
+}
+
+/** When the Chair last started a fresh conversation (a new /business-room open). */
+export function resetAt() {
+  try { return Number(fs.readFileSync(RESET_FILE, "utf8")) || 0; } catch { return 0; }
 }
 
 /** The last message id the Chair has already read. */

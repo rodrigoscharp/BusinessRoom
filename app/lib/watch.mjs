@@ -10,10 +10,11 @@ import fs from "node:fs";
 import path from "node:path";
 import { SEATS, byKey, parseCard, checkQuotes } from "./seats.mjs";
 import { sessionFolders } from "./env.mjs";
+import { resetAt } from "./chat.mjs";
 import { optionScores, finalNumbers, verdictSeats, DISCLAIMER } from "./council.mjs";
 
 const live = new Map(); // folder name -> session
-const STALE_MS = 3 * 60 * 60 * 1000; // a folder untouched this long is an abandoned council
+const STALE_MS = 30 * 60 * 1000; // a council whose files have not moved this long is abandoned
 
 const readText = (p) => { try { return fs.readFileSync(p, "utf8"); } catch { return null; } };
 const readJson = (p) => { const t = readText(p); if (!t) return null; try { return JSON.parse(t); } catch { return null; } };
@@ -194,9 +195,26 @@ function load(name) {
       st: { cards: { 1: {}, 2: {}, 3: {} }, scores: {}, rounds: [] } };
     live.set(name, x);
   }
+  const stopFile = path.join(dir, "stopped.json");
+  // a council the Chair picked up again after it stopped (it wrote a new file since)
+  if (x.status === "stopped" && x.stoppedAt && !fs.existsSync(stopFile) && !fs.existsSync(path.join(dir, "verdict.json")) && lastTouched(dir) > x.stoppedAt + 1000) {
+    x.status = "running";
+    emit(x, "phase", { phase: "resumed", label: "The Chair picked this council up again", at: Date.now() });
+  }
   if (x.status === "running") {
     sync(x);
-    if (x.status === "running" && Date.now() - lastTouched(dir) > STALE_MS) finish(x, "stopped");
+    if (x.status === "running") {
+      const touched = lastTouched(dir);
+      // Abandoned: the founder dropped it from the room (stopped.json), a new /business-room open
+      // reset the chat after its last file, or nothing moved for STALE_MS. Otherwise the table
+      // would sit "thinking" on a council nobody is running.
+      const why = fs.existsSync(stopFile) ? "dropped" : resetAt() > touched + 5000 ? "new-conversation" : Date.now() - touched > STALE_MS ? "idle" : "";
+      if (why) {
+        emit(x, "stopped", { why });
+        x.stoppedAt = Date.now();
+        finish(x, "stopped");
+      }
+    }
   }
   return x;
 }
@@ -227,4 +245,13 @@ export function listLive() {
 export function startWatching() {
   scan();
   setInterval(scan, 1000);
+}
+
+/** The founder drops a stuck council from the room: the marker file tells the watcher. */
+export function drop(id) {
+  const dir = sessionFolders().get(id);
+  if (!dir || fs.existsSync(path.join(dir, "verdict.json"))) return false;
+  fs.writeFileSync(path.join(dir, "stopped.json"), JSON.stringify({ at: new Date().toISOString(), by: "room" }) + "\n");
+  load(id);
+  return true;
 }

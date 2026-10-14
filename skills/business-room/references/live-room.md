@@ -15,6 +15,7 @@ The room is optional. Write these files anyway; they cost a few lines and the co
 | With `draft-resolution.md` (`--deep` only) | `draft.json` (never in the default council: it starts the vote round) |
 | Round 3 cards back (`--deep` only) | `round-3.md` |
 | Last, after `verdict.md` | `verdict.json` |
+| Only to drop an unfinished council | `stopped.json` (the room's "Leave this council" button writes it too) |
 
 ## council.json
 
