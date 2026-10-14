@@ -13,15 +13,15 @@ const SAMPLES = [
 
 const EXAMPLE = "I run a coaching business at $30k a month with 15 clients at $2,000 each. Should I raise to $3,500 for everyone, raise for new clients only, or keep $2,000? Close rate is about 50% and I have $40k in the bank. Success is $45k a month by March. I'm leaning toward raising for everyone because I'm underpaid.";
 
-// The how-to, shown in the side panel while the room is empty and in "How it works".
+// The how-to, shown in "How it works".
 const GUIDE = `
   <div class="guide">
     <div class="guide-sec">
       <h4>How to use the BusinessRoom</h4>
       <ol>
-        <li><span>Open Claude Code in this folder.</span></li>
-        <li><span>Type <code>/business-room</code> and your decision.</span></li>
-        <li><span>Answer the Chair's questions. Then watch the council argue it out here.</span></li>
+        <li><span>In Claude Code, run <code>/business-room open</code>. It opens this room and listens to the chat.</span></li>
+        <li><span>Write your decision in the chat below the table.</span></li>
+        <li><span>Answer the Chair's questions in the chat. Then watch the founders argue it out here.</span></li>
         <li><span>When the verdict lands, download it as a PDF.</span></li>
       </ol>
     </div>
@@ -57,6 +57,10 @@ const GUIDE = `
 const SHAPES = ["base", "open", "mid", "blink"];
 const portrait = (key, shape = "base") => `/portraits/${key}-${shape}.webp`;
 const ROUND_NAME = ["", "Opening", "Debate", "Vote"];
+const CHAIR_ICON = "data:image/svg+xml;charset=utf-8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" fill="none" stroke="#37bdf8" stroke-width="3.5"/></svg>');
+
+// The company line under a founder's role: logo and name per company.
+const companyLine = (s) => !s.companies?.length ? "" : `<span class="co">${s.companies.map((c) => `<span class="co-item">${c.logo ? `<i class="co-logo" style="--logo:url('/logos/${c.logo}.svg')" aria-hidden="true"></i>` : ""}${esc(c.name)}</span>`).join("")}</span>`;
 
 // Seats without portrait art yet get an initials badge in their color.
 const placeholder = (key) => {
@@ -98,6 +102,8 @@ async function boot() {
   else if (ss.live) attach(ss.live);
   refreshUsage();
   setInterval(watchForLive, 2500);
+  pollChat();
+  setInterval(pollChat, 1500);
   setInterval(tickWait, 1000);
 }
 
@@ -140,7 +146,8 @@ function renderSeats() {
   $("#plates").innerHTML = state.seats.map((s) => `
     <div class="nameplate" id="plate-${s.key}" data-seat="${s.key}">
       <b>${esc(s.name)}</b>
-      <small>${esc(s.pillar)}</small>
+      <small>${esc(s.role || s.pillar)}</small>
+      ${companyLine(s)}
       <div class="meta"><span class="pips" title="Weight on this decision"></span><span class="chip" hidden></span><span class="score" hidden></span></div>
     </div>`).join("");
   layoutStage();
@@ -153,15 +160,18 @@ function layoutStage() {
   const W = stage.clientWidth;
   const narrow = matchMedia("(max-width: 820px)").matches;
   const H = narrow ? Math.round(W * 0.62) : stage.clientHeight;
-  const cx = W / 2, cy = H * (narrow ? 0.98 : 0.9), rx = W * 0.48, ry = H * (narrow ? 0.46 : 0.42);
+  // Full screen: the seats sit on the far edge of the table, the conversation fills the
+  // table's middle, and the chat box floats at the bottom (CHAT_H keeps clear of it).
+  const CHAT_H = 118;
+  const cx = W / 2, cy = narrow ? H * 0.98 : H * 0.64, rx = narrow ? W * 0.48 : Math.min(W * 0.46, H * 1.15), ry = H * (narrow ? 0.46 : 0.3);
   const t = $("#table");
   Object.assign(t.style, { left: `${cx - rx}px`, top: `${cy - ry}px`, width: `${rx * 2}px`, height: `${ry * 2}px` });
   const edge = (x) => cy - ry * Math.sqrt(Math.max(0, 1 - ((x - cx) / rx) ** 2));
   const xs = [0.085, 0.222, 0.361, 0.5, 0.639, 0.778, 0.915];
   state.seats.forEach((s, i) => {
-    const x = W * xs[i];
+    const x = narrow ? W * xs[i] : cx + (xs[i] - 0.5) * 2 * rx * 0.92;
     const d = ((x - cx) / rx) ** 2;
-    const size = H * (narrow ? 0.5 + 0.08 * d : 0.37 + 0.07 * d);
+    const size = H * (narrow ? 0.5 : 0.29); // one size for every seat, so the founders read as equals
     const bottom = edge(x) + size * 0.2;
     const el = $(`#seat-${s.key}`);
     Object.assign(el.style, { left: `${x - size / 2}px`, top: `${bottom - size}px`, width: `${size}px`, height: `${size}px`, zIndex: 10 + Math.round(d * 10) });
@@ -178,7 +188,8 @@ function layoutStage() {
     // the captions start below the lowest nameplate they could collide with
     const inner = [1, 2, 3, 4, 5].map((i) => $(`#plate-${state.seats[i].key}`));
     const top = Math.max(...inner.map((p) => p.offsetTop + p.offsetHeight / 2)) + H * 0.035;
-    Object.assign(c.style, { left: `${W * 0.2}px`, width: `${W * 0.6}px`, top: `${top}px`, height: `${H - top - H * 0.09}px` });
+    const w = Math.min(rx * 1.3, 760);
+    Object.assign(c.style, { left: `${cx - w / 2}px`, width: `${w}px`, top: `${top}px`, height: `${H - CHAT_H - top}px` });
   }
   const sp = state.speaking ? state.geo[state.speaking] : null;
   if (sp) moveSpot(state.speaking);
@@ -211,6 +222,9 @@ function bindUI() {
   $("#plates").addEventListener("click", openFrom);
   $("#seats").addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openFrom(e); } });
   $("#feed").addEventListener("click", (e) => { const c = e.target.closest(".feed-card"); if (c) openCard(c.dataset.seat, Number(c.dataset.round)); });
+  $("#chatForm").addEventListener("submit", sendChat);
+  $("#chatInput").addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); $("#chatForm").requestSubmit(); } });
+  $("#chatInput").addEventListener("input", (e) => { e.target.style.height = "auto"; e.target.style.height = Math.min(e.target.scrollHeight, 140) + "px"; });
   $("#waitHistory").addEventListener("click", openHistory);
   $("#waitGuide").addEventListener("click", openGuide);
   $("#guideBtn").addEventListener("click", openGuide);
@@ -230,6 +244,59 @@ function bindUI() {
     $$(".speed button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
   }));
   $("#skipBtn").addEventListener("click", () => player.skip());
+}
+
+// ------------------------------------------------------------- the chat
+// The founder talks to the Chair here. In viewer mode the message goes to Claude Code
+// (it waits on chat.jsonl through app/scripts/chat.mjs); with the API runner it convenes
+// the council directly.
+const HELLO = '<div class="empty">Write your decision below: the options, a few numbers (revenue, customers, cash), and which way you are leaning.</div>';
+const chatState = { last: 0, listening: false };
+
+function chatMessage(m) {
+  const d = document.createElement("div");
+  d.className = `msg ${m.from === "user" ? "user" : "chair"}`;
+  d.innerHTML = `${m.from === "user" ? "" : `<img class="av" src="${CHAIR_ICON}" alt="">`}<div class="bubble">${esc(m.text).replace(/\n/g, "<br>")}</div>`;
+  feedAppend(d);
+}
+
+async function pollChat() {
+  const j = await fetch(`/api/chat?after=${chatState.last}`).then((x) => x.json()).catch(() => null);
+  if (!j) return;
+  for (const m of j.messages) { chatState.last = Math.max(chatState.last, m.id); chatMessage(m); }
+  chatState.listening = j.listening;
+  const status = state.runner === "api" ? "The room runs the council itself (API mode)."
+    : j.listening ? "Claude Code is listening."
+    : j.live ? "The council is in session."
+    : "Claude Code is not listening. Run /business-room open in Claude Code.";
+  $("#chatStatus").textContent = status;
+  $("#chatStatus").dataset.on = String(state.runner === "api" || j.listening || Boolean(j.live));
+}
+
+async function sendChat(e) {
+  e.preventDefault();
+  const input = $("#chatInput");
+  const text = input.value.trim();
+  if (!text) return;
+  $("#chatSend").disabled = true;
+  try {
+    if (state.runner === "api" && !state.session) {
+      if (text.length < 10) return toast("Give the council a real decision, at least a sentence.");
+      chatMessage({ from: "user", text });
+      const r = await fetch("/api/council", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ prompt: text, mode: "full" }) });
+      const j = await r.json();
+      if (!r.ok) return toast(j.error || "Could not start the council.");
+      attach(j.id);
+    } else {
+      const r = await fetch("/api/chat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ text }) });
+      if (!r.ok) return toast((await r.json()).error || "Could not send.");
+      await pollChat();
+    }
+    input.value = "";
+    input.style.height = "auto";
+  } finally {
+    $("#chatSend").disabled = false;
+  }
 }
 
 // ------------------------------------------------------------- the player
@@ -272,16 +339,17 @@ function reset() {
   hideWait();
   $("#stage").classList.remove("live");
   $("#topic").hidden = true;
-  $("#composer").hidden = state.runner !== "api";
-  $("#waiting").hidden = state.runner === "api";
+  $("#composer").hidden = true;
+  $("#waiting").hidden = false;
+  $("#stepper").hidden = true;
   $("#caption").hidden = true;
   $("#cruxes").hidden = true;
   $("#plate").hidden = true;
   $("#playbar").hidden = true;
   $("#newBtn").hidden = true;
   $("#verdictSheet").hidden = true;
-  $("#panelHead").textContent = "Getting started";
-  $("#feed").innerHTML = GUIDE;
+  $$("#feed > :not(.msg)").forEach((n) => n.remove());
+  if (!$("#feed .msg")) $("#feed").innerHTML = HELLO;
   $$(".vote").forEach((b) => b.remove());
   $$(".seat").forEach((el) => { el.classList.remove("absent", "speaking", "thinking", "addressed"); $(".bust", el).dataset.shape = "base"; });
   $$(".nameplate").forEach((el) => { el.classList.remove("absent", "speaking"); $(".chip", el).hidden = true; $(".score", el).hidden = true; $(".pips", el).innerHTML = ""; });
@@ -297,8 +365,9 @@ function begin(id) {
   $("#waiting").hidden = true;
   $("#newBtn").hidden = false;
   $("#playbar").hidden = false;
-  $("#panelHead").textContent = "Key points";
-  $("#feed").innerHTML = '<div class="empty">One line per seat as the council talks. Click a seat to read its full card.</div>';
+  $("#stepper").hidden = false;
+  $$("#feed > :not(.msg)").forEach((n) => n.remove());
+  feedPhase("The council");
   $("#stage").classList.add("live");
   chairSays("The council is taking their seats", { dots: true });
 }
@@ -451,7 +520,7 @@ function captionFor(who) {
   c.style.animation = "none"; void c.offsetWidth; c.style.animation = "";
   const s = state.byKey[who];
   $("#capAv").className = `cap-av${s ? "" : " chair"}`;
-  $("#capAv").innerHTML = `<img src="${s ? portrait(who) : "/brand/ais-symbol.png"}" alt="">`;
+  $("#capAv").innerHTML = `<img src="${s ? portrait(who) : CHAIR_ICON}" alt="">`;
   $("#capWho").textContent = s ? s.name : "The Chair";
 }
 

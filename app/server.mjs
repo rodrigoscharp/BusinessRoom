@@ -6,6 +6,7 @@ import { SEATS } from "./lib/seats.mjs";
 import { startCouncil, getSession, subscribe, listSaved, loadSaved, MODELS } from "./lib/council.mjs";
 import { usage } from "./lib/anthropic.mjs";
 import * as watch from "./lib/watch.mjs";
+import * as chat from "./lib/chat.mjs";
 
 const PUBLIC = path.join(APP_ROOT, "public");
 const TYPES = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".svg": "image/svg+xml", ".png": "image/png", ".webp": "image/webp", ".ico": "image/x-icon", ".json": "application/json", ".ttf": "font/ttf", ".txt": "text/plain; charset=utf-8" };
@@ -34,6 +35,16 @@ const server = http.createServer(async (req, res) => {
   try {
     // open-room.mjs checks this to tell our room apart from anything else on the port.
     if (p === "/api/health") return send(res, 200, { app: "business-room", version: VERSION, sessionsDir: SESSIONS_DIR });
+    // The chat box: the founder's messages go to Claude Code through chat.jsonl.
+    if (p === "/api/chat" && req.method === "POST") {
+      const { text } = await readJson(req);
+      if (!text || !String(text).trim()) return send(res, 400, { error: "Write a message first." });
+      return send(res, 200, chat.append("user", text));
+    }
+    if (p === "/api/chat") {
+      const after = Number(url.searchParams.get("after")) || 0;
+      return send(res, 200, { messages: chat.readAll().filter((m) => m.id > after), listening: chat.listening(), live: watch.runningId() });
+    }
     if (p === "/api/seats") return send(res, 200, { seats: SEATS, models: MODELS, runner: RUNNER, hasKey: Boolean(env("ANTHROPIC_API_KEY")) });
     if (p === "/api/usage") return send(res, 200, usage);
     if (p === "/api/council" && req.method === "POST") {

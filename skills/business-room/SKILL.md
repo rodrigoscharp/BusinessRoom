@@ -18,7 +18,7 @@ Read once before the first run: `references/seats.md` (roster, weights, tensions
 - **Quick** (`--quick`): four seats chosen per `seats.md`, Rounds 1 and 2, Round 3 only if the scores did not converge. For reversible calls.
 - **Named seats** (`--seats a,b,c`): only those seats, three rounds.
 - **Consult** (`ask <seat> ...`): one seat, one answer, using the single-seat prompt. No scoring, no session folder needed, and no need to open the room.
-- **Open** (`open`, or no arguments): run Step 0 only, then tell the user the room is open and ask them for the decision.
+- **Open** (`open`, or no arguments): run Step 0, then the room chat loop below. The founder brings the decision in the room's chat box instead of the terminal.
 
 ## Step 0: Open the room
 
@@ -31,6 +31,18 @@ node "<plugin root>/app/scripts/open-room.mjs"
 It starts the room if it is not running and opens it in the default browser. It prints `ROOM_URL`, `SESSIONS_DIR`, and `STATUS` lines. Keep `SESSIONS_DIR`: every council folder goes there. Tell the user in one line that the room is open at `ROOM_URL`.
 
 If the script fails, say why in one line (it needs Node 20 or newer; a busy port is fixed by setting `BUSINESS_ROOM_PORT`) and carry on: the council runs the same without the room.
+
+## The room chat (when the founder uses the room)
+
+The room has a chat box under the table. Messages typed there reach you through `<plugin root>/app/scripts/chat.mjs`:
+
+- `node "<plugin root>/app/scripts/chat.mjs" say "text"` posts your message to the room as the Chair.
+- `node "<plugin root>/app/scripts/chat.mjs" wait` waits up to 9 minutes for the founder's next message. It prints `MESSAGE` and the text, or `TIMEOUT`. On `TIMEOUT`, run it again; after three timeouts in a row, say in Claude Code that you stopped listening and how to start again (`/business-room open`).
+- `node "<plugin root>/app/scripts/chat.mjs" reset` starts a fresh conversation. Run it once at the start of Open mode.
+
+Run `wait` in the foreground with a 600000 ms command timeout, so it is not cut off at the default 2 minutes. Write chat messages in the founder's language, short and plain.
+
+In Open mode: reset the chat, `say` a one-line greeting that asks for the decision, then `wait`. Treat the message as the user's request and continue with Step 1. When the founder came from the room, ask the Step 1 questions in the chat (`say` them as one short numbered list, then `wait`) instead of AskUserQuestion, and post the Step 7 verdict summary to the chat as well as in Claude Code. After the verdict, `say` that they can bring another decision, and `wait` again.
 
 ## Step 1: The brief
 
@@ -82,7 +94,7 @@ Quick mode skips this round when the Round 2 spread on the top option is 3 or le
 
 1. Run `python3 "<skill folder>/scripts/check_quotes.py" "<session folder>"` (try `python` if `python3` is missing). Every quote attributed to a source id must be in a brain. Remove any unverified quote from the verdict (and say so in the Chair notes). If Python is not installed, do not stop or ask the user to install it: check each attributed quote yourself by searching that seat's brain folder for the exact words, and treat any you cannot find as unverified.
 2. Compute the numbers from the last round's cards per `scoring.md`, apply the overrides, and write `verdict.md` from `report-template.md`. Write `verdict.json` last (`live-room.md`); it tells the room the council is over.
-3. Show the user a short verdict in chat, not the full report: the label and the call, the option scores on one line, the three arguments that carried the room (one line each, with the seat), the strongest objection (one line, with the seat), and the next steps (at most three). Then the path to `verdict.md` for the full detail, one line saying the branded PDF is one click away ("Download PDF" on the verdict in the room, at the `ROOM_URL` from Step 0), and one line offering a follow-up with any seat or a rerun with new facts. Keep it under 200 words: a founder should be able to decide from it at a glance.
+3. Show the user a short verdict in Claude Code (and in the room chat when they came from the room), not the full report: the label and the call, the option scores on one line, the three arguments that carried the room (one line each, with the seat), the strongest objection (one line, with the seat), and the next steps (at most three). Then the path to `verdict.md` for the full detail, one line saying the branded PDF is one click away ("Download PDF" on the verdict in the room, at the `ROOM_URL` from Step 0), and one line offering a follow-up with any seat or a rerun with new facts. Keep it under 200 words: a founder should be able to decide from it at a glance.
 
 ## Chair rules
 

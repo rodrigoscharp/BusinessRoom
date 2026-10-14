@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BusinessRoom</title>
-  <link rel="icon" href="/brand/favicon-ais.png" type="image/png">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2213%22 fill=%22none%22 stroke=%22%2337bdf8%22 stroke-width=%224%22/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,8 +13,7 @@
 <body>
   <header class="topbar">
     <div class="brand">
-      <img class="brand-logo" src="/brand/ais-horizontal.svg" alt="AI Automation Society">
-      <span class="brand-rule" aria-hidden="true"></span>
+      <span class="brand-mark" aria-hidden="true"></span>
       <span class="brand-name">BusinessRoom</span>
     </div>
     <ol class="stepper" id="stepper" aria-label="Council progress">
@@ -47,17 +46,16 @@
         <div class="wall" aria-hidden="true"></div>
         <div class="spot" id="spot" aria-hidden="true"></div>
         <div id="seats"></div>
-        <div class="table" id="table" aria-hidden="true"><img class="etch" src="/brand/ais-symbol.png" alt=""></div>
+        <div class="table" id="table" aria-hidden="true"></div>
         <div id="plates"></div>
         <svg class="links" id="links" aria-hidden="true"></svg>
 
         <div class="center" id="center">
           <div class="waiting" id="waiting" hidden>
             <span class="pulse"><i></i>The room is open</span>
-            <h2 data-type>Bring a decision to the BusinessRoom</h2>
-            <p>In Claude Code, type the line below with your decision. The council shows up here and argues it out live.</p>
-            <code>/business-room should I ...</code>
-            <div class="row"><button class="ghost" type="button" id="waitGuide">What to put in your question</button><button class="ghost" type="button" id="waitHistory">Watch a past council</button></div>
+            <h2 data-type>What decision is on the table?</h2>
+            <p>Write it in the chat below. The founders debate it here, live.</p>
+            <div class="row"><button class="ghost" type="button" id="waitGuide">What to put in your question</button><button class="ghost" type="button" id="waitHistory">Past sessions</button></div>
           </div>
 
           <form class="composer" id="composer" hidden>
@@ -94,6 +92,7 @@
 
           <div class="cruxes" id="cruxes" hidden></div>
           <div class="plate" id="plate" hidden></div>
+          <div class="chat-log" id="feed" aria-live="polite"></div>
         </div>
 
         <div class="playbar" id="playbar" hidden>
@@ -108,12 +107,13 @@
       </div>
     </section>
 
-    <aside class="panel" aria-label="Key points">
-      <div class="panel-head" id="panelHead">Key points</div>
-      <div class="tabpanel" id="feed">
-        <div class="empty">One line per seat as the council talks. Click a seat to read its full card.</div>
-      </div>
-    </aside>
+    <section class="chat" aria-label="Chat with the table">
+      <form class="chat-form" id="chatForm">
+        <textarea id="chatInput" rows="1" placeholder="Bring a decision to the table..." aria-label="Message"></textarea>
+        <button type="submit" class="send" id="chatSend" aria-label="Send">&#8593;</button>
+      </form>
+      <div class="chat-status" id="chatStatus"></div>
+    </section>
   </main>
 
   <div class="sheet" id="verdictSheet" hidden>

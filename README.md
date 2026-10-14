@@ -40,7 +40,9 @@ Restart Claude Code (or run `/reload-plugins`) so the new skill and agents load.
 /business-room open
 ```
 
-Claude starts the room and opens it in your browser. Then give it your decision:
+Claude starts the room, opens it in your browser, and listens to the chat box under the table. Write your decision there; the Chair asks its questions in the same chat, and the founders debate it live at the table.
+
+You can also give the decision straight in Claude Code:
 
 ```
 /business-room I run a B2B SaaS at R$8k MRR with 40 customers at R$200 a month.
