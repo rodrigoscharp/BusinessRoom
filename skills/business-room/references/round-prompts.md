@@ -15,7 +15,7 @@ Give the absolute plugin root once at the top of each prompt; seats find their b
 ## Round 1: opening position
 
 ```
-ROAST ROOM COUNCIL, ROUND 1 OF 3: OPENING POSITION
+BUSINESSROOM COUNCIL, ROUND 1 OF 3: OPENING POSITION
 
 Plugin root: [absolute path]. You hold the [SEAT] seat ([pillar]). Read your brain's _hot.md, then at most three more brain files that fit this decision (frameworks.md and positions.md are usually the right ones).
 
@@ -51,7 +51,7 @@ Rules: argue from your pillar first. Use real numbers when the brief has them, a
 ## Round 2: debate
 
 ```
-ROAST ROOM COUNCIL, ROUND 2 OF 3: DEBATE
+BUSINESSROOM COUNCIL, ROUND 2 OF 3: DEBATE
 
 Plugin root: [absolute path]. You hold the [SEAT] seat. Read your brain's _hot.md again and any brain file you need to answer the others (at most three).
 
@@ -83,7 +83,7 @@ Rules: engage the actual arguments on the table. Move only for a better argument
 ## Round 3: ratification
 
 ```
-ROAST ROOM COUNCIL, ROUND 3 OF 3: VOTE ON THE DRAFT RESOLUTION
+BUSINESSROOM COUNCIL, ROUND 3 OF 3: VOTE ON THE DRAFT RESOLUTION
 
 Plugin root: [absolute path]. You hold the [SEAT] seat. You already argued this in two rounds; read only your _hot.md if you need it.
 
@@ -105,7 +105,7 @@ ONE LINE FOR THE FOUNDER: the thing from your pillar they must not forget.
 ## Single-seat consult
 
 ```
-ROAST ROOM COUNCIL, SINGLE-SEAT CONSULT
+BUSINESSROOM COUNCIL, SINGLE-SEAT CONSULT
 
 Plugin root: [absolute path]. You hold the [SEAT] seat. Read your brain's _hot.md, then at most four more brain files that fit the question.
 

@@ -48,8 +48,8 @@ One column per seat: its final PILLAR SCORE, which is that seat's judgment of th
 |---|---|
 | Strategy and decisions (Bezos) | Strategic fit and reversibility |
 | Product and startups (Graham) | Real demand and growth |
-| Offers, pricing, and sales (Hormozi) | Offer strength and unit economics |
-| Marketing and attention (Gary V) | Attention and distribution |
-| People, hiring, and founder time (Martell) | Team capacity and founder time |
-| Operations and scaling (Wickman) | Operational readiness |
-| Money and capital (Buffett) | Downside and capital efficiency |
+| Offers, pricing, metrics, and cash (Hormozi) | Unit economics and cash |
+| First principles and execution (Musk) | Cost floor and execution speed |
+| Growth and scale (Zuckerberg) | Learning speed and growth |
+| Long bets and market creation (Huang) | Market creation and endurance |
+| Distribution and business model (Ek) | Distribution and lifetime value |

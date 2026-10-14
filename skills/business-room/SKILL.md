@@ -1,14 +1,14 @@
 ---
 name: business-room
-description: Use when a founder wants a hard business decision debated by a council of world-class operators, says "business room", "open the business room", "put this in the BusinessRoom", "founder council", "convene the council", "take this to the board", "what would Hormozi, Bezos, or Buffett say", "should I do X", or can't make up their mind on pricing, hiring, raising money, a new product, a partnership, a pivot, an event, or spending. Seven sub-agents, each built from one expert's public work (Bezos, Paul Graham, Hormozi, Gary Vaynerchuk, Dan Martell, Gino Wickman, Buffett), argue it over three rounds, then a Chair returns a scored verdict, the reasoning, the dissent, and next steps. Also does a one-seat consult ("ask the Hormozi seat"). Not /roast (generic personas, idea validation).
-argument-hint: "[the decision] [--quick] [--seats hormozi,buffett,...] | ask <seat> [question] | open"
+description: Use when a founder wants a hard business decision debated by a table of world-class founders, says "business room", "open the business room", "put this in the BusinessRoom", "founder council", "convene the council", "take this to the board", "what would Musk, Zuckerberg, Bezos, or Hormozi say", "should I do X", or can't make up their mind on pricing, growth, getting new customers, metrics, scaling, raising money, a new product, a pivot, or spending. Seven sub-agents, each built from one founder's public work (Jeff Bezos, Paul Graham, Alex Hormozi, Elon Musk, Mark Zuckerberg, Jensen Huang, Daniel Ek), argue it over three rounds, then a Chair returns a scored verdict, the reasoning, the dissent, and next steps. Also does a one-seat consult ("ask the Hormozi seat"). Not /roast (generic personas, idea validation).
+argument-hint: "[the decision] [--quick] [--seats hormozi,musk,...] | ask <seat> [question] | open"
 ---
 
 ## What this does
 
 BusinessRoom runs a board meeting on one decision. Seven seats, one per business pillar, each a sub-agent that reasons and talks the way its expert does, grounded in a brain compiled from that person's videos, essays, letters, talks, and books as they teach them in public. The seats argue across three rounds: open, debate, vote. You act as the **Chair**: you never argue a side, you run the room, keep the score, and write the verdict.
 
-Read once before the first run: `references/seats.md` (roster, weights, tensions), `references/round-prompts.md` (what each seat gets), `references/scoring.md` (math and overrides), `references/report-template.md` (output), `references/live-room.md` (the small JSON files the visual room plays). A finished example council lives in `<plugin root>/sessions/2026-10-09-example-take-the-seed/`.
+Read once before the first run: `references/seats.md` (roster, weights, tensions), `references/round-prompts.md` (what each seat gets), `references/scoring.md` (math and overrides), `references/report-template.md` (output), `references/live-room.md` (the small JSON files the visual room plays).
 
 **Paths.** This skill ships inside the `business-room` plugin. The skill folder is the base directory Claude Code gave you when it loaded this skill; the **plugin root** is two folders above it (it holds `app/`, `agents/`, and `skills/`). Use absolute paths built from these two everywhere below.
 
@@ -56,7 +56,7 @@ Keep the brief under 300 words. Mark every assumption as `(assumed)`.
 
 Spawn every seat in **one message**, in parallel, foreground (`run_in_background: false`), `subagent_type: business-room:council-<seat>`, with the Round 1 prompt. If that type is not registered in this session, try `council-<seat>` (a dev checkout that loads the agents without the plugin namespace); if neither is registered, use `general-purpose` with the fallback lines from `round-prompts.md`.
 
-When the cards come back, save them verbatim to `round-1.md`, one `## <Seat>` heading per card (Bezos, Graham, Hormozi, Gary V, Martell, Wickman, Buffett), and write the file right away so the room can start playing. Check each card has every field; send a card back once if it is missing scores or a stance. Then add a `## Chair notes` section at the bottom of `round-1.md`:
+When the cards come back, save them verbatim to `round-1.md`, one `## <Seat>` heading per card (Bezos, Graham, Hormozi, Musk, Zuckerberg, Huang, Ek), and write the file right away so the room can start playing. Check each card has every field; send a card back once if it is missing scores or a stance. Then add a `## Chair notes` section at the bottom of `round-1.md`:
 
 - The **cruxes**: the one to three underlying disagreements that explain why seats split (a factual question, a numbers question, or a values question such as speed versus safety), with the seats on each side.
 - The **unanimity check** (`scoring.md`): if Round 1 converged, make the strongest unargued alternative a crux and name which seats must argue it at full strength.
@@ -101,6 +101,6 @@ Run the same protocol sequentially yourself. For each seat, read `<plugin root>/
 
 - `brains/<slug>/`: one brain per seat (`_hot.md`, `frameworks.md`, `principles.md`, `positions.md`, `voice.md`, `stories.md`, `books.md`, `sources.md`).
 - `scripts/check_quotes.py`: verifies every attributed quote in a session against the brains.
-- Agents: `<plugin root>/agents/council-{bezos,graham,hormozi,garyvee,martell,wickman,buffett}.md`.
+- Agents: `<plugin root>/agents/council-{bezos,graham,hormozi,musk,zuckerberg,huang,ek}.md`.
 - The room app: `<plugin root>/app/`. `app/scripts/open-room.mjs` starts and opens it; `--stop` stops it.
 - The room app: `app/` (start at the project `README.md`).

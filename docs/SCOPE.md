@@ -33,15 +33,15 @@ Com `ANTHROPIC_API_KEY` e `COUNCIL_RUNNER=api` no `.env`, a página roda o conse
 |---|---|---|---|
 | Jeff Bezos | Estratégia e decisões | É a aposta certa? Dá para voltar atrás? | Existe |
 | Paul Graham | Produto e início | As pessoas querem isso? Está crescendo? | Existe |
-| Alex Hormozi | Oferta, preço e métricas | Vão pagar? Quanto? CAC e LTV fecham? | Existe |
-| Elon Musk | Primeiros princípios e execução | Qual o limite real de custo e prazo? Dá para ir 10x mais rápido? | Novo |
-| Mark Zuckerberg | Crescimento e escala | Isso cresce sozinho? Qual a métrica-norte e a retenção? | Novo |
-| Jensen Huang | Apostas de longo prazo e mercado | Isso cria um mercado novo? Vale apostar a empresa nisso? | Novo |
-| Daniel Ek | Distribuição e modelo de receita | Como chega a milhões de clientes? A assinatura ou o marketplace se sustenta? | Novo |
+| Alex Hormozi | Oferta, preço, métricas e caixa | Vão pagar? CAC e LTV fecham? O caixa aguenta? | Existe |
+| Elon Musk | Primeiros princípios e execução | Qual o limite real de custo e prazo? Dá para ir 10x mais rápido? | Pronto |
+| Mark Zuckerberg | Crescimento e escala | Isso cresce sozinho? Qual a métrica-norte e a retenção? | Pronto |
+| Jensen Huang | Apostas de longo prazo e mercado | Isso cria um mercado novo? Vale apostar a empresa nisso? | Pronto |
+| Daniel Ek | Distribuição e modelo de receita | Como chega a milhões de clientes? A assinatura ou o marketplace se sustenta? | Pronto |
 
-Pilares propostos, ainda podem mudar.
+Os quatro cérebros novos já estão no repositório, com citações conferidas na fonte.
 
-Ponto em aberto: sem o Buffett, nenhuma cadeira cuida de caixa, dívida e risco de quebra. Opções: Hormozi absorve unit economics e caixa, ou entra uma oitava cadeira de dinheiro.
+Decidido: sem o Buffett, o Hormozi absorve caixa, runway e risco de quebra junto com preço e métricas. A mesa fica com 7 cadeiras.
 
 ## Cérebros novos
 

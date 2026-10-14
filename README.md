@@ -6,7 +6,17 @@ Bring a hard startup decision to a table of simulated founders. They argue it ou
 
 BusinessRoom is a Claude Code plugin. Install it once, type one command, and the room opens in your browser.
 
-> Work in progress. The v1 scope is in [docs/SCOPE.md](docs/SCOPE.md). The current roster is still the one inherited from Roast Room; the founder roster (Bezos, Paul Graham, Hormozi, Musk, Zuckerberg, Jensen Huang, Daniel Ek) is next.
+> Work in progress. The v1 scope is in [docs/SCOPE.md](docs/SCOPE.md). Portraits for the four new founders are not drawn yet; the room shows their initials until they are.
+
+| Seat | Pillar | The question they own |
+|---|---|---|
+| Jeff Bezos | Strategy and decisions | Is this the right bet, and how reversible is it? |
+| Paul Graham | Product and startups | Do people actually want this, and is it growing? |
+| Alex Hormozi | Offers, pricing, metrics, and cash | Will people pay, do the unit economics work, and does the cash last? |
+| Elon Musk | First principles and execution | What do physics and cost really allow, and how fast can this ship? |
+| Mark Zuckerberg | Growth and scale | Does this grow on its own, and how fast are we learning? |
+| Jensen Huang | Long bets and market creation | Does this create a new market, and can the company endure until it pays? |
+| Daniel Ek | Distribution and business model | How does this reach millions, and does the revenue model hold up? |
 
 ## What you need
 
@@ -94,7 +104,7 @@ claude --plugin-dir .
 | `skills/business-room/` | The skill: protocol, prompts, scoring, report template, and the brains |
 | `agents/` | The seat agents |
 | `app/` | The room: a zero-dependency Node server, the web page, and the PDF builder |
-| `sessions/` | The example councils that ship with the plugin |
+| `sessions/` | Example councils that ship with the plugin (none yet for the new roster) |
 
 ## About the advisors
 

@@ -1,6 +1,6 @@
 # Report template (the Chair's verdict)
 
-Written by the Chair in plain English. No em dashes. No AI filler: state each point once, no tee-ups, no "here's the thing". Seat quotes keep their own voice. Keep the whole report under about 1,000 words; the round files hold the detail. Reference report: `sessions/2026-10-09-example-take-the-seed/verdict.md`.
+Written by the Chair in plain English. No em dashes. No AI filler: state each point once, no tee-ups, no "here's the thing". Seat quotes keep their own voice. Keep the whole report under about 1,000 words; the round files hold the detail.
 
 ```markdown
 # BusinessRoom: [decision in a few words]
@@ -18,7 +18,7 @@ Option scores: [A] x.x · [B] x.x · [C] x.x · Support for the resolution x.x/1
 
 | Seat | Weight | Final stance | [A] | [B] | [C] | Pillar score | Moved? | Their line |
 |---|---|---|---|---|---|---|---|---|
-| Buffett (money) | 3 | ... | 1 | 6 | 7 | 8 | gated B to C default | "[their one line for the founder]" |
+| Hormozi (pricing and cash) | 3 | ... | 1 | 6 | 7 | 8 | gated B to C default | "[their one line for the founder]" |
 
 Math: [one line per option]
 

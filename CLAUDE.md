@@ -4,7 +4,7 @@ This repo is the BusinessRoom Claude Code plugin: a table of simulated founders 
 
 This file is for working on the plugin. Installed users never see it; anything the Chair must follow at runtime belongs in `skills/business-room/SKILL.md`.
 
-- Layout: `.claude-plugin/` (manifests), `skills/business-room/` (the skill, references, brains, quote checker), `agents/` (seat agents), `app/` (the room), `sessions/` (shipped examples only).
+- Layout: `.claude-plugin/` (manifests), `skills/business-room/` (the skill, references, brains, quote checker), `agents/` (seat agents), `app/` (the room), `sessions/` (shipped examples only; none yet for the new roster).
 - Load this checkout as the plugin with `claude --plugin-dir .`. Inside the plugin, seat agents are named `business-room:council-<seat>`.
 - User councils are written to `~/.business-room/sessions/` (override with `BUSINESS_ROOM_HOME`), never into the plugin folder, because an update replaces it.
 - `npm start` starts and opens the room on http://localhost:4740 (`BUSINESS_ROOM_PORT` overrides), `npm stop` stops it. Run `claude plugin validate .` after changing a manifest, skill, or agent.

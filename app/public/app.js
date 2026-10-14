@@ -17,7 +17,7 @@ const EXAMPLE = "I run a coaching business at $30k a month with 15 clients at $2
 const GUIDE = `
   <div class="guide">
     <div class="guide-sec">
-      <h4>How to use the Roast Room</h4>
+      <h4>How to use the BusinessRoom</h4>
       <ol>
         <li><span>Open Claude Code in this folder.</span></li>
         <li><span>Type <code>/business-room</code> and your decision.</span></li>
@@ -57,6 +57,21 @@ const GUIDE = `
 const SHAPES = ["base", "open", "mid", "blink"];
 const portrait = (key, shape = "base") => `/portraits/${key}-${shape}.webp`;
 const ROUND_NAME = ["", "Opening", "Debate", "Vote"];
+
+// Seats without portrait art yet get an initials badge in their color.
+const placeholder = (key) => {
+  const s = state.byKey[key];
+  const c = s?.color || "#4c6a92";
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path d="M30 200 C30 150 60 132 100 132 C140 132 170 150 170 200 Z" fill="${c}" opacity="0.85"/><circle cx="100" cy="80" r="44" fill="${c}"/><text x="100" y="93" font-family="Montserrat,Arial,sans-serif" font-size="34" font-weight="700" fill="#fff" text-anchor="middle">${esc(s?.initials || "?")}</text></svg>`;
+  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+};
+document.addEventListener("error", (e) => {
+  const img = e.target;
+  const m = img.tagName === "IMG" && !img.dataset.placeholder && /\/portraits\/([a-z]+)-/.exec(img.getAttribute("src") || "");
+  if (!m) return;
+  img.dataset.placeholder = "1";
+  img.src = placeholder(m[1]);
+}, true);
 
 const state = {
   seats: [], byKey: {}, session: null, options: [], weights: {}, active: [], round: 0,
@@ -124,7 +139,7 @@ function renderSeats() {
     </div>`).join("");
   $("#plates").innerHTML = state.seats.map((s) => `
     <div class="nameplate" id="plate-${s.key}" data-seat="${s.key}">
-      <b>${esc(s.short === "Gary V" ? "Gary V" : s.name)}</b>
+      <b>${esc(s.name)}</b>
       <small>${esc(s.pillar)}</small>
       <div class="meta"><span class="pips" title="Weight on this decision"></span><span class="chip" hidden></span><span class="score" hidden></span></div>
     </div>`).join("");

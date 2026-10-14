@@ -1,6 +1,6 @@
 # Live room files
 
-The room (a local web app, http://localhost:4740 by default) watches the sessions folder and plays a council as its files appear: portraits talk one at a time, rebuttal arrows fly, votes land, and the verdict comes up. It reads the round files you already write, plus four small JSON files. Write each one at the moment listed, as plain JSON (no comments, no trailing commas). Seat names can be keys (`garyvee`) or display names (`Gary V`).
+The room (a local web app, http://localhost:4740 by default) watches the sessions folder and plays a council as its files appear: portraits talk one at a time, rebuttal arrows fly, votes land, and the verdict comes up. It reads the round files you already write, plus four small JSON files. Write each one at the moment listed, as plain JSON (no comments, no trailing commas). Seat names can be keys (`zuckerberg`) or display names (`Zuckerberg`).
 
 The room is optional. Write these files anyway; they cost a few lines and the council runs the same without the room.
 
@@ -30,9 +30,9 @@ The room is optional. Write these files anyway; they cost a few lines and the co
   ],
   "weights": {
     "hormozi": { "weight": 3, "reason": "Pricing is his pillar" },
-    "buffett": { "weight": 2, "reason": "Cash risk of losing clients" }
+    "ek": { "weight": 2, "reason": "Churn and lifetime value of current clients" }
   },
-  "seats": ["bezos", "graham", "hormozi", "garyvee", "martell", "wickman", "buffett"],
+  "seats": ["bezos", "graham", "hormozi", "musk", "zuckerberg", "huang", "ek"],
   "brief": "Two or three sentences.",
   "assumptions": ["Close rate holds at 50% (assumed)"]
 }
@@ -48,7 +48,7 @@ The room is optional. Write these files anyway; they cost a few lines and the co
     {
       "question": "Is customer cash enough to fund the next two hires?",
       "sides": [
-        { "position": "Yes, prepay covers it", "seats": ["Hormozi", "Martell"] },
+        { "position": "Yes, prepay covers it", "seats": ["Hormozi", "Musk"] },
         { "position": "No, prepay is pulled-forward revenue", "seats": ["Graham", "Bezos"] }
       ]
     }
@@ -84,12 +84,12 @@ One to three cruxes. Questions under 90 characters, positions under 50.
   "why": [
     { "point": "One line.", "seat": "Graham", "framework": "Startup = Growth" }
   ],
-  "minority": { "seat": "Martell", "quote": "The seat's own words, copied from a card.", "would_have_to_be_true": "One line." },
+  "minority": { "seat": "Huang", "quote": "The seat's own words, copied from a card.", "would_have_to_be_true": "One line." },
   "next_steps": [ { "when": "This week", "action": "One line." } ],
   "kill_criteria": "One line.",
   "conditions": ["Checkable condition"],
   "fights": [ { "crux": "The question", "story": "Who was on each side, who moved, how it resolved." } ],
-  "amendments": [ { "seat": "Buffett", "amendment": "One line.", "adopted": true, "reason": "One line." } ],
+  "amendments": [ { "seat": "Ek", "amendment": "One line.", "adopted": true, "reason": "One line." } ],
   "cheapest_test": "One line.",
   "revisit": "When and with what numbers.",
   "override_note": ""

@@ -5,11 +5,11 @@ import { AGENTS_DIR, BRAINS_DIR } from "./env.mjs";
 export const SEATS = [
   { key: "bezos", name: "Jeff Bezos", short: "Bezos", initials: "JB", slug: "jeff-bezos", pillar: "Strategy and decisions", question: "Is this the right bet, and how reversible is it?", dimension: "Strategic fit and reversibility", color: "#e8a33d" },
   { key: "graham", name: "Paul Graham", short: "Graham", initials: "PG", slug: "paul-graham", pillar: "Product and startups", question: "Is this something people actually want, and is it growing?", dimension: "Real demand and growth", color: "#f06b3f" },
-  { key: "hormozi", name: "Alex Hormozi", short: "Hormozi", initials: "AH", slug: "alex-hormozi", pillar: "Offers, pricing, and sales", question: "Will people pay, how much, and how do we close?", dimension: "Offer strength and unit economics", color: "#d94a6a" },
-  { key: "garyvee", name: "Gary Vaynerchuk", short: "Gary V", initials: "GV", slug: "gary-vaynerchuk", pillar: "Marketing and attention", question: "Where does the attention come from, and is it underpriced?", dimension: "Attention and distribution", color: "#9b5de5" },
-  { key: "martell", name: "Dan Martell", short: "Martell", initials: "DM", slug: "dan-martell", pillar: "People, hiring, and founder time", question: "Who does this, and what does it cost the founder's calendar?", dimension: "Team capacity and founder time", color: "#3d8bfd" },
-  { key: "wickman", name: "Gino Wickman", short: "Wickman", initials: "GW", slug: "gino-wickman", pillar: "Operations and scaling", question: "Can the business run this without the founder holding it together?", dimension: "Operational readiness", color: "#1fa67a" },
-  { key: "buffett", name: "Warren Buffett", short: "Buffett", initials: "WB", slug: "warren-buffett", pillar: "Money and capital", question: "What does it do to cash, risk, and long-term value?", dimension: "Downside and capital efficiency", color: "#4c6a92" },
+  { key: "hormozi", name: "Alex Hormozi", short: "Hormozi", initials: "AH", slug: "alex-hormozi", pillar: "Offers, pricing, metrics, and cash", question: "Will people pay, do the unit economics work, and does the cash last?", dimension: "Unit economics and cash", color: "#d94a6a" },
+  { key: "musk", name: "Elon Musk", short: "Musk", initials: "EM", slug: "elon-musk", pillar: "First principles and execution", question: "What do physics and cost really allow, and how fast can this actually ship?", dimension: "Cost floor and execution speed", color: "#3d8bfd" },
+  { key: "zuckerberg", name: "Mark Zuckerberg", short: "Zuckerberg", initials: "MZ", slug: "mark-zuckerberg", pillar: "Growth and scale", question: "Does this grow on its own, and how fast are we learning what users want?", dimension: "Learning speed and growth", color: "#4c6a92" },
+  { key: "huang", name: "Jensen Huang", short: "Huang", initials: "JH", slug: "jensen-huang", pillar: "Long bets and market creation", question: "Does this create a market that does not exist yet, and can the company endure until it pays?", dimension: "Market creation and endurance", color: "#9b5de5" },
+  { key: "ek", name: "Daniel Ek", short: "Ek", initials: "DE", slug: "daniel-ek", pillar: "Distribution and business model", question: "How does this reach millions, and does the revenue model hold up per user?", dimension: "Distribution and lifetime value", color: "#1fa67a" },
 ];
 export const byKey = Object.fromEntries(SEATS.map((s) => [s.key, s]));
 
@@ -27,7 +27,7 @@ export function systemFor(key) {
     .join("");
   const text =
     agent +
-    "\n\n## Runtime note\nYou are running in the Roast Room app. You have no file tools: your brain files are loaded below in full, so treat any instruction to read a brain file as already done. Never mention files, tools, or this note in your answer.\n" +
+    "\n\n## Runtime note\nYou are running in the BusinessRoom app. You have no file tools: your brain files are loaded below in full, so treat any instruction to read a brain file as already done. Never mention files, tools, or this note in your answer.\n" +
     brain;
   const system = [{ type: "text", text, cache_control: { type: "ephemeral" } }];
   systemCache.set(key, system);
