@@ -1,10 +1,10 @@
 // The BusinessRoom verdict as a one or two page branded PDF, built in the browser with a
-// vendored jsPDF, so the room still needs nothing installed. White page, Montserrat,
-// AIS Dark Blue type, AIS Blue as the accent only (AIS Brand Guidelines v1).
+// vendored jsPDF, so the room still needs nothing installed. White page, Helvetica,
+// charcoal type, brass as the only accent (the BusinessRoom palette).
 
 const C = {
-  ink: [7, 18, 28], soft: [55, 68, 82], mute: [112, 124, 138], rule: [226, 231, 237],
-  tint: [243, 246, 249], track: [228, 233, 239], accent: [55, 189, 248], white: [255, 255, 255],
+  ink: [24, 22, 20], soft: [70, 66, 62], mute: [124, 118, 112], rule: [230, 226, 220],
+  tint: [247, 244, 239], track: [233, 228, 220], accent: [201, 151, 58], white: [255, 255, 255],
 };
 const LABEL = { go: [63, 207, 142], amber: [255, 144, 37], red: [255, 90, 79] };
 const labelColor = (l) => (/DON'T/.test(l) ? LABEL.red : /RESHAPE|WAIT/.test(l) ? LABEL.amber : LABEL.go);
@@ -22,21 +22,7 @@ function loadLib() {
   return libReady;
 }
 
-const fileCache = {};
-async function fetchBase64(url) {
-  if (fileCache[url]) return fileCache[url];
-  const buf = new Uint8Array(await (await fetch(url)).arrayBuffer());
-  let bin = "";
-  for (let i = 0; i < buf.length; i += 0x8000) bin += String.fromCharCode(...buf.subarray(i, i + 0x8000));
-  return (fileCache[url] = btoa(bin));
-}
 
-async function addFonts(doc) {
-  for (const [file, style] of [["Montserrat-Regular.ttf", "normal"], ["Montserrat-SemiBold.ttf", "semibold"], ["Montserrat-Bold.ttf", "bold"]]) {
-    doc.addFileToVFS(file, await fetchBase64(`/brand/fonts/${file}`));
-    doc.addFont(file, "Montserrat", style);
-  }
-}
 
 const clean = (t) => String(t ?? "").replace(/\s*\((?:S\d+|source[^)]*)[^)]*\)/gi, "").replace(/\*\*/g, "").replace(/[—–]/g, ", ").replace(/\s+/g, " ").trim();
 const dateLine = (id) => {
@@ -49,8 +35,6 @@ export async function downloadVerdictPdf({ setup, verdict: ev, byKey, id }) {
   await loadLib();
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit: "pt", format: "letter", compress: true });
-  await addFonts(doc);
-  const logo = "data:image/png;base64," + (await fetchBase64("/brand/ais-horizontal-on-light.png"));
 
   const v = ev.verdict;
   const seats = ev.seats || [];
@@ -64,7 +48,7 @@ export async function downloadVerdictPdf({ setup, verdict: ev, byKey, id }) {
   const W = 612, H = 792, M = 54, CW = W - M * 2;
   let y = M;
 
-  const font = (size, style = "normal", color = C.ink) => { doc.setFont("Montserrat", style); doc.setFontSize(size); doc.setTextColor(...color); };
+  const font = (size, style = "normal", color = C.ink) => { doc.setFont("helvetica", style === "semibold" ? "bold" : style); doc.setFontSize(size); doc.setTextColor(...color); };
   const lines = (text, width, size, style = "normal") => { font(size, style); return doc.splitTextToSize(clean(text), width); };
   const lh = (size) => size * 1.42;
   const ensure = (h) => { if (y + h > H - 64) { doc.addPage(); y = M; } };
@@ -114,8 +98,11 @@ export async function downloadVerdictPdf({ setup, verdict: ev, byKey, id }) {
   };
 
   // ---------------------------------------------------------------- header
-  doc.addImage(logo, "PNG", M, y, 62, 62 * 374 / 900, "ais-logo", "SLOW");
-  font(15, "bold", C.ink); doc.text("BusinessRoom", W - M, y + 12, { align: "right" });
+  // the BusinessRoom mark: a brass tile with the table seen from above
+  doc.setFillColor(...C.accent); doc.roundedRect(M, y - 2, 22, 22, 5, 5, "F");
+  doc.setFillColor(...C.white); doc.ellipse(M + 11, y + 9, 7, 4.2, "F");
+  font(12, "bold", C.ink); doc.text("BusinessRoom", M + 30, y + 13);
+  font(12, "bold", C.ink); doc.text("Founders' verdict", W - M, y + 12, { align: "right" });
   font(8.5, "normal", C.mute); doc.text(`Verdict report · ${dateLine(id)}`, W - M, y + 25, { align: "right" });
   y += 40;
   doc.setDrawColor(...C.ink); doc.setLineWidth(1.2); doc.line(M, y, W - M, y);

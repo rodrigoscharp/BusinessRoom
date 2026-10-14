@@ -57,7 +57,21 @@ const GUIDE = `
 const SHAPES = ["base", "open", "mid", "blink"];
 const portrait = (key, shape = "base") => `/portraits/${key}-${shape}.webp`;
 const ROUND_NAME = ["", "Opening", "Debate", "Vote"];
-const CHAIR_ICON = "data:image/svg+xml;charset=utf-8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" fill="none" stroke="#37bdf8" stroke-width="3.5"/></svg>');
+// A cup of coffee on a saucer, with three wisps of steam that drift up (styles.css animates them).
+const CUP_SVG = `<svg viewBox="0 0 40 60" xmlns="http://www.w3.org/2000/svg">
+  <g class="steam" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round">
+    <path d="M15 26 C11 21, 19 18, 15 12 C12 8, 17 5, 15 1"/>
+    <path d="M20 26 C16 20, 24 17, 20 11 C17 7, 22 4, 20 0"/>
+    <path d="M25 26 C21 21, 29 18, 25 12 C22 8, 27 5, 25 1"/>
+  </g>
+  <ellipse cx="20" cy="53" rx="18" ry="5" fill="#e9e4dc"/>
+  <ellipse cx="20" cy="52" rx="13" ry="3.2" fill="#d4cdc2"/>
+  <path d="M30 36 q8 0 7 7 q-1 6 -9 5" fill="none" stroke="#f3efe8" stroke-width="3"/>
+  <path d="M8 31 h24 l-2.5 17 q-0.6 4 -4.5 4 h-10 q-3.9 0 -4.5 -4 z" fill="#f6f2ec"/>
+  <ellipse cx="20" cy="31" rx="12" ry="3.2" fill="#f6f2ec"/>
+  <ellipse cx="20" cy="31.4" rx="10.2" ry="2.5" fill="#5a3a22"/>
+</svg>`;
+const CHAIR_ICON = "data:image/svg+xml;charset=utf-8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#c9973a"/><ellipse cx="16" cy="16" rx="10" ry="6" fill="#fff"/></svg>');
 
 // The company line under a founder's role: logo and name per company.
 const companyLine = (s) => !s.companies?.length ? "" : `<span class="co">${s.companies.map((c) => `<span class="co-item">${c.logo ? `<i class="co-logo" style="--logo:url('/logos/${c.logo}.svg')" aria-hidden="true"></i>` : ""}${esc(c.name)}</span>`).join("")}</span>`;
@@ -66,7 +80,7 @@ const companyLine = (s) => !s.companies?.length ? "" : `<span class="co">${s.com
 const placeholder = (key) => {
   const s = state.byKey[key];
   const c = s?.color || "#4c6a92";
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path d="M30 200 C30 150 60 132 100 132 C140 132 170 150 170 200 Z" fill="${c}" opacity="0.85"/><circle cx="100" cy="80" r="44" fill="${c}"/><text x="100" y="93" font-family="Montserrat,Arial,sans-serif" font-size="34" font-weight="700" fill="#fff" text-anchor="middle">${esc(s?.initials || "?")}</text></svg>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path d="M30 200 C30 150 60 132 100 132 C140 132 170 150 170 200 Z" fill="${c}" opacity="0.85"/><circle cx="100" cy="80" r="44" fill="${c}"/><text x="100" y="93" font-family="Sora,Arial,sans-serif" font-size="34" font-weight="700" fill="#fff" text-anchor="middle">${esc(s?.initials || "?")}</text></svg>`;
   return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
 };
 document.addEventListener("error", (e) => {
@@ -117,7 +131,7 @@ async function watchForLive() {
   attach(id);
 }
 
-// AIS arrival: a heading types in a character at a time, blur to sharp
+// arrival: a heading types in a character at a time, blur to sharp
 function typeIn(el) {
   if (!el) return;
   const text = el.textContent;
@@ -143,6 +157,7 @@ function renderSeats() {
       <div class="think" aria-hidden="true"><i></i><i></i><i></i></div>
       <div class="bust" data-shape="base">${SHAPES.map((sh) => `<img class="${sh}" src="${portrait(s.key, sh)}" alt="" draggable="false">`).join("")}</div>
     </div>`).join("");
+  $("#cups").innerHTML = state.seats.map((s, i) => `<div class="cup" id="cup-${s.key}" style="--d:-${(i * 0.9) % 3}s" aria-hidden="true">${CUP_SVG}</div>`).join("");
   $("#plates").innerHTML = state.seats.map((s) => `
     <div class="nameplate" id="plate-${s.key}" data-seat="${s.key}">
       <b>${esc(s.name)}</b>
@@ -175,6 +190,11 @@ function layoutStage() {
     const bottom = edge(x) + size * 0.2;
     const el = $(`#seat-${s.key}`);
     Object.assign(el.style, { left: `${x - size / 2}px`, top: `${bottom - size}px`, width: `${size}px`, height: `${size}px`, zIndex: 10 + Math.round(d * 10) });
+    const cup = $(`#cup-${s.key}`);
+    // the cup sits on the table just in front of the seat, beside the nameplate
+    const cs = H * (narrow ? 0.07 : 0.055);
+    const cupX = x + size * 0.36;
+    Object.assign(cup.style, { left: `${cupX - cs / 2}px`, top: `${edge(x) + H * 0.035}px`, width: `${cs}px`, height: `${cs * 1.5}px` });
     const pl = $(`#plate-${s.key}`);
     pl.style.left = `${x}px`;
     pl.style.top = `${edge(x) + H * 0.01}px`; // straddles the table edge, over the chest
@@ -437,6 +457,11 @@ function onSetup(ev) {
   for (const s of state.seats) {
     const absent = !ev.seats.includes(s.key);
     $(`#seat-${s.key}`).classList.toggle("absent", absent);
+    const cup = $(`#cup-${s.key}`);
+    // the cup sits on the table just in front of the seat, beside the nameplate
+    const cs = H * (narrow ? 0.07 : 0.055);
+    const cupX = x + size * 0.36;
+    Object.assign(cup.style, { left: `${cupX - cs / 2}px`, top: `${edge(x) + H * 0.035}px`, width: `${cs}px`, height: `${cs * 1.5}px` });
     const pl = $(`#plate-${s.key}`);
     pl.classList.toggle("absent", absent);
     const w = ev.weights[s.key]?.weight || 1;
@@ -505,11 +530,22 @@ function setSpeaker(key, target) {
   if (el) {
     el.classList.remove("thinking");
     // lean toward whoever they're answering
+    // the speaker turns toward whoever they answer; everyone else turns to watch the speaker.
+    // The portraits face front, so a perspective rotateY fakes the head turn.
     const g = state.geo[key], tg = target && state.geo[target];
-    el.style.transform = tg ? `translateX(${Math.sign(tg.x - g.x) * g.size * 0.04}px) rotate(${Math.sign(tg.x - g.x) * 2.5}deg) scale(1.05)` : "scale(1.05)";
+    const dir = tg ? Math.sign(tg.x - g.x) : 0;
+    el.style.transform = `perspective(900px) translateX(${dir * g.size * 0.04}px) rotateY(${dir * 20}deg) rotate(${dir * 2}deg) scale(1.05)`;
+    $$(".seat").forEach((s) => {
+      if (s.dataset.seat === key) return;
+      const sg = state.geo[s.dataset.seat];
+      const look = sg ? Math.sign(g.x - sg.x) : 0;
+      s.style.transform = `perspective(900px) rotateY(${look * (s.dataset.seat === target ? 18 : 9)}deg)`;
+    });
     moveSpot(key);
-  } else $("#spot").classList.remove("on");
-  $$(".seat").forEach((s) => { if (s.dataset.seat !== key) s.style.transform = ""; });
+  } else {
+    $("#spot").classList.remove("on");
+    $$(".seat").forEach((s) => { s.style.transform = ""; });
+  }
 }
 
 function captionFor(who) {
