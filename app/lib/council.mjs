@@ -188,7 +188,6 @@ async function chairSetup(st) {
     options: S.arr(S.obj({ id: S.enum("A", "B", "C", "D"), label: S.str })),
     assumptions: S.arr(S.str),
     weights: S.arr(S.obj({ seat: S.enum(...SEATS.map((s) => s.key)), weight: S.int, reason: S.str })),
-    quick_seats: S.arr(S.enum(...SEATS.map((s) => s.key))),
   });
   return ai.json({
     model: MODELS.chair, system: CHAIR_SYSTEM, schema, maxTokens: 3000,
@@ -202,8 +201,7 @@ Set up the room.
 - options: 2 to 4 options with ids A, B, C (D only if truly needed). Always include "don't do it" or "keep doing what you do now", and the obvious smaller version if the founder brought one big idea.
 - brief: under 200 words covering the business, resources, what success looks like, and the founder's lean, using only what the founder said. Do not invent facts.
 - assumptions: any number or fact you had to assume to make the brief usable, each one line. Keep it to what matters.
-- weights: one entry for every seat, weight 1 to 3 (3 = the decision lives in this pillar, 2 = materially affected, 1 = touched at the edges). Exactly one or two seats at 3. Reason in one line.
-- quick_seats: the four seats for a quick council: the two highest-weight seats, Hormozi or Bezos as the downside check (whichever is not already in), and the seat most likely to disagree with the others.`,
+- weights: one entry for every seat, weight 1 to 3 (3 = the decision lives in this pillar, 2 = materially affected, 1 = touched at the edges). Exactly one or two seats at 3. Reason in one line.`,
   });
 }
 
@@ -277,7 +275,7 @@ CRUXES: ${JSON.stringify(st.cruxes)}
 ROUND 2 CARDS
 ${cardsBlock(st, 2)}
 
-${lastRound === 3 ? `DRAFT RESOLUTION\n${JSON.stringify(st.draft)}\n\nROUND 3 VOTES\n${cardsBlock(st, 3)}` : "(Quick mode: Round 3 skipped.)"}
+${lastRound === 3 ? `DRAFT RESOLUTION\n${JSON.stringify(st.draft)}\n\nROUND 3 VOTES\n${cardsBlock(st, 3)}` : "(Two-round council: no vote round.)"}
 
 FINAL WEIGHTED OPTION SCORES (computed, do not change): ${JSON.stringify(Object.fromEntries(Object.entries(finalScores).map(([k, v]) => [k, v.score])))}
 Recommended option by score: ${recommended}. Band for it: ${bandFor(finalScores[recommended]?.score)}.
@@ -289,7 +287,7 @@ Write the verdict for the founder.
 - why: 3 to 5 arguments that carried the room, each tagged with the seat and the framework.
 - fights: one entry per crux: who was on each side, who moved and why, how it resolved.
 - minority: the strongest losing view; quote copies the seat's own words exactly from a card; would_have_to_be_true in one line. If unanimous, use the least-tested assumption instead.
-- amendments: every Round 3 amendment, adopted or not, with the reason (empty in quick mode). Adopt when no seat objected or the argument went unanswered.
+- amendments: every Round 3 amendment, adopted or not, with the reason (empty in a two-round council). Adopt when no seat objected or the argument went unanswered.
 - conditions, next_steps (with when), cheapest_test, kill_criteria, revisit: final, merged, checkable.`,
   });
 }
@@ -345,10 +343,8 @@ async function run(s) {
     weights: Object.fromEntries(SEATS.map((x) => [x.key, { weight: 1, reason: "" }])),
   });
   for (const w of setup.weights) st.weights[w.seat] = { weight: Math.max(1, Math.min(3, w.weight)), reason: w.reason };
-  st.seats = s.mode === "quick" ? [...new Set(setup.quick_seats)].slice(0, 4) : SEATS.map((x) => x.key);
-  if (s.mode === "quick" && st.seats.length < 4) {
-    for (const x of SEATS) if (st.seats.length < 4 && !st.seats.includes(x.key)) st.seats.push(x.key);
-  }
+  // every council seats all seven founders
+  st.seats = SEATS.map((x) => x.key);
   emit(s, "setup", { title: st.title, decision: st.decision, brief: st.brief, options: st.options, assumptions: st.assumptions, weights: st.weights, seats: st.seats, mode: s.mode });
 
   emit(s, "phase", { phase: "round1", label: "Round 1: opening positions" });
@@ -366,11 +362,8 @@ async function run(s) {
   await roundAll(s, st, 2, round2Prompt);
 
   const s2 = st.scores[2];
-  const top2 = Object.entries(s2).sort((a, b) => (b[1].score ?? 0) - (a[1].score ?? 0))[0][0];
-  const vals = st.seats.map((k) => st.cards[2][k]?.parsed.optionScores[top2]).filter((v) => typeof v === "number");
-  const spread = vals.length ? Math.max(...vals) - Math.min(...vals) : 0;
-  const ruin = st.seats.some((k) => st.cards[2][k]?.parsed.ruin === "likely");
-  const skip3 = s.mode === "quick" && spread <= 3 && !ruin;
+  // the default council ends at the debate; only deep runs the vote round
+  const skip3 = s.mode !== "deep";
 
   if (!skip3) {
     emit(s, "phase", { phase: "draft", label: "The Chair is drafting a resolution" });
@@ -380,7 +373,7 @@ async function run(s) {
     st.rounds.push(3);
     await roundAll(s, st, 3, round3Prompt);
   } else {
-    emit(s, "phase", { phase: "skip3", label: `Quick mode: spread ${spread} and no ruin risk, so the vote round is skipped` });
+    emit(s, "phase", { phase: "skip3", label: "The debate scores are final" });
   }
 
   const { last, finalScores, recommended, spreadF, confidence, support, votes } = finalNumbers(st);

@@ -12,8 +12,8 @@ The room is optional. Write these files anyway; they cost a few lines and the co
 | Round 1 cards back | `round-1.md` (one `## <Seat>` heading per card, cards verbatim, `## Chair notes` last) |
 | After the Round 1 Chair notes | `cruxes.json` |
 | Round 2 cards back | `round-2.md` |
-| With `draft-resolution.md` | `draft.json` (skip in quick mode when Round 3 is skipped) |
-| Round 3 cards back | `round-3.md` |
+| With `draft-resolution.md` (`--deep` only) | `draft.json` (never in the default council: it starts the vote round) |
+| Round 3 cards back (`--deep` only) | `round-3.md` |
 | Last, after `verdict.md` | `verdict.json` |
 
 ## council.json
@@ -22,7 +22,7 @@ The room is optional. Write these files anyway; they cost a few lines and the co
 {
   "title": "Raise coaching price to $3,500",
   "decision": "Raise the price from $2,000 to $3,500, and for whom.",
-  "mode": "full",
+  "mode": "standard",
   "options": [
     { "id": "A", "label": "Raise to $3,500 for everyone now" },
     { "id": "B", "label": "Raise for new clients only" },
@@ -38,7 +38,7 @@ The room is optional. Write these files anyway; they cost a few lines and the co
 }
 ```
 
-`mode` is `full` or `quick`. `seats` lists only the seats at the table. Give every seat at the table a weight (1 to 3). Option labels stay short: under 50 characters.
+`mode` is `standard` (the default council, two rounds) or `deep` (three rounds). Older councils say `full` or `quick`; the room still reads them. `seats` lists only the seats at the table. Give every seat at the table a weight (1 to 3). Option labels stay short: under 50 characters.
 
 ## cruxes.json
 

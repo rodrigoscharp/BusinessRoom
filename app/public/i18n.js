@@ -6,6 +6,9 @@
 
 const KEY = "businessroom-lang";
 export const LANG = (() => {
+  // ?lang=en or ?lang=pt in the address wins, for links and screenshots
+  const q = new URLSearchParams(location.search).get("lang");
+  if (q === "pt" || q === "en") return q;
   try { const v = localStorage.getItem(KEY); if (v === "pt" || v === "en") return v; } catch {}
   return /^pt/i.test(navigator.language || "") ? "pt" : "en";
 })();
@@ -37,7 +40,7 @@ const PT = {
   "What decision is on the table?": "Qual decisão está na mesa?",
   "Write it in the chat below. The founders debate it here, live.": "Escreva no chat abaixo. Os fundadores debatem aqui, ao vivo.",
   "What to put in your question": "O que colocar na sua pergunta",
-  "Bring a decision to the table...": "Traga uma decisão para a mesa...",
+  "Paste your pitch or bring a decision...": "Cole seu pitch ou traga uma decisão...",
   "Message": "Mensagem",
   "Send": "Enviar",
   "Write your decision below: the options, a few numbers (revenue, customers, cash), and which way you are leaning.":
@@ -56,6 +59,9 @@ const PT = {
   "Full council": "Conselho completo",
   "Quick": "Rápido",
   "Quick council": "Conselho rápido",
+  "Council": "Conselho",
+  "Deep council": "Conselho profundo",
+  "The debate scores are final": "As notas do debate são as finais",
   "7 seats, 3 rounds": "7 assentos, 3 rodadas",
   "4 seats, 2 rounds": "4 assentos, 2 rodadas",
   "Convene the council": "Convocar o conselho",
@@ -159,6 +165,12 @@ const PT = {
   "Good to know": "Bom saber",
   "Full council:": "Conselho completo:",
   " 7 advisors, 3 rounds. For big calls that are hard to undo.": " 7 conselheiros, 3 rodadas. Para decisões grandes e difíceis de desfazer.",
+  "Council:": "Conselho:",
+  "Deep": "Profundo",
+  "7 seats, 2 rounds": "7 assentos, 2 rodadas",
+  " all 7 founders, 2 rounds: opening, then debate.": " os 7 fundadores, 2 rodadas: abertura e debate.",
+  "Deep:": "Profundo:",
+  " for a third round where they vote. Uses far more of your plan.": " para uma terceira rodada de votação. Usa bem mais do seu plano.",
   "Quick:": "Rápido:",
   " add ": " adicione ",
   " for 4 advisors and 2 rounds. Uses far less of your plan.": " para 4 conselheiros e 2 rodadas. Usa bem menos do seu plano.",

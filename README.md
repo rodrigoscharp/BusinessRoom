@@ -1,22 +1,26 @@
 # BusinessRoom
 
-![The room](docs/room.jpg)
+![Seven founders at the table, with the Chair's greeting and the chat box](docs/room.jpg)
 
-Bring a hard startup decision to a table of simulated founders. They argue it out live in a local room, then hand you a scored verdict and a one-click PDF. Each seat is built from that person's public work: letters, essays, talks, and interviews.
+Bring a hard startup decision to a table of simulated founders. You talk to the table in a chat box under it, the founders argue it out live, and you get a scored verdict and a one-click PDF. Each seat is built from that person's public work: letters, essays, talks, and interviews.
 
 BusinessRoom is a Claude Code plugin. Install it once, type one command, and the room opens in your browser.
 
-> Work in progress. The v1 scope is in [docs/SCOPE.md](docs/SCOPE.md). Portraits for the four new founders are not drawn yet; the room shows their initials until they are.
+## The table
 
-| Seat | Pillar | The question they own |
-|---|---|---|
-| Jeff Bezos | Strategy and decisions | Is this the right bet, and how reversible is it? |
-| Paul Graham | Product and startups | Do people actually want this, and is it growing? |
-| Alex Hormozi | Offers, pricing, metrics, and cash | Will people pay, do the unit economics work, and does the cash last? |
-| Elon Musk | First principles and execution | What do physics and cost really allow, and how fast can this ship? |
-| Mark Zuckerberg | Growth and scale | Does this grow on its own, and how fast are we learning? |
-| Jensen Huang | Long bets and market creation | Does this create a new market, and can the company endure until it pays? |
-| Daniel Ek | Distribution and business model | How does this reach millions, and does the revenue model hold up? |
+Seats are listed in the order they sit, left to right.
+
+| Seat | Role and company | Pillar | The question they own |
+|---|---|---|---|
+| Alex Hormozi | Founder, Acquisition.com | Offers, pricing, metrics, and cash | Will people pay, do the unit economics work, and does the cash last? |
+| Daniel Ek | Co-founder, Spotify | Distribution and business model | How does this reach millions, and does the revenue model hold up? |
+| Elon Musk | CEO, Tesla and SpaceX | First principles and execution | What do physics and cost really allow, and how fast can this ship? |
+| Mark Zuckerberg | Founder and CEO, Meta | Growth and scale | Does this grow on its own, and how fast are we learning? |
+| Jensen Huang | Co-founder and CEO, NVIDIA | Long bets and market creation | Does this create a new market, and can the company endure until it pays? |
+| Paul Graham | Co-founder, Y Combinator | Product and startups | Do people actually want this, and is it growing? |
+| Jeff Bezos | Founder, Amazon | Strategy and decisions | Is this the right bet, and how reversible is it? |
+
+Claude Code sits at the head of the table as the **Chair**. The Chair never argues a side. It runs the rounds, keeps the score, and writes the verdict.
 
 ## What you need
 
@@ -34,17 +38,32 @@ In Claude Code:
 
 Restart Claude Code (or run `/reload-plugins`) so the new skill and agents load.
 
+To update later:
+
+```bash
+claude plugin marketplace update business-room
+```
+
+```bash
+claude plugin update business-room@business-room
+```
+
 ## Use
 
 ```
 /business-room open
 ```
 
-Claude starts the room, opens it in your browser, and listens to the chat box under the table. Write your decision there; the Chair asks its questions in the same chat, and the founders debate it live at the table.
+Claude starts the room, opens it in your browser, and listens to the chat box under the table. From there you talk to the room, not to the terminal.
 
-The Chair first asks whether the table should **analyze this project** (it reads the README and docs of the project open in Claude Code and frames how to sell it, grow it, and turn it into a startup) or **take a new case** you describe. The room has an English and a Portuguese mode (the PT / EN button at the top); the founders answer in the room's language.
+The Chair opens with two buttons:
 
-You can also give the decision straight in Claude Code:
+- **Analyze this project.** The Chair reads the README, manifest, and docs of the project open in Claude Code, then the table debates how to sell it, grow it, and turn it into a business.
+- **Bring your pitch.** Paste a few lines about your business and the decision you face. The Chair asks a handful of short questions about what is missing (some with reply buttons), you answer, and all seven founders start the debate.
+
+The founders debate in the middle of the table. When the verdict lands, click **Download PDF** for a branded report.
+
+You can also skip the room and give the decision straight in Claude Code:
 
 ```
 /business-room I run a B2B SaaS at R$8k MRR with 40 customers at R$200 a month.
@@ -52,21 +71,25 @@ Should I raise to R$250 for everyone, for new customers only, or keep R$200?
 Churn is about 3% a month and I have 6 months of runway. I'm leaning toward raising for everyone.
 ```
 
-Answer the Chair's questions, then watch the council argue it out in the room. When the verdict lands, click **Download PDF**.
-
 More ways to run it:
 
-- `/business-room --quick ...` seats four advisors for two rounds. Use it for smaller, reversible calls. It uses far less of your plan.
-- `/business-room --seats hormozi,bezos ...` seats only the advisors you name.
+- `/business-room --deep ...` adds a third round where every founder votes on the Chair's draft plan. Use it for calls you cannot undo; it uses far more of your plan.
+- `/business-room --seats hormozi,bezos ...` seats only the founders you name. The others stay at the table, greyed out and marked "Not in this council".
 - `/business-room ask hormozi ...` gets one answer from one seat.
 
 If Claude Code shows the skill with its plugin prefix, use `/business-room:business-room` instead.
 
-## Where your councils go
+### English and Portuguese
 
-Every council is saved in `~/.business-room/sessions/<date>-<decision>/`, with the full report in `verdict.md`. The plugin folder is replaced on every update, so your councils live outside it. Set `BUSINESS_ROOM_HOME` to keep them somewhere else.
+The room has an English and a Portuguese mode: the **PT / EN** button at the top. The Chair and the founders answer in the room's language. The page tells Chrome not to auto-translate it, so text never comes out half translated. To open the room in a set language, add `?lang=en` or `?lang=pt` to the address.
 
-The room runs at http://localhost:4740. Set `BUSINESS_ROOM_PORT` if that port is taken.
+## What happens at the table
+
+- The founder who is speaking moves their mouth, and the others turn their heads toward them.
+- Everyone blinks now and then.
+- Each founder has a coffee cup. Founders who have been quiet for a while pick it up, close their eyes, and take a sip.
+- Under each name sit the founder's role and company logo.
+- The **Guide** button explains the room, and **History** reopens past councils.
 
 ## What to put in your question
 
@@ -79,18 +102,25 @@ The council is only as good as what you give it. Include:
 - **What success looks like**, and by when.
 - **Which way you're leaning**, and why. The council tests your lean instead of agreeing with it.
 
-Left something out? The Chair asks before the council starts.
+Left something out? The Chair asks in the chat before the council starts.
+
+## Where your councils go
+
+Every council is saved in `~/.business-room/sessions/<date>-<decision>/`, with the full report in `verdict.md`. The chat history lives next to it in `~/.business-room/chat.jsonl`. The plugin folder is replaced on every update, so your data lives outside it. Set `BUSINESS_ROOM_HOME` to keep it somewhere else.
+
+The room runs at http://localhost:4740. Set `BUSINESS_ROOM_PORT` if that port is taken. `npm stop` stops it.
 
 ## How it works
 
-- **The council runs in Claude Code.** Each seat is a sub-agent (`agents/council-*.md`) that reads its own brain (`skills/business-room/brains/<name>/`): frameworks, principles, positions, stories, and voice notes compiled from public sources, with every quote tied to a source. Claude Code acts as the Chair. It runs the rounds, keeps score, and writes the verdict (`skills/business-room/SKILL.md`).
+- **The council runs in Claude Code.** Each seat is a sub-agent (`agents/council-*.md`) that reads its own brain (`skills/business-room/brains/<name>/`): frameworks, principles, positions, stories, and voice notes compiled from public sources, with every quote tied to a source. Claude Code acts as the Chair (`skills/business-room/SKILL.md`).
+- **The chat is a bridge.** The page writes your messages to `chat.jsonl`; the Chair reads them with `app/scripts/chat.mjs wait` and replies with `say` or `ask`. No message leaves your machine except through Claude Code itself.
 - **Each seat scores every option**, weighted by how much that seat's pillar matters to your decision. The Chair caps the verdict when a seat flags ruin risk, and it forces a real argument when everyone agrees too fast.
-- **The room only watches.** As the Chair works, it writes each step to your sessions folder, and the room plays those files back. The room makes no AI calls of its own.
-- **Usage:** a full council is 21 sub-agent runs, so it takes a real bite out of your plan's usage. Use `--quick` for small calls.
+- **The room only plays the council back.** As the Chair works, it writes each round to your sessions folder, and the room plays those files as they land. The room makes no AI calls of its own.
+- **Usage:** every council seats all seven founders. To keep it light on your plan, the default council runs two rounds (14 seat runs), the seats run on Sonnet with short cards, and each seat reads only a few files of its brain. `--deep` runs three rounds on Opus (21 runs) and costs several times more.
 
 ## Optional: let the room run councils itself
 
-To type a decision straight into the room without Claude Code, create `~/.business-room/.env` with an `ANTHROPIC_API_KEY` and `COUNCIL_RUNNER=api` (see `.env.example`), then restart the room. That mode bills your Anthropic API account (about 25 calls per full council).
+To run councils without Claude Code, create `~/.business-room/.env` with an `ANTHROPIC_API_KEY` and `COUNCIL_RUNNER=api` (see `.env.example`), then restart the room. That mode bills your Anthropic API account (about 25 calls per full council).
 
 ## Develop
 
@@ -100,20 +130,22 @@ cd BusinessRoom
 claude --plugin-dir .
 ```
 
-`--plugin-dir .` loads this checkout as the plugin, so edits show up after `/reload-plugins`. `npm start` starts and opens the room, `npm stop` stops it, and `claude plugin validate .` checks the manifests.
+`--plugin-dir .` loads this checkout as the plugin, so edits show up after `/reload-plugins`. `npm start` starts and opens the room, `npm stop` stops it, `npm run smoke` tests API mode (it needs `ANTHROPIC_API_KEY`), and `claude plugin validate .` checks the manifests.
 
 | Path | What |
 |---|---|
 | `.claude-plugin/` | Plugin and marketplace manifests |
 | `skills/business-room/` | The skill: protocol, prompts, scoring, report template, and the brains |
 | `agents/` | The seat agents |
-| `app/` | The room: a zero-dependency Node server, the web page, and the PDF builder |
-| `sessions/` | Example councils that ship with the plugin (none yet for the new roster) |
+| `app/server.mjs`, `app/lib/` | The room server (zero dependencies) and the chat bridge |
+| `app/public/` | The page: table, chat, portraits, logos, PT/EN strings, and the PDF builder |
+| `app/scripts/` | `open-room.mjs`, `chat.mjs`, and the portrait tools |
+| `docs/` | Scope, the portrait guide ([docs/PORTRAITS.md](docs/PORTRAITS.md)), and the screenshot |
 
 ## About the advisors
 
-These are simulations built from each person's public work. They are not the people, they don't speak for them, and none of them is affiliated with or endorses this project. A seat only quotes a person verbatim when the line is in its brain with a source, and `python3 skills/business-room/scripts/check_quotes.py <session folder>` checks every quote in a council against the brains. Each brain's `sources.md` lists what it was built from.
+These are simulations built from each person's public work. They are not the people, they don't speak for them, and none of them is affiliated with or endorses this project. A seat only quotes a person verbatim when the line is in its brain with a source, and `python3 skills/business-room/scripts/check_quotes.py <session folder>` checks every quote in a council against the brains. Each brain's `sources.md` lists what it was built from. The portraits are cartoon illustrations, not photos.
 
 ## Credits
 
-Built on [Roast Room](https://github.com/nateherkai/roast-room) by AI Automation Society, under the MIT License; see `LICENSE`. BusinessRoom has its own roster, brains, visual identity, and room layout. The PDF builder bundles [jsPDF](https://github.com/parallax/jsPDF) (MIT); its license sits next to it in `app/public/vendor/`. Company logos under the founders' names come from [Simple Icons](https://simpleicons.org) (CC0); the brands belong to their owners.
+Built on [Roast Room](https://github.com/nateherkai/roast-room) by AI Automation Society, under the MIT License; see `LICENSE`. BusinessRoom has its own roster, brains, visual identity, chat, and room layout. The PDF builder bundles [jsPDF](https://github.com/parallax/jsPDF) (MIT); its license sits next to it in `app/public/vendor/`. Company logos under the founders' names come from [Simple Icons](https://simpleicons.org) (CC0); the brands belong to their owners.

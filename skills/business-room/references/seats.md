@@ -26,9 +26,9 @@ The Chair sets a weight per seat for each decision, before Round 1, and writes t
 
 Every seat is at least 1. Exactly one or two seats get a 3.
 
-## Quick council
+## Who sits
 
-`--quick` seats four: the two highest-weight seats, Hormozi or Bezos (whichever is not already in, as the downside check on cash and reversibility), and the seat most likely to disagree with the others (the Chair names why). Use quick for reversible, low-stakes calls. Full council for anything a founder cannot easily undo.
+Every council seats all seven founders. Weights change how much each seat counts, never whether it sits. The default council runs two rounds; `--deep` adds the vote round for decisions a founder cannot undo.
 
 ## Natural tensions to expect
 

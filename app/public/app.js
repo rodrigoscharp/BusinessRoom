@@ -48,8 +48,8 @@ const GUIDE = `
     <div class="guide-sec">
       <h4>Good to know</h4>
       <ul>
-        <li><span><b>Full council:</b> 7 advisors, 3 rounds. For big calls that are hard to undo.</span></li>
-        <li><span><b>Quick:</b> add <code>--quick</code> for 4 advisors and 2 rounds. Uses far less of your plan.</span></li>
+        <li><span><b>Council:</b> all 7 founders, 2 rounds: opening, then debate.</span></li>
+        <li><span><b>Deep:</b> add <code>--deep</code> for a third round where they vote. Uses far more of your plan.</span></li>
         <li><span><b>Every council is saved.</b> Open Past sessions to replay one or download its PDF.</span></li>
       </ul>
     </div>
@@ -359,7 +359,7 @@ async function sendChat(e) {
     if (state.runner === "api" && !state.session) {
       if (text.length < 10) return toast("Give the council a real decision, at least a sentence.");
       chatMessage({ from: "user", text });
-      const r = await fetch("/api/council", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ prompt: text, mode: "full" }) });
+      const r = await fetch("/api/council", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ prompt: text, mode: "standard" }) });
       const j = await r.json();
       if (!r.ok) return toast(j.error || "Could not start the council.");
       attach(j.id);
@@ -516,13 +516,15 @@ function onSetup(ev) {
     $(`#cup-${s.key}`)?.classList.toggle("absent", absent);
     const pl = $(`#plate-${s.key}`);
     pl.classList.toggle("absent", absent);
-    // quick councils seat four founders; say so on the others instead of leaving them just greyed out
+    // a council with named seats leaves the others out; say so on them instead of leaving them just greyed out
     pl.querySelector(".sat-out")?.remove();
     if (absent) pl.insertAdjacentHTML("beforeend", '<span class="sat-out">Not in this council</span>');
     const w = ev.weights[s.key]?.weight || 1;
     pl.title = `Weight ${w} of 3: ${ev.weights[s.key]?.reason || ""}`;
   }
-  chairSays(ev.title, { tag: ev.mode === "quick" ? "Quick council" : "Full council" });
+  // only a deep council has a vote round
+  $('.stepper li[data-step="round3"]').style.display = ev.mode === "deep" ? "" : "none";
+  chairSays(ev.title, { tag: ev.mode === "deep" ? "Deep council" : "Council" });
 }
 
 function updateOptions(scores) {
@@ -923,7 +925,7 @@ async function replay(id) {
 // frozen table, say what is happening, how long it has been, and what each seat is weighing.
 const SAME_TIME = "The advisors all write at the same time in Claude Code. Their lines play here as soon as the round is in.";
 function waitCopy(phase) {
-  const n = state.setup?.mode === "quick" ? 2 : 3;
+  const n = state.setup?.mode === "deep" ? 3 : 2;
   return {
     setup: ["Setting the table", "The Chair is seating the council.", ""],
     round1: ["Round 1 of " + n, "The advisors are writing their opening positions.", SAME_TIME],

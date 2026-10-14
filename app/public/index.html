@@ -67,8 +67,8 @@
             <div class="samples" id="samples"></div>
             <div class="composer-row">
               <div class="mode" role="radiogroup" aria-label="Council size">
-                <label><input type="radio" name="mode" value="full" checked><span>Full council <small>7 seats, 3 rounds</small></span></label>
-                <label><input type="radio" name="mode" value="quick"><span>Quick <small>4 seats, 2 rounds</small></span></label>
+                <label><input type="radio" name="mode" value="standard" checked><span>Council <small>7 seats, 2 rounds</small></span></label>
+                <label><input type="radio" name="mode" value="deep"><span>Deep <small>7 seats, 3 rounds</small></span></label>
               </div>
               <button class="convene" type="submit" id="convene">Convene the council</button>
             </div>
@@ -112,7 +112,7 @@
 
     <section class="chat" aria-label="Chat with the table">
       <form class="chat-form" id="chatForm">
-        <textarea id="chatInput" rows="1" placeholder="Bring a decision to the table..." aria-label="Message"></textarea>
+        <textarea id="chatInput" rows="1" placeholder="Paste your pitch or bring a decision..." aria-label="Message"></textarea>
         <button type="submit" class="send" id="chatSend" aria-label="Send">&#8593;</button>
       </form>
       <div class="chat-status" id="chatStatus"></div>

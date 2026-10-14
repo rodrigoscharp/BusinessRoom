@@ -5,13 +5,13 @@ Written by the Chair in plain English. No em dashes. No AI filler: state each po
 ```markdown
 # BusinessRoom: [decision in a few words]
 
-[date] · Seats: [list] · Rounds: [n] · Mode: [full | quick | named seats]
+[date] · Seats: [list] · Rounds: [n] · Mode: [standard | deep | named seats]
 
 ## Verdict: [GO | GO WITH CONDITIONS | RESHAPE | WAIT | DON'T DO IT]
 
 **The call:** [one or two sentences the founder can act on, naming the option]
 
-Option scores: [A] x.x · [B] x.x · [C] x.x · Support for the resolution x.x/10 · Confidence n/10 · Spread n · Vote: [n] endorse, [n] amend, [n] dissent
+Option scores: [A] x.x · [B] x.x · [C] x.x · Support for the resolution x.x/10 · Confidence n/10 · Spread n · Vote: [n] endorse, [n] amend, [n] dissent   (Support and Vote only in `--deep`)
 [Any override applied, in one line, or omit]
 
 ## Scorecard

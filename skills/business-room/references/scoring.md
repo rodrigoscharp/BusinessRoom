@@ -1,6 +1,6 @@
 # Scoring
 
-All numbers come from the seats' cards. The Chair computes, never invents. Use the last round that ran (Round 3 if it ran, else Round 2).
+All numbers come from the seats' cards. The Chair computes, never invents. Use the last round that ran: Round 2 in the default council, Round 3 in `--deep`.
 
 ## Option scores (the main number)
 
@@ -26,7 +26,7 @@ Two labels replace the band when they fit better, and the report says why:
 
 ## Resolution support
 
-Round 3's FINAL SCORE is each seat's support for the draft resolution as written. Report its weighted average as "Support for the resolution". It measures how well the Chair's plan captured the room, not whether the idea is good.
+Only in `--deep`. Round 3's FINAL SCORE is each seat's support for the draft resolution as written. Report its weighted average as "Support for the resolution". It measures how well the Chair's plan captured the room, not whether the idea is good.
 
 ## Overrides (applied after the band, and stated in the report)
 

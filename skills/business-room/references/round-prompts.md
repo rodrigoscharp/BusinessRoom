@@ -15,9 +15,9 @@ Give the absolute plugin root once at the top of each prompt; seats find their b
 ## Round 1: opening position
 
 ```
-BUSINESSROOM COUNCIL, ROUND 1 OF 3: OPENING POSITION
+BUSINESSROOM COUNCIL, ROUND 1 OF [2, or 3 in --deep]: OPENING POSITION
 
-Plugin root: [absolute path]. You hold the [SEAT] seat ([pillar]). Read your brain's _hot.md, then at most three more brain files that fit this decision (frameworks.md and positions.md are usually the right ones).
+Plugin root: [absolute path]. You hold the [SEAT] seat ([pillar]). Read your brain's _hot.md, then at most two more brain files that fit this decision (usually frameworks.md or positions.md, plus voice.md). Do not read anything else.
 
 Read the brief: [session folder]/brief.md
 
@@ -25,7 +25,7 @@ Your weight on this decision: [w]/3 ([one-line reason]).
 
 Language: [English or Portuguese, the room's language]. Write the content of your answer in that language. Keep every field label (SEAT:, STANCE:, OPTION SCORES:, and the rest) and the fixed values (Strong yes, Yes, Conditional yes, No, Strong no; none, possible, likely; one-way, two-way; Endorse, Endorse with amendment, Dissent; MOVED: no or yes) in English exactly as shown, and keep verbatim brain quotes in their original wording.
 
-Answer in your seat's voice, plain text, under 350 words, in exactly this shape:
+Answer in your seat's voice, plain text, under 280 words, in exactly this shape:
 
 SEAT: [SEAT] ([pillar])
 STANCE: Strong yes | Yes | Conditional yes | No | Strong no   (on the option you recommend)
@@ -53,9 +53,9 @@ Rules: argue from your pillar first. Use real numbers when the brief has them, a
 ## Round 2: debate
 
 ```
-BUSINESSROOM COUNCIL, ROUND 2 OF 3: DEBATE
+BUSINESSROOM COUNCIL, ROUND 2 OF [2, or 3 in --deep]: DEBATE[, FINAL SCORES when it is the last round]
 
-Plugin root: [absolute path]. You hold the [SEAT] seat. Read your brain's _hot.md again and any brain file you need to answer the others (at most three).
+Plugin root: [absolute path]. You hold the [SEAT] seat. Read your brain's _hot.md, and at most one more brain file only if you need it to answer another seat.
 
 Read: [session folder]/brief.md and [session folder]/round-1.md (every seat's card and the Chair's cruxes).
 
@@ -65,7 +65,7 @@ THE CRUXES THE CHAIR SEES
 
 Language: [English or Portuguese, the room's language]. Write the content of your answer in that language. Keep every field label (SEAT:, STANCE:, OPTION SCORES:, and the rest) and the fixed values (Strong yes, Yes, Conditional yes, No, Strong no; none, possible, likely; one-way, two-way; Endorse, Endorse with amendment, Dissent; MOVED: no or yes) in English exactly as shown, and keep verbatim brain quotes in their original wording.
 
-Answer in your seat's voice, plain text, under 300 words, in exactly this shape:
+Answer in your seat's voice, plain text, under 240 words, in exactly this shape:
 
 SEAT: [SEAT]
 I DISAGREE MOST WITH: [seat]. Their argument, in one line, then your rebuttal using your frameworks.
@@ -79,7 +79,7 @@ RUIN RISK: none | possible | likely
 MOVED: no | yes, from X to Y, because ...
 MY CONDITIONS FOR YES: up to three, concrete and checkable (a number, a date, a test result).
 
-Rules: engage the actual arguments on the table. Move only for a better argument, never to be agreeable. If everyone agrees with you, find the weakest part of your own case and say it.
+Rules: in the default council this is the last round, so your scores here are your final scores. Engage the actual arguments on the table. Move only for a better argument, never to be agreeable. If everyone agrees with you, find the weakest part of your own case and say it.
 ```
 
 ---
@@ -87,7 +87,7 @@ Rules: engage the actual arguments on the table. Move only for a better argument
 ## Round 3: ratification
 
 ```
-BUSINESSROOM COUNCIL, ROUND 3 OF 3: VOTE ON THE DRAFT RESOLUTION
+BUSINESSROOM COUNCIL, ROUND 3 OF 3 (--deep only): VOTE ON THE DRAFT RESOLUTION
 
 Plugin root: [absolute path]. You hold the [SEAT] seat. You already argued this in two rounds; read only your _hot.md if you need it.
 
@@ -113,7 +113,7 @@ ONE LINE FOR THE FOUNDER: the thing from your pillar they must not forget.
 ```
 BUSINESSROOM COUNCIL, SINGLE-SEAT CONSULT
 
-Plugin root: [absolute path]. You hold the [SEAT] seat. Read your brain's _hot.md, then at most four more brain files that fit the question.
+Plugin root: [absolute path]. You hold the [SEAT] seat. Read your brain's _hot.md, then at most two more brain files that fit the question.
 
 THE QUESTION
 [question, plus any context]

@@ -66,7 +66,8 @@ function normalizeSetup(c) {
   const wl = Array.isArray(c.weights) ? c.weights : Object.entries(c.weights || {}).map(([seat, w]) => (typeof w === "number" ? { seat, weight: w } : { seat, ...w }));
   for (const w of wl) { const k = seatKey(w.seat); if (k) weights[k] = { weight: Math.max(1, Math.min(3, Number(w.weight) || 1)), reason: w.reason || "" }; }
   const seats = (c.seats || []).map(seatKey).filter(Boolean);
-  const mode = c.mode === "quick" ? "quick" : "full";
+  // standard: two rounds (the default). deep: three rounds. Older councils say quick or full.
+  const mode = c.mode === "deep" || c.mode === "full" ? "deep" : "standard";
   return {
     title: c.title || "BusinessRoom", decision: c.decision || "", brief: c.brief || "", mode,
     options, assumptions: c.assumptions || [], weights,
@@ -150,7 +151,7 @@ function sync(x) {
       startRound(x, 3, "Round 3: the vote", mtime(f("draft.json")));
       x.step = "r3";
     } else if (has("verdict.json")) {
-      emit(x, "phase", { phase: "skip3", label: "Quick mode: the vote round is skipped", at: mtime(f("round-2.md")) });
+      emit(x, "phase", { phase: "skip3", label: "The debate scores are final", at: mtime(f("round-2.md")) });
       x.step = "verdict";
     } else return;
   }

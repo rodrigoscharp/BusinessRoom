@@ -1,12 +1,12 @@
 ---
 name: business-room
-description: Use when a founder wants a hard business decision debated by a table of world-class founders, says "business room", "open the business room", "put this in the BusinessRoom", "founder council", "convene the council", "take this to the board", "what would Musk, Zuckerberg, Bezos, or Hormozi say", "should I do X", or can't make up their mind on pricing, growth, getting new customers, metrics, scaling, raising money, a new product, a pivot, or spending. Seven sub-agents, each built from one founder's public work (Jeff Bezos, Paul Graham, Alex Hormozi, Elon Musk, Mark Zuckerberg, Jensen Huang, Daniel Ek), argue it over three rounds, then a Chair returns a scored verdict, the reasoning, the dissent, and next steps. Also does a one-seat consult ("ask the Hormozi seat"). Not /roast (generic personas, idea validation).
-argument-hint: "[the decision] [--quick] [--seats hormozi,musk,...] | ask <seat> [question] | open"
+description: Use when a founder wants a hard business decision debated by a table of world-class founders, says "business room", "open the business room", "put this in the BusinessRoom", "founder council", "convene the council", "take this to the board", "what would Musk, Zuckerberg, Bezos, or Hormozi say", "should I do X", or can't make up their mind on pricing, growth, getting new customers, metrics, scaling, raising money, a new product, a pivot, or spending. Seven sub-agents, each built from one founder's public work (Jeff Bezos, Paul Graham, Alex Hormozi, Elon Musk, Mark Zuckerberg, Jensen Huang, Daniel Ek), argue it over two rounds (three with --deep), then a Chair returns a scored verdict, the reasoning, the dissent, and next steps. Also does a one-seat consult ("ask the Hormozi seat"). Not /roast (generic personas, idea validation).
+argument-hint: "[the decision] [--deep] [--seats hormozi,musk,...] | ask <seat> [question] | open"
 ---
 
 ## What this does
 
-BusinessRoom runs a board meeting on one decision. Seven seats, one per business pillar, each a sub-agent that reasons and talks the way its expert does, grounded in a brain compiled from that person's videos, essays, letters, talks, and books as they teach them in public. The seats argue across three rounds: open, debate, vote. You act as the **Chair**: you never argue a side, you run the room, keep the score, and write the verdict.
+BusinessRoom runs a board meeting on one decision. Seven seats, one per business pillar, each a sub-agent that reasons and talks the way its expert does, grounded in a brain compiled from that person's videos, essays, letters, talks, and books as they teach them in public. The seats argue across two rounds: open, then debate with final scores. `--deep` adds a third round where they vote on the Chair's draft. You act as the **Chair**: you never argue a side, you run the room, keep the score, and write the verdict.
 
 Read once before the first run: `references/seats.md` (roster, weights, tensions), `references/round-prompts.md` (what each seat gets), `references/scoring.md` (math and overrides), `references/report-template.md` (output), `references/live-room.md` (the small JSON files the visual room plays).
 
@@ -14,9 +14,9 @@ Read once before the first run: `references/seats.md` (roster, weights, tensions
 
 ## Modes
 
-- **Full council** (default): all seven seats, three rounds. For decisions that are expensive or hard to undo.
-- **Quick** (`--quick`): four seats chosen per `seats.md`, Rounds 1 and 2, Round 3 only if the scores did not converge. For reversible calls.
-- **Named seats** (`--seats a,b,c`): only those seats, three rounds.
+- **Council** (default): all seven seats, two rounds (opening, then debate). The Round 2 cards carry the final scores, so there is no separate vote round. 14 seat runs. `council.json` mode: `standard`.
+- **Deep** (`--deep`): all seven seats, three rounds, with the Round 3 vote on the draft resolution. 21 seat runs. For decisions that are very expensive or impossible to undo. `council.json` mode: `deep`.
+- **Named seats** (`--seats a,b,c`): only those seats, two rounds. Use it only when the founder names seats; never drop seats on your own. `--quick` is an old flag: treat it as the default council with all seven seats.
 - **Consult** (`ask <seat> ...`): one seat, one answer, using the single-seat prompt. No scoring, no session folder needed, and no need to open the room.
 - **Open** (`open`, or no arguments): run Step 0, then the room chat loop below. The founder brings the decision in the room's chat box instead of the terminal.
 
@@ -49,14 +49,14 @@ Run `wait` in the foreground with a 600000 ms command timeout, so it is not cut 
 **Open mode.** Reset the chat, read `lang`, then `ask` a one-line greeting in that language with two reply buttons:
 
 - "Analyze this project" / "Analisar este projeto": the founder wants the table to debate the project open in this Claude Code session.
-- "Bring a new case" / "Trazer um caso novo": the founder will describe a different business or decision.
+- "Bring your pitch" / "Trazer seu pitch": the founder will paste a short pitch of a different business or decision.
 
 Then `wait`.
 
 - **This project:** read the project's own files in the current working directory (not the plugin folder): `README.md`, `package.json` or other manifest, `CLAUDE.md`, and anything in `docs/` that describes the product, at most six files. Write a short brief: what the product is, who it is for, how it makes or could make money, and its stage. Frame the decision as how to sell it, grow it, and turn it into a real startup, with three options (for example: sell it as is to a first niche, reshape it into a product with a business model, or keep it as a side project). `say` the brief and the options in the chat and ask the founder to confirm or correct them, plus any numbers you do not have (users, revenue, time, cash). `wait`, then continue with Step 1 using their answer.
-- **New case:** `say` that they can describe the business and the decision, then `wait`, and continue with Step 1.
+- **Your pitch:** `say` one line asking them to paste their pitch: a few lines on what they sell, to whom, the numbers they have, and the decision they want the table to make. `wait`. Build the brief from the pitch (Step 1), then ask only for what is missing, at most four short questions in one numbered `say` (use `ask` with buttons instead when it is one question with clear choices). `wait`, fill any gap still open with a stated assumption, and start the council with all seven seats. Do not ask a second round of questions.
 
-When the founder came from the room, ask the Step 1 questions in the chat (`say` them as one short numbered list, then `wait`) instead of AskUserQuestion, and post the Step 7 verdict summary to the chat as well as in Claude Code. After the verdict, `ask` whether they want to bring another decision, with the same two buttons, and `wait` again.
+When the founder came from the room, ask the Step 1 questions in the chat (`say` them as one short numbered list, then `wait`) instead of AskUserQuestion, and post the Step 7 verdict summary to the chat as well as in Claude Code. After the verdict, `ask` whether they want to bring another pitch, with the same two buttons, and `wait` again.
 
 ## Step 1: The brief
 
@@ -80,7 +80,7 @@ Keep the brief under 300 words. Mark every assumption as `(assumed)`.
 
 ## Step 3: Round 1, opening positions
 
-Spawn every seat in **one message**, in parallel, foreground (`run_in_background: false`), `subagent_type: business-room:council-<seat>`, with the Round 1 prompt. If that type is not registered in this session, try `council-<seat>` (a dev checkout that loads the agents without the plugin namespace); if neither is registered, use `general-purpose` with the fallback lines from `round-prompts.md`.
+Spawn every seat in **one message**, in parallel, foreground (`run_in_background: false`), `subagent_type: business-room:council-<seat>`, with the Round 1 prompt. Do not pass `model`: the seats run on the model in their agent file (Sonnet), which keeps a council cheap. In `--deep` mode, pass `model: "opus"`. If that type is not registered in this session, try `council-<seat>` (a dev checkout that loads the agents without the plugin namespace); if neither is registered, use `general-purpose` with the fallback lines from `round-prompts.md`.
 
 When the cards come back, save them verbatim to `round-1.md`, one `## <Seat>` heading per card (Bezos, Graham, Hormozi, Musk, Zuckerberg, Huang, Ek), and write the file right away so the room can start playing. Check each card has every field; send a card back once if it is missing scores or a stance. Then add a `## Chair notes` section at the bottom of `round-1.md`:
 
@@ -92,17 +92,17 @@ Then write `cruxes.json` (`live-room.md`).
 
 ## Step 4: Round 2, debate
 
-Spawn every seat again, in one message, with the Round 2 prompt (it points them at `brief.md` and `round-1.md`). Save the cards to `round-2.md` (same `## <Seat>` headings, written as soon as the cards are back) with `## Chair notes`: who moved and why, which cruxes resolved, which numbers are still open, and the interim option scores.
+Spawn every seat again, in one message, with the Round 2 prompt (it points them at `brief.md` and `round-1.md`). In the default council, Round 2 is the last round: its cards are the final scores. Save the cards to `round-2.md` (same `## <Seat>` headings, written as soon as the cards are back) with `## Chair notes`: who moved and why, which cruxes resolved, which numbers are still open, and the interim option scores.
 
-## Step 5: Draft resolution
+## Step 5: Draft resolution (`--deep` only)
 
-Write `draft-resolution.md`: the recommendation (named option and verdict label), the conditions the seats asked for (merge duplicates, keep them checkable, pick one number when seats differ and say whose), the next steps with dates, the cheapest test, and kill criteria. Weigh arguments, not headcount: a single seat with a decisive fact beats three seats with vibes. Apply the overrides. Also write `draft.json` (`live-room.md`).
+In the default council, skip this step and do not write `draft.json`: the room would wait for a vote round. Put the same content (conditions, next steps, cheapest test, kill criteria) straight into `verdict.md` in Step 7.
 
-## Step 6: Round 3, ratification
+In `--deep` mode, write `draft-resolution.md`: the recommendation (named option and verdict label), the conditions the seats asked for (merge duplicates, keep them checkable, pick one number when seats differ and say whose), the next steps with dates, the cheapest test, and kill criteria. Weigh arguments, not headcount: a single seat with a decisive fact beats three seats with vibes. Apply the overrides. Also write `draft.json` (`live-room.md`).
+
+## Step 6: Round 3, ratification (`--deep` only)
 
 Spawn every seat with the Round 3 prompt. Save to `round-3.md` (same headings, written as soon as the cards are back), and add a `## Chair` section listing each amendment and whether it was adopted, with the reason. Adopt an amendment when no seat objects or the argument for it went unanswered; when seats conflict, adopt the better-argued side and put the other in the minority report. Do not run a fourth round.
-
-Quick mode skips this round when the Round 2 spread on the top option is 3 or less and no seat is at `RUIN RISK: likely`.
 
 ## Step 7: Verify, then verdict
 
@@ -116,7 +116,7 @@ Quick mode skips this round when the Round 2 spread on the top option is 3 or le
 - Quote seats faithfully. Never put words in a seat's mouth or rewrite a card.
 - Seats speak in their expert's voice; your report is plain English that follows the house writing rules (no em dashes, no AI tells, no tee-ups).
 - Treat a unanimous Round 1 as a warning, not a win.
-- Cost: a full council is 21 sub-agent runs, about 1M tokens. Use `--quick` for small calls, and say which mode you used.
+- Cost: the default council is 14 seat runs on Sonnet, with short cards and few brain reads. `--deep` is 21 runs on Opus, several times the usage. Say which mode you used. Keep your own Chair work lean too: read each round file once, and do not re-read brains yourself.
 - The seats are simulations built from public work. Never present a seat's line as something the real person said unless it is a verbatim quote with a source id from the brain.
 
 ## Without sub-agents (Codex or a runtime that cannot spawn agents)
