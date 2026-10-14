@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
   "name": "business-room",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A table of simulated founders debates your startup decision live in a local room, then hands you a scored verdict and a PDF.",
   "author": {
     "name": "Rodrigo Scharp"
