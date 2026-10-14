@@ -516,6 +516,9 @@ function onSetup(ev) {
     $(`#cup-${s.key}`)?.classList.toggle("absent", absent);
     const pl = $(`#plate-${s.key}`);
     pl.classList.toggle("absent", absent);
+    // quick councils seat four founders; say so on the others instead of leaving them just greyed out
+    pl.querySelector(".sat-out")?.remove();
+    if (absent) pl.insertAdjacentHTML("beforeend", '<span class="sat-out">Not in this council</span>');
     const w = ev.weights[s.key]?.weight || 1;
     pl.title = `Weight ${w} of 3: ${ev.weights[s.key]?.reason || ""}`;
   }

@@ -665,3 +665,4 @@ button { font: inherit; cursor: pointer; }
 .cup .hand { opacity: 0; }
 .cup.sip .hand { animation: hand 3.2s var(--ease-out) both; }
 @keyframes hand { 0%, 6% { opacity: 0; } 14%, 86% { opacity: 1; } 94%, 100% { opacity: 0; } }
+.nameplate .sat-out { display: block; margin-top: 3px; font-size: 10px; font-weight: 600; color: var(--ink-mute); letter-spacing: .02em; }

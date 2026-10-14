@@ -50,7 +50,7 @@ def blend(px,x,y,col,a):
     p=px[y][x]
     for i in range(3): p[i]=round(p[i]*(1-a)+col[i]*a)
 
-def ellipse(px,cx,cy,rx,ry,col,ss=3,clip=None):
+def ellipse(px,cx,cy,rx,ry,col,ss=3,clip=None,a=1.0):
     for y in range(int(cy-ry)-1,int(cy+ry)+2):
         for x in range(int(cx-rx)-1,int(cx+rx)+2):
             cov=0
@@ -58,7 +58,7 @@ def ellipse(px,cx,cy,rx,ry,col,ss=3,clip=None):
                 for sx in range(ss):
                     u=(x+(sx+.5)/ss-cx)/rx; v=(y+(sy+.5)/ss-cy)/ry
                     if u*u+v*v<=1 and (clip is None or clip(x+(sx+.5)/ss,y+(sy+.5)/ss)): cov+=1
-            blend(px,x,y,col,cov/(ss*ss))
+            blend(px,x,y,col,a*cov/(ss*ss))
 
 base,outdir,key=sys.argv[1:4]
 w,h,px=read(base)
@@ -81,18 +81,26 @@ for side in (0,1):
     eyes.append(dict(x0=min(xs),x1=max(xs),y0=min(ys),y1=max(ys),n=len(pts)))
 for e in eyes: e['cx']=(e['x0']+e['x1'])/2; e['cy']=(e['y0']+e['y1'])/2; e['rx']=(e['x1']-e['x0'])/2*1.12+3; e['ry']=(e['y1']-e['y0'])/2*1.15+3
 d=eyes[1]['cx']-eyes[0]['cx']; ecx=(eyes[0]['cx']+eyes[1]['cx'])/2; ecy=(eyes[0]['cy']+eyes[1]['cy'])/2
-# the lips: reddish pixels below the nose, between the eyes
-lips=[(x,y) for y in range(int(ecy+d*.55),min(h,int(ecy+d*1.5))) for x in range(int(ecx-d*.6),int(ecx+d*.6))
-      if px[y][x][3]>200 and px[y][x][0]-px[y][x][2]>55 and px[y][x][0]-px[y][x][1]>38 and sum(px[y][x][:3])<560]
-# keep the lower cluster (the nose tip can be reddish too)
-if lips:
-    ys=sorted(p[1] for p in lips); cut=ys[len(ys)//3]
-    low=[p for p in lips if p[1]>=cut] or lips
-    mx=sum(p[0] for p in low)/len(low); my=sum(p[1] for p in low)/len(low)
-    mw=max(p[0] for p in low)-min(p[0] for p in low)
+# the mouth line: below the nose, find the row with the most pixels that are darker and
+# redder than the cheek skin; its horizontal span is the width of the smile
+def avg(pts):
+    cols=[px[y][x][:3] for x,y in pts if 0<=x<w and 0<=y<h and px[y][x][3]>200]
+    return [sum(c[i] for c in cols)/len(cols) for i in range(3)] if cols else [220,180,160]
+skin=avg([(int(ecx+dx),int(ecy+d*dy)) for dx in (-d*.55,-d*.5,d*.5,d*.55) for dy in (.75,.85,.95)])
+def lip(x,y):
+    p=px[y][x]
+    if p[3]<200: return False
+    lum=sum(p[:3])/3; slum=sum(skin)/3
+    return lum < slum-28 and p[0]-p[1] > (skin[0]-skin[1])+6
+best=(0,None,None)
+for y in range(int(ecy+d*.6),min(h-1,int(ecy+d*1.45))):
+    xs=[x for x in range(int(ecx-d*.55),int(ecx+d*.55)) if lip(x,y)]
+    if len(xs)>best[0]: best=(len(xs),y,xs)
+if best[1] is not None:
+    my=best[1]; mx=(min(best[2])+max(best[2]))/2; mw=max(best[2])-min(best[2])
 else:
-    mx,my,mw=ecx,ecy+d*1.05,d*.7
-mw=max(min(mw,d*0.95),d*.45)
+    mx,my,mw=ecx,ecy+d*1.0,d*.6
+mw=max(min(mw,d*0.95),d*.4)
 print(key,'eyes',[(round(e['cx']),round(e['cy']),round(e['rx']),round(e['ry'])) for e in eyes],'mouth',round(mx),round(my),round(mw))
 
 def skin_above(e):
@@ -113,10 +121,13 @@ write(f"{outdir}/{key}-blink.png",w,h,b)
 # mid and open: a dark mouth with a bit of upper teeth and a tongue
 for name,k in (('mid',.2),('open',.34)):
     m=copy.deepcopy(px)
-    rx=mw*(.3 if name=='mid' else .36); ry=mw*k*.5
-    cy=my+ry*.35
+    # hide the closed smile: soft skin patch over the mouth line and its upturned corners
+    for rr,alpha in ((1.3,.35),(1.15,.6),(1.0,1.0)):
+        ellipse(m,mx,my-mw*.05,mw*.68*rr,mw*.2*rr,[round(v) for v in skin],a=alpha)
+    rx=mw*(.34 if name=="mid" else .4); ry=mw*k*.5
+    cy=my+ry*.25
     ellipse(m,mx,cy,rx+1.5,ry+1.5,(150,70,70))
     ellipse(m,mx,cy,rx,ry,(58,16,22))
-    ellipse(m,mx,cy-ry*.72,rx*.72,ry*.32,(245,242,236),clip=lambda X,Y,cy=cy,ry=ry:Y<cy-ry*.45 and ((X-mx)/rx)**2+((Y-cy)/ry)**2<=.92)
-    ellipse(m,mx,cy+ry*.55,rx*.55,ry*.42,(200,92,98),clip=lambda X,Y,cy=cy,ry=ry:((X-mx)/rx)**2+((Y-cy)/ry)**2<=.9)
+    ellipse(m,mx,cy-ry*.72,rx*.72,ry*.32,(245,242,236),clip=lambda X,Y,cy=cy,ry=ry,rx=rx:Y<cy-ry*.45 and ((X-mx)/rx)**2+((Y-cy)/ry)**2<=.92)
+    ellipse(m,mx,cy+ry*.55,rx*.55,ry*.42,(200,92,98),clip=lambda X,Y,cy=cy,ry=ry,rx=rx:((X-mx)/rx)**2+((Y-cy)/ry)**2<=.9)
     write(f"{outdir}/{key}-{name}.png",w,h,m)

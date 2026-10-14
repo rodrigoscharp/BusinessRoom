@@ -82,6 +82,7 @@ const PT = {
   "Up for a vote:": "Em votação:",
   "Weight on this decision": "Peso nesta decisão",
   "This seat has not spoken yet.": "Este assento ainda não falou.",
+  "Not in this council": "Fora deste conselho",
   "verified in the brain": "verificada no cérebro",
   "not found in the brain": "não encontrada no cérebro",
   "lines up next": "falas a seguir",
