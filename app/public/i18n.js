@@ -249,10 +249,24 @@ const PT = {
     "Conselheiros simulados a partir do trabalho público de cada pessoa. Não são as pessoas e não falam por elas.",
 };
 
+const CHAIR_PHASES = {
+  "reading your question": "lendo a sua pergunta",
+  "finding the fault lines": "achando as divergências",
+  "weighing the debate": "pesando o debate",
+  "writing the verdict": "escrevendo o veredito",
+};
+
 // Strings with a variable part.
 const PATTERNS = [
   [/^Round (\d) of (\d)$/, (m) => `Rodada ${m[1]} de ${m[2]}`],
   [/^Pushes back on (.+)$/, (m) => `Rebate ${m[1]}`],
+  // the Chair's phase lines, as the feed ("Chair: ...") and the chat bubble ("Reading ...") show them
+  [/^(Chair: )?(reading your question|finding the fault lines|weighing the debate|writing the verdict)$/i, (m) => (m[1] ? "Chair: " + CHAIR_PHASES[m[2].toLowerCase()] : CHAIR_PHASES[m[2].toLowerCase()].replace(/^./, (c) => c.toUpperCase()))],
+  // a seat's stance and the option it backs: "Yes, if, backs B" or "Strong yes · backs B (8/10)"
+  [/^(.+?)(, | · )backs (\w+)( \(\d+(?:\.\d+)?\/10\))?$/, (m) => `${tr(m[1])}${m[2]}apoia ${m[3]}${m[4] || ""}`],
+  [/^Votes (endorse|amend|dissent)$/, (m) => `Vota: ${{ endorse: "apoia", amend: "emenda", dissent: "discorda" }[m[1]]}`],
+  // the waiting card: "<b>Ek</b> is weighing: how does this reach millions ... · 3 of 7 in"
+  [/^is weighing: (.+?)(?: · (\d+) of (\d+) in)?$/, (m) => `está pesando: ${tr(m[1][0].toUpperCase() + m[1].slice(1)).replace(/^./, (c) => c.toLowerCase())}${m[2] ? ` · ${m[2]} de ${m[3]} prontos` : ""}`],
   [/^Highest score: option (.+)$/, (m) => `Maior nota: opção ${m[1]}`],
   [/^(\d+) lines up next$/, (m) => `${m[1]} falas a seguir`],
   [/^Confidence (.+)$/, (m) => `Confiança ${m[1]}`],

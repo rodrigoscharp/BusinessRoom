@@ -1,6 +1,6 @@
 {
   "name": "business-room",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "private": true,
   "description": "BusinessRoom: a table of simulated founders debates your startup decision in Claude Code, live in a local room.",
   "type": "module",
